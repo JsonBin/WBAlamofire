@@ -57,6 +57,9 @@ open class WBAlConfig {
     /// SessionConfiguration will be used to Alamofire.
     open var sessionConfiguration: URLSessionConfiguration
     
+    /// Save to disk file name. 缓存请求文件的文件夹名
+    open var cacheSpace = "WBAlamofire.requestCache.default"
+    
 // MARK: - Init
     public init() {
         self.baseURL = ""

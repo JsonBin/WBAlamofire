@@ -23,7 +23,8 @@ open class WBAlamofire {
     /*private var _contentType: [String]*/
     private var _requestRecord:[Int: WBAlBaseRequest]
     private let WBAlRequestErrorDomain = "com.wbAlamofire.request.domain"
-    private let WBAlRequestErrorCode = -10
+    private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
+    private let WBAlRequestErrorCode = -10   // 失败处理状态码
     
 // MARK: - Init && Request
     public init() {
@@ -48,8 +49,8 @@ open class WBAlamofire {
     open func add(_ request:WBAlBaseRequest) -> Void {
         
         if let listenManager = _listenManager, !listenManager.isReachable {
-            WBALog("NetWork Error!, the \(request) network is not reachable.")
-            let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestErrorCode, userInfo: [NSLocalizedDescriptionKey:"Network is unReachable."])
+            WBALog("NetWork Error!, the \(request)'s network is not reachable.")
+            let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestNetWorkErrorCode, userInfo: [NSLocalizedDescriptionKey:"Network is unReachable."])
             requestDidFailed(request, error: error)
             return
         }
@@ -187,8 +188,8 @@ open class WBAlamofire {
         // Filter url is needed
         let filters = _config.urlFilters
         if !filters.isEmpty {
-            for filter in filters {
-                detailUrl = filter.filterURL(detailUrl, baseRequest: request)
+            filters.forEach {
+                detailUrl = $0.filterURL(detailUrl, baseRequest: request)
             }
         }
         
@@ -209,15 +210,15 @@ open class WBAlamofire {
         }
         
         // url
-        var url: URL!
+        var url: URL?
         do { url = try baseURL.asURL() } catch {}
         
         if detailUrl.isEmpty {
-            return url
+            return url ?? ""
         }
         
         if !baseURL.isEmpty && !baseURL.hasPrefix("/") {
-            url = url.appendingPathComponent("")
+            url = url?.appendingPathComponent("")
         }
         
         return URL(string: detailUrl, relativeTo: url)?.absoluteString ?? detailUrl
@@ -229,7 +230,7 @@ open class WBAlamofire {
         let method = request.requestMethod
         let url = buildURL(request)
         
-        let addRequest: Request
+        let addRequest: Request?
         switch method {
         case .get:
             if !request.resumableDownloadPath.isEmpty {
@@ -247,9 +248,9 @@ open class WBAlamofire {
     
     
 // MARK:  - DataRequest
-    private typealias dataRequestClosure = (_ request:DataRequest, _ error:Error? ) -> Void
-    private func setRequest(_ request:WBAlBaseRequest, url urlString:URLConvertible, closure dataClosure: dataRequestClosure? = nil)  -> DataRequest {
-        var setRe: DataRequest!
+    private typealias dataRequestClosure = (_ request:DataRequest?, _ error:Error? ) -> Void
+    private func setRequest(_ request:WBAlBaseRequest, url urlString:URLConvertible, closure dataClosure: dataRequestClosure? = nil)  -> DataRequest? {
+        var setRe: DataRequest?
         if let closure = request.requestDataClosure {
             var uploadError: Error? = nil
            _manager.upload(multipartFormData: closure, to: urlString, method: request.requestMethod, headers: request.requestHeaders, encodingCompletion: { (result) in
@@ -289,10 +290,10 @@ open class WBAlamofire {
             }
             // 添加https的user以及password
             if let auths = request.requestAuthHeaders {
-                setRe.authenticate(user: auths.first!, password: auths.last!)
+                setRe?.authenticate(user: auths.first!, password: auths.last!)
             }
             // 设置响应code范围及返回类型
-            setRe.validate(statusCode: _statusCode)
+            setRe?.validate(statusCode: _statusCode)
             /*setRe.validate(contentType: _contentType)*/
             
             // response
@@ -349,6 +350,7 @@ open class WBAlamofire {
         }
         // 设置响应code范围及返回类型
         downRequest.validate(statusCode: _statusCode)
+        /*downRequest.validate(contentType: ["application/json"])*/
         /*downRequest.validate(contentType: _contentType)*/
         // response
         requestResponse(request, downRequest: downRequest, cacheURL: cacheURL)
@@ -357,11 +359,11 @@ open class WBAlamofire {
     }
     
 // MARK: - DataRequest && DownRequest Response
-    private func requestResponse(_ request:WBAlBaseRequest, dataRequest dataRe:DataRequest) {
+    private func requestResponse(_ request:WBAlBaseRequest, dataRequest dataRe:DataRequest?) {
         // 对应返回类型进行处理
         switch request.responseType {
         case .default:
-            dataRe.response(completionHandler: { (response) in
+            dataRe?.response(completionHandler: { (response) in
                 request.responseData = response.data
                 if let error = response.error {
                     self.requestDidFailed(request, error: error)
@@ -370,17 +372,22 @@ open class WBAlamofire {
                 }
             })
         case .json:
-            dataRe.responseJSON(completionHandler: { (response) in
+            dataRe?.responseJSON(completionHandler: { (response) in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
                     self.requestSuccess(request, requestResult: value)
                 case .failure(let error):
+                    if let data = response.data, let jsonString = String(data: data, encoding: .utf8) {
+                        WBALog("请求失败................................................>\n Response:\(response) \n//////////////////////////////////////////////////////////////////////////\n Data:\(jsonString)")
+                    }else {
+                        WBALog("请求失败......................> \(response)")
+                    }
                     self.requestDidFailed(request, error: error)
                 }
             })
         case .data:
-            dataRe.responseData(completionHandler: { (response) in
+            dataRe?.responseData(completionHandler: { (response) in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
@@ -390,7 +397,7 @@ open class WBAlamofire {
                 }
             })
         case .string:
-            dataRe.responseString(completionHandler: { (response) in
+            dataRe?.responseString(completionHandler: { (response) in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
@@ -400,7 +407,7 @@ open class WBAlamofire {
                 }
             })
         case .plist:
-            dataRe.responsePropertyList(completionHandler: { (response) in
+            dataRe?.responsePropertyList(completionHandler: { (response) in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
@@ -475,7 +482,7 @@ open class WBAlamofire {
         let manager = FileManager.default
         
         let cacheDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-        if WBAlamofire.cacheFolder==nil {
+        if WBAlamofire.cacheFolder == nil {
             WBAlamofire.cacheFolder = cacheDir?.appending("/downloadCache")
         }
         
@@ -566,12 +573,12 @@ open class WBAlamofire {
         
         if let result = result {
             // 如果是下载，则响应返回为下载保存的路径
-            if (result as AnyObject).isKind(of: NSURL.classForCoder()) {
+            if result is NSURL {
                 request.downloadURL = result as? URL
             }else{
                 switch request.responseType {
                 case .json:
-                    request.responseJson = result
+                    request.responseJson = result as? [String: Any]
                 case .plist:
                     request.responsePlist = result
                 case .string:
@@ -579,8 +586,7 @@ open class WBAlamofire {
                 default:
                     request.responseObj = result
                     
-                    let result = result as AnyObject
-                    if result.isKind(of: NSData.classForCoder()) {
+                    if result is NSData {
                         request.responseData = result as? Data
                         request.responseString = String(data: result as! Data, encoding: WBAlUtils.stringEncodingFromRequest(request))
                     }

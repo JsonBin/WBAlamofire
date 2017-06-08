@@ -105,9 +105,7 @@ open class WBAlMetadata: NSObject, NSSecureCoding {
         return true
     }
     
-    override init() {
-        
-    }
+    override init() { }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init()

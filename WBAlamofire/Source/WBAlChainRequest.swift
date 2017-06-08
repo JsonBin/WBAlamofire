@@ -134,7 +134,7 @@ extension WBAlChainRequest {
 }
 
 // MARK: - Request Protocol
-extension WBAlChainRequest : WBAlRequestProtocol{
+extension WBAlChainRequest : WBAlRequestProtocol {
     
     public func requestFinish(_ request: WBAlBaseRequest) {
         let currentIndex = _nextRequestIndex - 1

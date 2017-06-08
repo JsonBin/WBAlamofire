@@ -40,7 +40,7 @@ open class WBAlRequest : WBAlBaseRequest{
 // MARK: - Cache Response
     private var _cacheData: Data?
     private var _cacheString: String?
-    private var _cacheJson: Any?
+    private var _cacheJson: [String: Any]?
     private var _cachePlist: Any?
     
 // MARK: - Private Properties
@@ -79,7 +79,7 @@ open class WBAlRequest : WBAlBaseRequest{
         }
     }
     
-    open override var responseJson: Any? {
+    open override var responseJson: [String: Any]? {
         set { super.responseJson = newValue }
         get {
             if let json = _cacheJson {
@@ -160,6 +160,9 @@ open class WBAlRequest : WBAlBaseRequest{
 // MARK: - Request Delegate
     open override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()
+        
+        // 下载文件不缓存
+        if !self.resumableDownloadPath.isEmpty { return }
         
         if self.writeCacheAsynchronously {
             // 自动异步缓存
@@ -313,7 +316,7 @@ open class WBAlRequest : WBAlBaseRequest{
                 case .default, .data, .string:
                     return true
                 case .json:
-                    _cacheJson = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    _cacheJson = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                     return true
                 case .plist:
                     _cachePlist = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
@@ -355,7 +358,7 @@ open class WBAlRequest : WBAlBaseRequest{
     
     private func cacheBasePath() -> String {
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!
-        var cachePath = path.appending("/WBAlamofireRequestCache")
+        var cachePath = path.appending("/" + WBAlConfig.shared.cacheSpace)
         
         // Filter cache dirPath if needed
         let filters = WBAlConfig.shared.cacheDirPathFilters

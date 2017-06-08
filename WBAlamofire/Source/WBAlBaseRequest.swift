@@ -139,12 +139,12 @@ open class WBAlBaseRequest : BaseRequest {
     open var requestMethod: HTTPMethod { return .get }
     
     /// 需要添加的请求头
-    open var requestHeaders: HTTPHeaders? { return nil /*["Content-Type": "application/json"]*/ }
+    open var requestHeaders: HTTPHeaders? { return nil /*["Content-Type": "application/json", "Accept": "application/json"]*/}
     
     /// 需要添加的请求参数
     open var requestParams: [String: Any]? { return nil }
     
-    /// 请求时param编码
+    /// 请求时对参数(params)的编码方式
     open var paramEncoding: ParameterEncoding { return URLEncoding.default }
     
     /// 请求返回的数据类型
@@ -172,7 +172,7 @@ open class WBAlBaseRequest : BaseRequest {
     /// 是否使用cdn
     open var useCDN: Bool { return false }
     
-    /// 请求成功状态码的范围
+    /// 是否为需求请求成功状态码的范围内
     open var statusCodeValidator: Bool {
         if WBAlConfig.shared.statusCode.contains(self.statusCode) {
             return true
@@ -208,23 +208,32 @@ open class WBAlBaseRequest : BaseRequest {
     open var failureCompleteClosure: BaseRequest.WBAlRequestCompleteClosure?
     
 // MARK: - Response Properties
+    
+    /// 请求完成状态码
     open  var statusCode: Int { return request?.response?.statusCode ?? 500 }
     
+    /// 请求状态
     open var state : URLSessionTask.State? { return request?.task?.state }
     
+    /// 请求获取的数据
     open var responseData: Data?
     
+    /// 请求获取的string(返回类型为Data和String<objc返回为data时也生效>生效)
     open var responseString: String?
     
+    /// 默认返回的数据结果
     open var responseObj: Any?
     
-    open var responseJson: Any?
+    /// 返回为json时请求的结果
+    open var responseJson: [String: Any]?
     
+    /// 返回为plist时请求的结果
     open var responsePlist: Any?
     
     /// 这是下载专用的url，Default nil.
     open var downloadURL: URL?
     
+    /// 请求失败error
     open var error: Error?
     
 // MARK: - 私有调用
