@@ -546,10 +546,13 @@ open class WBAlamofire {
             }
         }
         
-        request.requestFailedPreprocessor()
+        autoreleasepool(invoking: {
+            request.requestFailedPreprocessor()
+        })
         
         DispatchQueue.main.async {
             request.totalAccessoriesWillStop()
+            request.requestFailedFilter()
             
             if let delegate = request.delegate {
                 delegate.requestFailed(request)
@@ -598,10 +601,13 @@ open class WBAlamofire {
             let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestErrorCode, userInfo: [NSLocalizedDescriptionKey:"Response code range out."])
             requestDidFailed(request, error: error)
         }else{
-            request.requestCompletePreprocessor()
+            autoreleasepool(invoking: {
+                request.requestCompletePreprocessor()
+            })
             
             DispatchQueue.main.async {
                 request.totalAccessoriesWillStop()
+                request.requestCompleteFilter()
                 
                 if let delegate = request.delegate {
                     delegate.requestFinish(request)

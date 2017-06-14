@@ -28,7 +28,7 @@ public enum WBAlRequestCacheDomain: Int {
 }
 
 /// 网络请求的子类
-/// 缓存的网络数据默认放在.../Library/WBAlamofireRequestCache/..目录下
+/// 缓存的网络数据默认放在.../Library/WBAlamofire.requestCache.default/..目录下
 open class WBAlRequest : WBAlBaseRequest{
     
     /// 是否不使用缓存作为网络请求返回数据，默认false
@@ -122,6 +122,7 @@ open class WBAlRequest : WBAlBaseRequest{
         
         DispatchQueue.main.async {
             self.requestCompletePreprocessor()
+            self.requestCompleteFilter()
             
             self.delegate?.requestFinish(self)
             if let success = self.successCompleteClosure {

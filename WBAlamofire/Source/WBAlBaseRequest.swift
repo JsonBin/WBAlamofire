@@ -183,11 +183,17 @@ open class WBAlBaseRequest : BaseRequest {
     /// 过滤请求params的方法, 可覆写. 默认不过滤
     open func cacheFileNameFilterForRequestParams(_ params: [String: Any]) -> [String: Any] { return params }
     
-    /// 请求完成成功响应方法
+    /// 请求完成成功响应方法 <** 在回到主线程之前的子线程响应，如果是加载的缓存，则一定是在主线程之中响应
     open func requestCompletePreprocessor() -> Void {}
     
-    /// 请求失败完成响应方法
+    /// 请求完成成功响应方法 <** 在主线程响应
+    open func requestCompleteFilter() -> Void {}
+    
+    /// 请求失败完成响应方法 <** 在回到主线程之前的子线程中响应,可参考 `requestCompletePreprocessor`
     open func requestFailedPreprocessor() -> Void {}
+    
+    /// 请求失败完成响应方法 <** 在主线程响应
+    open func requestFailedFilter() -> Void {}
     
 // MARK: - Public Properties
     open var delegate: WBAlRequestProtocol?
