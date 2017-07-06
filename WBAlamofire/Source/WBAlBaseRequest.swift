@@ -31,7 +31,7 @@ public enum WBALResponseType: Int8 {
 }
 
 /// Request Protoclo
-public protocol WBAlRequestProtocol {
+public protocol WBAlRequestProtocol : class {
     
     /// 请求结束
     ///
@@ -196,7 +196,7 @@ open class WBAlBaseRequest : BaseRequest {
     open func requestFailedFilter() -> Void {}
     
 // MARK: - Public Properties
-    open var delegate: WBAlRequestProtocol?
+    open weak var delegate: WBAlRequestProtocol?
     
     /// use to request identify, Default 0
     open var tag: Int = 0

@@ -33,7 +33,9 @@ class ViewController: UIViewController {
         batch.start({ (batch) in
             WBALog("success ===== \(batch)")
         }) { (batch) in
-            WBALog("failed  ======= \(batch.failedRequest)")
+            if let request = batch.failedRequest {
+                WBALog("failed  ======= \(request)")
+            }
         }
         
         print(NSHomeDirectory())

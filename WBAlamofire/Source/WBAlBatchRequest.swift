@@ -17,7 +17,7 @@ open class WBAlBatchRequest {
     open var requests: [WBAlRequest]
     
     /// 响应delegate
-    open var delegate: WBAlBatchRequestProtocol?
+    open weak var delegate: WBAlBatchRequestProtocol?
     
     /// 网络请求的协议组
     open var requestAccessories: [WBAlRequestAccessoryProtocol]?
@@ -201,7 +201,7 @@ extension WBAlBatchRequest : WBAlRequestProtocol {
 }
 
 /// Batch request protocol
-public protocol WBAlBatchRequestProtocol {
+public protocol WBAlBatchRequestProtocol : class {
     
     /// 并式请求响应成功
     ///

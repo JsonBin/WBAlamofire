@@ -17,7 +17,7 @@ open class WBAlChainRequest {
     open var requests: [WBAlBaseRequest]
     
     /// 响应delegate
-    open var delegate: WBAlChainRequestProtocol?
+    open weak var delegate: WBAlChainRequestProtocol?
     
     /// 网络请求的协议组
     open var requestAccessories: [WBAlRequestAccessoryProtocol]?
@@ -163,7 +163,7 @@ extension WBAlChainRequest : WBAlRequestProtocol {
 }
 
 /// Chain request protocol
-public protocol WBAlChainRequestProtocol {
+public protocol WBAlChainRequestProtocol : class {
     
     /// 链式响所有请求应成功的回调
     ///
