@@ -12,23 +12,6 @@
 		DF1586351E84D0620053CB3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF1586331E84D0620053CB3D /* Main.storyboard */; };
 		DF1586371E84D0620053CB3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1586361E84D0620053CB3D /* Assets.xcassets */; };
 		DF15863A1E84D0620053CB3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF1586381E84D0620053CB3D /* LaunchScreen.storyboard */; };
-		DF1586571E84D0970053CB3D /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586431E84D0970053CB3D /* AFError.swift */; };
-		DF1586581E84D0970053CB3D /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586451E84D0970053CB3D /* Alamofire.swift */; };
-		DF1586591E84D0970053CB3D /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586461E84D0970053CB3D /* DispatchQueue+Alamofire.swift */; };
-		DF15865C1E84D0970053CB3D /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586491E84D0970053CB3D /* MultipartFormData.swift */; };
-		DF15865D1E84D0970053CB3D /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15864A1E84D0970053CB3D /* NetworkReachabilityManager.swift */; };
-		DF15865E1E84D0970053CB3D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15864B1E84D0970053CB3D /* Notifications.swift */; };
-		DF15865F1E84D0970053CB3D /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15864C1E84D0970053CB3D /* ParameterEncoding.swift */; };
-		DF1586601E84D0970053CB3D /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15864D1E84D0970053CB3D /* Request.swift */; };
-		DF1586611E84D0970053CB3D /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15864E1E84D0970053CB3D /* Response.swift */; };
-		DF1586621E84D0970053CB3D /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15864F1E84D0970053CB3D /* ResponseSerialization.swift */; };
-		DF1586631E84D0970053CB3D /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586501E84D0970053CB3D /* Result.swift */; };
-		DF1586641E84D0970053CB3D /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586511E84D0970053CB3D /* ServerTrustPolicy.swift */; };
-		DF1586651E84D0970053CB3D /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586521E84D0970053CB3D /* SessionDelegate.swift */; };
-		DF1586661E84D0970053CB3D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586531E84D0970053CB3D /* SessionManager.swift */; };
-		DF1586671E84D0970053CB3D /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586541E84D0970053CB3D /* TaskDelegate.swift */; };
-		DF1586681E84D0970053CB3D /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586551E84D0970053CB3D /* Timeline.swift */; };
-		DF1586691E84D0970053CB3D /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1586561E84D0970053CB3D /* Validation.swift */; };
 		DF15866B1E84D1080053CB3D /* WBAlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15866A1E84D1080053CB3D /* WBAlConfig.swift */; };
 		DF15866D1E84ED3E0053CB3D /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15866C1E84ED3E0053CB3D /* WBAlRequest.swift */; };
 		DF15866F1E84FF6B0053CB3D /* RegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15866E1E84FF6B0053CB3D /* RegisterApi.swift */; };
@@ -47,24 +30,6 @@
 		DF1586361E84D0620053CB3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF1586391E84D0620053CB3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF15863B1E84D0620053CB3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF1586431E84D0970053CB3D /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
-		DF1586441E84D0970053CB3D /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
-		DF1586451E84D0970053CB3D /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
-		DF1586461E84D0970053CB3D /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
-		DF1586491E84D0970053CB3D /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
-		DF15864A1E84D0970053CB3D /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
-		DF15864B1E84D0970053CB3D /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		DF15864C1E84D0970053CB3D /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
-		DF15864D1E84D0970053CB3D /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		DF15864E1E84D0970053CB3D /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		DF15864F1E84D0970053CB3D /* ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
-		DF1586501E84D0970053CB3D /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		DF1586511E84D0970053CB3D /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
-		DF1586521E84D0970053CB3D /* SessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
-		DF1586531E84D0970053CB3D /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
-		DF1586541E84D0970053CB3D /* TaskDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDelegate.swift; sourceTree = "<group>"; };
-		DF1586551E84D0970053CB3D /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
-		DF1586561E84D0970053CB3D /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		DF15866A1E84D1080053CB3D /* WBAlConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlConfig.swift; sourceTree = "<group>"; };
 		DF15866C1E84ED3E0053CB3D /* WBAlRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlRequest.swift; sourceTree = "<group>"; };
 		DF15866E1E84FF6B0053CB3D /* RegisterApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApi.swift; sourceTree = "<group>"; };
@@ -122,7 +87,6 @@
 		DF1586411E84D0970053CB3D /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				DF1586421E84D0970053CB3D /* Alamofire */,
 				DF15866A1E84D1080053CB3D /* WBAlConfig.swift */,
 				DF1902891E8DF02F00BA6D73 /* WBAlBaseRequest.swift */,
 				DF15866C1E84ED3E0053CB3D /* WBAlRequest.swift */,
@@ -132,31 +96,6 @@
 				DF2F96E81E88F9C000B7AA18 /* WBAlUtils.swift */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		DF1586421E84D0970053CB3D /* Alamofire */ = {
-			isa = PBXGroup;
-			children = (
-				DF1586431E84D0970053CB3D /* AFError.swift */,
-				DF1586441E84D0970053CB3D /* Alamofire.h */,
-				DF1586451E84D0970053CB3D /* Alamofire.swift */,
-				DF1586461E84D0970053CB3D /* DispatchQueue+Alamofire.swift */,
-				DF1586491E84D0970053CB3D /* MultipartFormData.swift */,
-				DF15864A1E84D0970053CB3D /* NetworkReachabilityManager.swift */,
-				DF15864B1E84D0970053CB3D /* Notifications.swift */,
-				DF15864C1E84D0970053CB3D /* ParameterEncoding.swift */,
-				DF15864D1E84D0970053CB3D /* Request.swift */,
-				DF15864E1E84D0970053CB3D /* Response.swift */,
-				DF15864F1E84D0970053CB3D /* ResponseSerialization.swift */,
-				DF1586501E84D0970053CB3D /* Result.swift */,
-				DF1586511E84D0970053CB3D /* ServerTrustPolicy.swift */,
-				DF1586521E84D0970053CB3D /* SessionDelegate.swift */,
-				DF1586531E84D0970053CB3D /* SessionManager.swift */,
-				DF1586541E84D0970053CB3D /* TaskDelegate.swift */,
-				DF1586551E84D0970053CB3D /* Timeline.swift */,
-				DF1586561E84D0970053CB3D /* Validation.swift */,
-			);
-			path = Alamofire;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,32 +170,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF1586681E84D0970053CB3D /* Timeline.swift in Sources */,
 				DF15866F1E84FF6B0053CB3D /* RegisterApi.swift in Sources */,
-				DF15865F1E84D0970053CB3D /* ParameterEncoding.swift in Sources */,
-				DF1586631E84D0970053CB3D /* Result.swift in Sources */,
 				DF15866B1E84D1080053CB3D /* WBAlConfig.swift in Sources */,
-				DF15865E1E84D0970053CB3D /* Notifications.swift in Sources */,
-				DF15865D1E84D0970053CB3D /* NetworkReachabilityManager.swift in Sources */,
 				DFA821B21E8D18D000B07A6F /* WBAlChainRequest.swift in Sources */,
-				DF15865C1E84D0970053CB3D /* MultipartFormData.swift in Sources */,
-				DF1586641E84D0970053CB3D /* ServerTrustPolicy.swift in Sources */,
 				DF2F96E91E88F9C000B7AA18 /* WBAlUtils.swift in Sources */,
-				DF1586651E84D0970053CB3D /* SessionDelegate.swift in Sources */,
 				DF1586321E84D0620053CB3D /* ViewController.swift in Sources */,
 				DF1586301E84D0620053CB3D /* AppDelegate.swift in Sources */,
-				DF1586591E84D0970053CB3D /* DispatchQueue+Alamofire.swift in Sources */,
-				DF1586621E84D0970053CB3D /* ResponseSerialization.swift in Sources */,
 				DF1902881E8DEF8F00BA6D73 /* WBAlamofire.swift in Sources */,
 				DF19028A1E8DF02F00BA6D73 /* WBAlBaseRequest.swift in Sources */,
 				DF1902861E8DED1500BA6D73 /* WBAlBatchRequest.swift in Sources */,
-				DF1586611E84D0970053CB3D /* Response.swift in Sources */,
-				DF1586691E84D0970053CB3D /* Validation.swift in Sources */,
-				DF1586601E84D0970053CB3D /* Request.swift in Sources */,
-				DF1586671E84D0970053CB3D /* TaskDelegate.swift in Sources */,
-				DF1586581E84D0970053CB3D /* Alamofire.swift in Sources */,
-				DF1586661E84D0970053CB3D /* SessionManager.swift in Sources */,
-				DF1586571E84D0970053CB3D /* AFError.swift in Sources */,
 				DF15866D1E84ED3E0053CB3D /* WBAlRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
