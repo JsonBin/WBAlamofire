@@ -29,6 +29,8 @@
 		03DE5D1FB9798699EA12B700 /* Pods-WBAlamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WBAlamofire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire.debug.xcconfig"; sourceTree = "<group>"; };
 		0A1AB55778BB6EB087F28DE1 /* Pods-WBAlamofire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WBAlamofire.release.xcconfig"; path = "Pods/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire.release.xcconfig"; sourceTree = "<group>"; };
 		515C915A0D91A2EEB0968340 /* Pods_WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBAlmofire.h; sourceTree = "<group>"; };
+		DF09FCE11F8F5DE000F5ACD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF15862C1E84D0620053CB3D /* WBAlamofire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WBAlamofire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlamofire.swift; sourceTree = "<group>"; };
 		DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlBaseRequest.swift; sourceTree = "<group>"; };
@@ -68,6 +70,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		DF09FCE01F8F5D8C00F5ACD9 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DF09FCE11F8F5DE000F5ACD9 /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
 		DF1586231E84D0620053CB3D = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +108,8 @@
 				DF322DE21F8F26410030DF90 /* WBAlRequest.swift */,
 				DF322DE31F8F26410030DF90 /* WBAlUtils.swift */,
 				DFC9EE221F8F42D600D95257 /* String+MD5.swift */,
+				DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */,
+				DF09FCE01F8F5D8C00F5ACD9 /* Support Files */,
 			);
 			path = Source;
 			sourceTree = "<group>";
