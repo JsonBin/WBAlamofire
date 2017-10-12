@@ -28,7 +28,7 @@ public struct StringProxy {
     }
 }
 
-extension String: KingfisherCompatible {
+extension String {
     public typealias CompatibleType = StringProxy
     public var kf: CompatibleType {
         return StringProxy(proxy: self)
