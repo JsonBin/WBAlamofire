@@ -21,6 +21,7 @@
 		DFBA4BC11F8F3D320096C1F2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFBA4BBA1F8F3D320096C1F2 /* Info.plist */; };
 		DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */; };
 		DFBA4BC31F8F3D320096C1F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */; };
+		DFC9EE231F8F42D600D95257 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,10 +37,10 @@
 		DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFBA4BB61F8F3D320096C1F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DFBA4BB81F8F3D320096C1F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DFBA4BB91F8F3D320096C1F2 /* header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = header.h; sourceTree = "<group>"; };
 		DFBA4BBA1F8F3D320096C1F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApi.swift; sourceTree = "<group>"; };
 		DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DFC9EE221F8F42D600D95257 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 				DF322DE11F8F26410030DF90 /* WBAlConfig.swift */,
 				DF322DE21F8F26410030DF90 /* WBAlRequest.swift */,
 				DF322DE31F8F26410030DF90 /* WBAlUtils.swift */,
+				DFC9EE221F8F42D600D95257 /* String+MD5.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -91,7 +93,6 @@
 				DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */,
 				DFBA4BB51F8F3D320096C1F2 /* LaunchScreen.storyboard */,
 				DFBA4BB71F8F3D320096C1F2 /* Main.storyboard */,
-				DFBA4BB91F8F3D320096C1F2 /* header.h */,
 				DFBA4BBA1F8F3D320096C1F2 /* Info.plist */,
 				DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */,
 				DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */,
@@ -174,6 +175,7 @@
 			files = (
 				DFBA4BC31F8F3D320096C1F2 /* ViewController.swift in Sources */,
 				DFBA4BBD1F8F3D320096C1F2 /* AppDelegate.swift in Sources */,
+				DFC9EE231F8F42D600D95257 /* String+MD5.swift in Sources */,
 				DF322DE61F8F26410030DF90 /* WBAlBatchRequest.swift in Sources */,
 				DF322DE51F8F26410030DF90 /* WBAlBaseRequest.swift in Sources */,
 				DF322DE41F8F26410030DF90 /* WBAlamofire.swift in Sources */,
@@ -308,7 +310,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hs.extension.WBAlamofire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = /Users/Zwb/Desktop/customParty/WBAlamofire/WBAlamofire/header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -321,7 +323,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hs.extension.WBAlamofire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = /Users/Zwb/Desktop/customParty/WBAlamofire/WBAlamofire/header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

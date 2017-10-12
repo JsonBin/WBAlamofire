@@ -11,9 +11,10 @@ import Foundation
 /// 私有调用类
 open class WBAlUtils {
 
-    // md5加密算法
+    // md5加密算法 <借鉴Kingfisher算法>
     open class func md5WithString(_ string: String) -> String {
-        let str = string.cString(using: .utf8)
+        return string.kf.md5
+        /*let str = string.cString(using: .utf8)
         let strLen = CUnsignedInt(string.lengthOfBytes(using: .utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
         let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
@@ -23,7 +24,7 @@ open class WBAlUtils {
             hash = hash.appendingFormat("%02x", result[i])
         }
         result.deinitialize()
-        return hash
+        return hash*/
     }
     
     /// app 版本号
