@@ -7,8 +7,7 @@
 //
 
 import Foundation
-// cocoapods安装时需要导入以下包
-//import Alamofire
+import Alamofire
 
 /// 过滤/重构URL的协议
 public protocol WBAlURLFilterProtocol {

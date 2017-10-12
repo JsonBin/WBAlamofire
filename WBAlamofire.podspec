@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'WBAlamofire'
-  s.version      = '0.2.0'
+  s.version      = '1.0.0'
   s.summary      = 'Extend Alamofire, add the cache to result.'
   s.description  = 'Inherited from Alamofire, each API as a class, the result of the data cache'
   s.homepage     = 'https://github.com/JsonBin/WBAlamofire'

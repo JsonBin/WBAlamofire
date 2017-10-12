@@ -7,8 +7,7 @@
 //
 
 import UIKit
-// cocoapods安装时需要导入以下包
-//import Alamofire
+import Alamofire
 
 open class WBAlamofire {
     
