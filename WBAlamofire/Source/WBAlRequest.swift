@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// 读取网络缓存数据是错误码
+/// 读取网络缓存数据时错误码
 ///
 /// - expired: 超时
 /// - versionMismatch: 版本不匹配
@@ -152,7 +152,7 @@ open class WBAlRequest : WBAlBaseRequest{
                 metadata.sensitiveDataString = (self.cacheSensitiveData as AnyObject).description
                 metadata.stringEncoding = WBAlUtils.stringEncodingFromRequest(self)
                 metadata.createDate = Date()
-                metadata.appVersionString = WBAlUtils.appVersion()
+                metadata.appVersionString = WBAlUtils.appVersion
                 NSKeyedArchiver.archiveRootObject(metadata, toFile: cacheMetadataFilePath)
             }
         }
@@ -270,7 +270,7 @@ open class WBAlRequest : WBAlBaseRequest{
         
         // App Version
         let appVersion = _cacheMetadata?.appVersionString
-        let currentAppVersion = WBAlUtils.appVersion()
+        let currentAppVersion = WBAlUtils.appVersion
         if appVersion != nil || currentAppVersion != nil {
             if appVersion?.characters.count != currentAppVersion?.characters.count || appVersion != currentAppVersion {
                 if error != nil {
@@ -348,7 +348,7 @@ open class WBAlRequest : WBAlBaseRequest{
     private func cacheFileName() -> String {
         let requestURL = self.requestURL
         let baseURL = WBAlConfig.shared.baseURL
-        var requestInfo = String(format: "Host:%@, Url:%@, Method:%@", baseURL, requestURL, self.requestMethod.rawValue)
+        var requestInfo = String(format: "Host:%@, Url:%@, Method:%@", baseURL, requestURL, self.requestMethod.rawValue.rawValue)
         if let params = self.requestParams {
             let params = self.cacheFileNameFilterForRequestParams(params)
             requestInfo = requestInfo.appendingFormat(", Params:%@", params)

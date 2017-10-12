@@ -37,14 +37,14 @@ open class WBAlBatchRequest {
     /// 数据源是否全部来自于缓存
     open var isDataFromCache: Bool {
         var dataCache = true
-        for request in requests {
-            if !request.isDataFromCache { dataCache = false }
+        requests.forEach {
+            if !$0.isDataFromCache { dataCache = false }
         }
         return dataCache
     }
     
 // MARK: - Private property
-    open var _finishCount: Int
+    fileprivate var _finishCount: Int
     open private(set) var rawString: String
     
 // MARK: - Init
@@ -222,7 +222,7 @@ open class WBAlBatchAlamofire {
     open static let shared = WBAlBatchAlamofire()
     
     // private properties
-    private var _lock: NSLock
+    private let _lock: NSLock
     private var _batchRequests: [WBAlBatchRequest]
     
 // MARK: - Init

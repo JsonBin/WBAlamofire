@@ -27,7 +27,7 @@ open class WBAlUtils {
     }
     
     /// app 版本号
-    open class func appVersion() -> String? {
+    open class var appVersion: String? {
         if let dictionary = Bundle.main.infoDictionary, let version = dictionary["CFBundleShortVersionString"] as? String {
             return version
         }
@@ -58,12 +58,13 @@ open class WBAlUtils {
         return stringEncoding
     }
     
-    open class func validataResumeData(_ data:Data) -> Bool {
+    open class func validataResumeData(_ data: Data? ) -> Bool {
         // From http://stackoverflow.com/a/22137510/3562486
+        guard let data = data else { return false }
         if data.count < 1 { return false }
         let resumeDic: Dictionary<String, Any>
         do {
-            resumeDic = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as! Dictionary<String, Any>
+            resumeDic = (try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as! Dictionary<String, Any>)
         } catch {
             return false
         }

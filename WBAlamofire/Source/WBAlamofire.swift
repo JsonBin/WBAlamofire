@@ -7,6 +7,8 @@
 //
 
 import UIKit
+// cocoapods安装时需要导入以下包
+//import Alamofire
 
 open class WBAlamofire {
     
@@ -14,13 +16,13 @@ open class WBAlamofire {
     open static let shared = WBAlamofire()
     
     // MARK: - Private Properties
-    private var _listenManager: NetworkReachabilityManager?
-    private var _manager: SessionManager
-    private var _config: WBAlConfig
-    private var _lock: NSLock
-    private var _asyncQueue: DispatchQueue
-    private var _statusCode = 0..<1
-    /*private var _contentType: [String]*/
+    private let _listenManager: NetworkReachabilityManager?
+    private let _manager: SessionManager
+    private let _config: WBAlConfig
+    private let _lock: NSLock
+    private let _asyncQueue: DispatchQueue
+    private let _statusCode: [Int]
+    private let _contentType: [String]
     private var _requestRecord:[Int: WBAlBaseRequest]
     private let WBAlRequestErrorDomain = "com.wbAlamofire.request.domain"
     private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
@@ -39,17 +41,17 @@ open class WBAlamofire {
         _lock = NSLock()
         _asyncQueue = DispatchQueue.WBALAsyncDispatchQueue
         _statusCode = _config.statusCode
-        /*_contentType = ["application/json"]*/
+        _contentType = _config.acceptType
         _requestRecord = [Int: WBAlBaseRequest]()
     }
     
     /// Add Request 添加网络请求
     ///
     /// - Parameter request: Class from WBALBaseRequest
-    open func add(_ request:WBAlBaseRequest) -> Void {
+    open func add(_ request: WBAlBaseRequest) -> Void {
         
         if let listenManager = _listenManager, !listenManager.isReachable {
-            WBALog("NetWork Error!, the \(request)'s network is not reachable.")
+            WBALog("NetWork Error!, the \(request)'s network is unReachable.")
             let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestNetWorkErrorCode, userInfo: [NSLocalizedDescriptionKey:"Network is unReachable."])
             requestDidFailed(request, error: error)
             return
@@ -84,7 +86,7 @@ open class WBAlamofire {
             }
             // 设置响应code范围及返回类型
             dataRequest.validate(statusCode: _statusCode)
-            /*dataRequest.validate(contentType: _contentType)*/
+            dataRequest.validate(contentType: _contentType)
             requestResponse(request, dataRequest: dataRequest)
             request.request = dataRequest
         }else {
@@ -141,7 +143,7 @@ open class WBAlamofire {
     /// Cancel Request 取消网络请求
     ///
     /// - Parameter request: Class from WBAlBaseRequest
-    open func cancel(_ request:WBAlBaseRequest) -> Void {
+    open func cancel(_ request: WBAlBaseRequest) -> Void {
         if let request = request.request {
             request.task?.cancel()
         }
@@ -164,9 +166,9 @@ open class WBAlamofire {
         let keys = _requestRecord.keys
         _lock.unlock()
         if !keys.isEmpty {
-            for key in keys {
+            keys.forEach {
                 _lock.lock()
-                let request = _requestRecord[key]
+                let request = _requestRecord[$0]
                 _lock.unlock()
                 
                 request?.stop()
@@ -178,12 +180,14 @@ open class WBAlamofire {
     
     open func buildURL(_ request: WBAlBaseRequest) -> URLConvertible {
         var detailUrl = request.requestURL
-        var temp: URL!
-        do {
-            temp = try detailUrl.asURL()
-            // if detailURL is vaid URL
-            if let _ = temp.host, let _ = temp.scheme { return detailUrl  }
-        }catch { WBALog("Error! the \(detailUrl) is not use as to url") }
+        if !detailUrl.isEmpty {
+            var temp: URL!
+            do {
+                temp = try detailUrl.asURL()
+                // if detailURL is vaid URL
+                if let _ = temp.host, let _ = temp.scheme { return detailUrl  }
+            }catch { WBALog("Error! the \(detailUrl) is not use as to url") }
+        }
         
         // Filter url is needed
         let filters = _config.urlFilters
@@ -253,7 +257,7 @@ open class WBAlamofire {
         var setRe: DataRequest?
         if let closure = request.requestDataClosure {
             var uploadError: Error? = nil
-           _manager.upload(multipartFormData: closure, to: urlString, method: request.requestMethod, headers: request.requestHeaders, encodingCompletion: { (result) in
+           _manager.upload(multipartFormData: closure, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders, encodingCompletion: { (result) in
             switch result {
             case .success(let upload, _, _):
                 // 添加https的user以及password
@@ -267,7 +271,7 @@ open class WBAlamofire {
                 })
                 /// 设置响应code范围及返回类型
                 upload.validate(statusCode: self._statusCode)
-                /*upload.validate(contentType: self._contentType)*/
+                upload.validate(contentType: self._contentType)
                 
                 // response
                 self.requestResponse(request, dataRequest: upload)
@@ -282,11 +286,11 @@ open class WBAlamofire {
             })
         }else{
             if let fileURL = request.uploadFile {
-                setRe = _manager.upload(fileURL, to: urlString, method: request.requestMethod, headers: request.requestHeaders)
+                setRe = _manager.upload(fileURL, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders)
             }else if let data = request.uploadData {
-                setRe = _manager.upload(data, to: urlString, method: request.requestMethod, headers: request.requestHeaders)
+                setRe = _manager.upload(data, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders)
             }else{
-                setRe = _manager.request(urlString, method: request.requestMethod, parameters: request.requestParams, encoding: request.paramEncoding, headers: request.requestHeaders)
+                setRe = _manager.request(urlString, method: request.requestMethod.rawValue, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders)
             }
             // 添加https的user以及password
             if let auths = request.requestAuthHeaders {
@@ -294,7 +298,7 @@ open class WBAlamofire {
             }
             // 设置响应code范围及返回类型
             setRe?.validate(statusCode: _statusCode)
-            /*setRe.validate(contentType: _contentType)*/
+            setRe?.validate(contentType: _contentType)
             
             // response
             requestResponse(request, dataRequest: setRe)
@@ -306,7 +310,6 @@ open class WBAlamofire {
 // MARK: - Download Request
     
     private func download(_ request:WBAlBaseRequest, url urlString:URLConvertible) -> DownloadRequest {
-        var data: Data?
         var downpath = request.resumableDownloadPath
         let manager = FileManager.default
         var isDirectory: ObjCBool = true
@@ -323,21 +326,37 @@ open class WBAlamofire {
         let cacheURL = formatDownloadPathWithMd5String(downpath, useMD5: isDirectory.boolValue)
         if !downpath.isEmpty {
             do {
-                data = try Data(contentsOf: cacheURL, options: [.mappedIfSafe, .alwaysMapped])
+                try _ = Data(contentsOf: cacheURL)
             } catch {
                 WBALog("Read Error! \(downpath) data is nil. Need to download again.")
             }
         }
-        let destionation:DownloadRequest.DownloadFileDestination = { _,_ in
+        // if need to download again, remove the exist file before start
+        // download task.
+        if manager.fileExists(atPath: cacheURL.path) {
+            try? manager.removeItem(atPath: cacheURL.path)
+        }
+        let tmp = downloadTempPathForDownloadPath(downpath)
+        let resumeFileExisits = manager.fileExists(atPath: tmp.path)
+        var data: Data?
+        do {
+            data = try Data(contentsOf: tmp)
+        } catch {
+            WBALog("Resume Data Error! \(tmp) resume data is nil.")
+        }
+        let resumeDataVaild = WBAlUtils.validataResumeData(data)
+        
+        let destionation: DownloadRequest.DownloadFileDestination = { _,_ in
             return (cacheURL, [.removePreviousFile, .createIntermediateDirectories])
         }
         // create request
         let downRequest: DownloadRequest
-        if let data = data {
+        // 文件存在，及data可用
+        if resumeFileExisits, resumeDataVaild, let data = data {
             // 断点续传功能
             downRequest = _manager.download(resumingWith: data, to: destionation)
         }else{
-            downRequest = _manager.download(urlString, parameters: request.requestParams, encoding: request.paramEncoding, headers: request.requestHeaders, to: destionation)
+            downRequest = _manager.download(urlString, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders, to: destionation)
         }
         // 添加https的user以及password
         if let auths = request.requestAuthHeaders {
@@ -351,9 +370,9 @@ open class WBAlamofire {
         // 设置响应code范围及返回类型
         downRequest.validate(statusCode: _statusCode)
         /*downRequest.validate(contentType: ["application/json"])*/
-        /*downRequest.validate(contentType: _contentType)*/
+        downRequest.validate(contentType: _contentType)
         // response
-        requestResponse(request, downRequest: downRequest, cacheURL: cacheURL)
+        requestResponse(request, downRequest: downRequest, cacheURL: tmp)
         
         return downRequest
     }
@@ -419,7 +438,7 @@ open class WBAlamofire {
         }
     }
     
-    private func requestResponse(_ request:WBAlBaseRequest, downRequest downRe:DownloadRequest, cacheURL url:URL) {
+    private func requestResponse(_ request:WBAlBaseRequest, downRequest downRe:DownloadRequest, cacheURL url: URL) {
         // 对应返回类型进行处理
         switch request.responseType {
         case .default:
@@ -507,6 +526,31 @@ open class WBAlamofire {
         }
         
         return URL(fileURLWithPath: cacheDir!.appending(md5String))
+    }
+    
+    // resume data url.
+    private func downloadTempPathForDownloadPath(_ path: String) -> URL {
+        var md5 = WBAlUtils.md5WithString(path)
+        let manager = FileManager.default
+        
+        let cacheDir = NSTemporaryDirectory()
+        let cacheFolder = cacheDir.appending("downloadCache")
+        
+        var isDirectory: ObjCBool = true
+        if !manager.fileExists(atPath: cacheFolder, isDirectory: &isDirectory) {
+            isDirectory = false
+        }
+        
+        if !isDirectory.boolValue {
+            do {
+                try manager.createDirectory(atPath: cacheFolder, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                WBALog("Down Failed! Create cache directory at \(cacheFolder) is failed!")
+            }
+        }
+        
+        md5 = "/" + md5
+        return URL(fileURLWithPath: cacheFolder.appending(md5))
     }
     
 // MARK: - Request Record

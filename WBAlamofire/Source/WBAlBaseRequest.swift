@@ -7,6 +7,8 @@
 //
 
 import Foundation
+// cocoapods安装时需要导入以下包
+//import Alamofire
 
 /// 请求优先权
 ///
@@ -21,13 +23,86 @@ public enum WBALRequestPriority: Int8 {
 
 /// 请求返回的数据结果类型
 ///
-/// - `default`: 默认
+/// - `default`: 默认 is Data
 /// - json: JSON
 /// - string: String
 /// - data: Data
 /// - plist: Plist
 public enum WBALResponseType: Int8 {
     case `default`, json, string, data, plist
+}
+
+/// 网络请求需要调用的方法
+///
+/// - options: "OPTIONS"
+/// - get: "GET"
+/// - head: "HEAD"
+/// - post: "POST"
+/// - put: "PUT"
+/// - patch: "PATCH"
+/// - delete: "DELETE"
+/// - trace: "TRACE"
+/// - connect: "CONNECT"
+public enum WBHTTPMethod {
+   
+    case options, get, head, post, put, patch, delete, trace, connect
+    
+    public init(rawValue: HTTPMethod) {
+        switch rawValue {
+        case HTTPMethod.options:  self = .options
+        case HTTPMethod.get:      self = .get
+        case HTTPMethod.head:     self = .head
+        case HTTPMethod.post:     self = .post
+        case HTTPMethod.put:      self = .put
+        case HTTPMethod.patch:    self = .patch
+        case HTTPMethod.delete:   self = .delete
+        case HTTPMethod.trace:    self = .trace
+        case HTTPMethod.connect:  self = .connect
+        }
+    }
+    
+    public var rawValue: HTTPMethod {
+        switch self {
+        case .options: return HTTPMethod.options
+        case .get:     return HTTPMethod.get
+        case .head:    return HTTPMethod.head
+        case .post:    return HTTPMethod.post
+        case .put:     return HTTPMethod.put
+        case .patch:   return HTTPMethod.patch
+        case .delete:  return HTTPMethod.delete
+        case .trace:   return HTTPMethod.trace
+        case .connect: return HTTPMethod.connect
+        }
+    }
+}
+
+/// 参数编码方式
+///
+/// - json: JSONEncoding
+/// - url: URLEncoding
+/// - plist: PropertyListEncoding
+public enum WBParameterEncoding {
+    case json, url, plist
+    
+    public init(rawValue: ParameterEncoding) {
+        switch rawValue {
+        case is JSONEncoding:
+            self = .json
+        case is URLEncoding:
+            self = .url
+        case is PropertyListEncoding:
+            self = .plist
+        default: self = .url
+        }
+    }
+    
+    public var rawValue: ParameterEncoding {
+        switch self {
+        case .url:   return URLEncoding.default
+        case .json:  return JSONEncoding.default
+        case .plist: return PropertyListEncoding.default
+        }
+    }
 }
 
 /// Request Protoclo
@@ -81,7 +156,7 @@ public protocol BaseRequest {
     var cdnURL: String { get }
     
     /// 请求的method
-    var requestMethod: HTTPMethod { get }
+    var requestMethod: WBHTTPMethod { get }
     
     /// 需要添加的请求头
     var requestHeaders: HTTPHeaders? { get }
@@ -90,7 +165,7 @@ public protocol BaseRequest {
     var requestParams: [String: Any]? { get }
     
     /// 请求时param编码
-    var paramEncoding: ParameterEncoding { get }
+    var paramEncoding: WBParameterEncoding { get }
     
     /// 请求返回的数据类型
     var responseType: WBALResponseType { get }
@@ -136,7 +211,7 @@ open class WBAlBaseRequest : BaseRequest {
     open var cdnURL: String { return "" }
     
     /// 请求的method
-    open var requestMethod: HTTPMethod { return .get }
+    open var requestMethod: WBHTTPMethod { return .get }
     
     /// 需要添加的请求头
     open var requestHeaders: HTTPHeaders? { return nil /*["Content-Type": "application/json", "Accept": "application/json"]*/}
@@ -145,7 +220,7 @@ open class WBAlBaseRequest : BaseRequest {
     open var requestParams: [String: Any]? { return nil }
     
     /// 请求时对参数(params)的编码方式
-    open var paramEncoding: ParameterEncoding { return URLEncoding.default }
+    open var paramEncoding: WBParameterEncoding { return .url }
     
     /// 请求返回的数据类型
     open var responseType: WBALResponseType { return .json }
@@ -258,7 +333,7 @@ open class WBAlBaseRequest : BaseRequest {
         self.totalAccessoriesDidStop()
     }
     
-    open func start(_ success: BaseRequest.WBAlRequestCompleteClosure?, failure failureClosure: BaseRequest.WBAlRequestCompleteClosure?) {
+    open func start(_ success: BaseRequest.WBAlRequestCompleteClosure?, failure failureClosure: BaseRequest.WBAlRequestCompleteClosure? = nil) {
         self.set(success, failure: failureClosure)
         
         self.start()

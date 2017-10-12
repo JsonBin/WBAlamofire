@@ -23,9 +23,9 @@ open class WBAlChainRequest {
     open var requestAccessories: [WBAlRequestAccessoryProtocol]?
     
     // private properties
-    private var _emptyCallBack: WBAlChainRequestClosure
-    open private(set) var _requestCallBacks: [WBAlChainRequestClosure]
-    open private(set) var _nextRequestIndex: Int
+    private let _emptyCallBack: WBAlChainRequestClosure
+    fileprivate var _requestCallBacks: [WBAlChainRequestClosure]
+    fileprivate var _nextRequestIndex: Int
     open private(set) var rawString: String
     
 // MARK: - Init
@@ -185,7 +185,7 @@ open class WBAlChainAlamofire {
     open static let shared = WBAlChainAlamofire()
     
     // private properties
-    private var _lock: NSLock
+    private let _lock: NSLock
     private var _chainRequests: [WBAlChainRequest]
     
 // MARK: - Init

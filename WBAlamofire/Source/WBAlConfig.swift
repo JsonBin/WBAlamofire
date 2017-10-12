@@ -7,6 +7,8 @@
 //
 
 import Foundation
+// cocoapods安装时需要导入以下包
+//import Alamofire
 
 /// 过滤/重构URL的协议
 public protocol WBAlURLFilterProtocol {
@@ -34,7 +36,10 @@ open class WBAlConfig {
     open var requestTimeoutInterval: TimeInterval
     
     /// 设置响应状态码的范围, 默认为(200-300)
-    open var statusCode = 0..<1
+    open var statusCode: [Int]
+    
+    /// 设置返回接受类型, 默认为 ["application/json"]
+    open var acceptType: [String]
     
     /// 是否能通过蜂窝网络访问数据, Default true
     open var allowsCellularAccess: Bool
@@ -65,7 +70,8 @@ open class WBAlConfig {
         self.baseURL = ""
         self.cdnURL = ""
         self.requestTimeoutInterval = 30
-        self.statusCode = 200..<300
+        self.statusCode = Array(200..<300)
+        self.acceptType = ["application/json", "text/json", "text/javascript", "text/html", "text/plain"]
         self.allowsCellularAccess = true
         self.debugLogEnable = false
         self.listenNetWork = true
@@ -75,11 +81,12 @@ open class WBAlConfig {
         self.sessionConfiguration = .default
     }
     
-    public init(baseURL:String = "", cdnURL: String = "", requestTimeoutInterval:TimeInterval = 30, allowsCellularAccess:Bool = true, debugLogEnable:Bool = false, listenNetWork:Bool = true, serverPolicy:ServerTrustPolicyManager? = nil , urlFilters: [WBAlURLFilterProtocol] = [], cacheDirPathFilters: [WBAlCacheDirPathFilterProtocol] = [], sessionConfiguration:URLSessionConfiguration = .default) {
+    public init(baseURL:String = "", cdnURL: String = "", requestTimeoutInterval:TimeInterval = 30, statusCode:[Int] = Array(200..<300), acceptType: [String] = ["application/json"], allowsCellularAccess:Bool = true, debugLogEnable:Bool = false, listenNetWork:Bool = true, serverPolicy:ServerTrustPolicyManager? = nil , urlFilters: [WBAlURLFilterProtocol] = [], cacheDirPathFilters: [WBAlCacheDirPathFilterProtocol] = [], sessionConfiguration:URLSessionConfiguration = .default) {
         self.baseURL = baseURL
         self.cdnURL = cdnURL
         self.requestTimeoutInterval = requestTimeoutInterval
-        self.statusCode = 200..<300
+        self.statusCode = statusCode
+        self.acceptType = acceptType
         self.allowsCellularAccess = allowsCellularAccess
         self.debugLogEnable = debugLogEnable
         self.listenNetWork = listenNetWork
