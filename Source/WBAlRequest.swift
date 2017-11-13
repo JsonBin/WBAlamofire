@@ -176,7 +176,7 @@ open class WBAlRequest : WBAlBaseRequest{
         }
     }
     
-// MARK:  - SubClass Override
+// MARK: - SubClass Override
     
     /// 多长时间范围内不进行网络请求，使用缓存作为请求的返回数据.默认2m
     open var cacheInSeconds: TimeInterval { return 2 * 60 }
@@ -260,7 +260,7 @@ open class WBAlRequest : WBAlBaseRequest{
         let sensitiveString = _cacheMetadata?.sensitiveDataString
         let currentSensitiveString = (self.cacheSensitiveData as AnyObject).description
         if currentSensitiveString != nil || sensitiveString != nil {
-            if currentSensitiveString?.characters.count != sensitiveString?.characters.count || currentSensitiveString != sensitiveString {
+            if currentSensitiveString?.count != sensitiveString?.count || currentSensitiveString != sensitiveString {
                 if error != nil {
                     error = NSError(domain: WBAlRequestCahceErrorDomain, code: WBAlRequestCacheDomain.versionMismatch.rawValue, userInfo: [NSLocalizedDescriptionKey:"Cache sensitive data misMatch."])
                 }
@@ -272,7 +272,7 @@ open class WBAlRequest : WBAlBaseRequest{
         let appVersion = _cacheMetadata?.appVersionString
         let currentAppVersion = WBAlUtils.appVersion
         if appVersion != nil || currentAppVersion != nil {
-            if appVersion?.characters.count != currentAppVersion?.characters.count || appVersion != currentAppVersion {
+            if appVersion?.count != currentAppVersion?.count || appVersion != currentAppVersion {
                 if error != nil {
                     error = NSError(domain: WBAlRequestCahceErrorDomain, code: WBAlRequestCacheDomain.appVersionMismatch.rawValue, userInfo: [NSLocalizedDescriptionKey:"App version misMatch."])
                 }

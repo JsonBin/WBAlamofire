@@ -23,7 +23,7 @@ open class WBAlamofire {
     private let _statusCode: [Int]
     private let _contentType: [String]
     private var _requestRecord:[Int: WBAlBaseRequest]
-    private let WBAlRequestErrorDomain = "com.wbAlamofire.request.domain"
+    private let WBAlRequestErrorDomain = "com.wbalamofire.request.domain"
     private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
     private let WBAlRequestErrorCode = -10   // 失败处理状态码
     

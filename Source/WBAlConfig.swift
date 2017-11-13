@@ -130,7 +130,7 @@ extension WBAlConfig : CustomDebugStringConvertible {
 // MARK: - GCD
 extension DispatchQueue {
     public class var WBALAsyncDispatchQueue: DispatchQueue {
-        let name = String(format: "com.wbAlamofire.request.%08x%08x", arc4random(),arc4random())
+        let name = String(format: "com.wbalamofire.request.%08x%08x", arc4random(),arc4random())
         return DispatchQueue(label: name)
     }
 }

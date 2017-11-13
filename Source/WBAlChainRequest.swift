@@ -65,7 +65,7 @@ open class WBAlChainRequest {
         self.totalAccessoriesDidStop()
     }
     
-    open func add(_ request:WBAlBaseRequest, callBack closure: WBAlChainRequestClosure?) {
+    open func add(_ request:WBAlBaseRequest, callBack closure: WBAlChainRequestClosure? = nil) {
         requests.append(request)
         if let closure = closure {
             _requestCallBacks.append(closure)
@@ -82,7 +82,7 @@ open class WBAlChainRequest {
     }
     
 // MARK: - Private
-    @discardableResult open func startNextRequest() -> Bool {
+    @discardableResult private func startNextRequest() -> Bool {
         if _nextRequestIndex < requests.count {
             let request = requests[_nextRequestIndex]
             _nextRequestIndex += 1

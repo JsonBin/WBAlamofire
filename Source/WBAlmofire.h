@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for Alamofire-SwiftyJSON.
+//! Project version number for WBAlmofire.
 FOUNDATION_EXPORT double WBAlmofire;
 
-//! Project version string for Alamofire-SwiftyJSON.
+//! Project version string for WBAlmofire.
 FOUNDATION_EXPORT const unsigned char WBAlmofire[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <WBAlmofire/WBAlmofire.h>

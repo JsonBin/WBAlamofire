@@ -7,9 +7,8 @@ Pod::Spec.new do |s|
   s.authors      = { 'JsonBin' => '1120508748@qq.com' }
   s.source = { :git => 'https://github.com/JsonBin/WBAlamofire.git', :tag => s.version }
 
-  s.framework    = 'UIKit'
-  s.platform = :ios, '9.0'
-  s.ios.deployment_target = '9.0'
+  s.platform = :ios, '8.0'
+  s.ios.deployment_target = '8.0'
 
   s.source_files  =  'Source/*.swift'
   
