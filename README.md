@@ -32,7 +32,6 @@
     }
     
 #### 串行请求
-
     let test = down()
     let log = login()
     let chain = WBAlChainRequest()
