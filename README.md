@@ -1,5 +1,5 @@
 # WBAlamofire
-####Encapsulate network request for the Object.
+#### Encapsulate network request for the Object.
 
 ## 安装-Install
 ### Cocoapods
@@ -60,32 +60,6 @@
     /// 是否使用cdn
     var useCDN: Bool { get }
     
-    /// 返回响应状态码
-    var statusCode: Int { get }
-/*
-使用教程
-=======
-* 初始化
-
-        // 初始化
-        let toast = WBToastView()
-        // 设置文本，必填
-        let string = "家里的减肥了卡上就放大看垃圾收电费按时jlasjdklfjadlskjflkasdjfu asdfadsjfosdajflsdajflkasdjflkasdjflkasdjlfkasjdfkljasdkfljadsfasdfasdfasdfadgtetqwetqwetqwetqwetqwtqwtqwtqwetqweqweiujqwejllfjdkfljadsklfjlakdsjfklajdsfkljasdlkfjlkadsjflaskdjfijqwejrjklejasdklfjkdlsafasdfadsasdfadsfasdf"
-        
-* 设置属性
-
-         // 设置其他属性(可不设置)
-        toast.font = 17  // 设置字体的大小(默认为15)
-        toast.color = UIColor.brownColor() //设置背景颜色(默认为黑色，透明度为0.6)
-        toast.disapperTime = 2   // 设置显示的时间(默认为1.5s)
-        toast.distance = 50  // 在顶部或底部显示时，设置距离顶部或底部的距离(默认为60)
-        
-* 调用
-
-        // 在顶部显示
-        toast.showTop(string)
-        // 在中间显示
-        //toast.showCenter(string)
-        // 在底部显示
-        //toast.showBottom(string)
-        */
+    /// 响应状态码
+    var statusCode: Int { get }
+    
