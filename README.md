@@ -32,7 +32,7 @@
     }
     
 #### 串行请求
-    let test = down()
+    let test = down()
     let log = login()
     let chain = WBAlChainRequest()
     chain.add(log) { (chain, base) in
