@@ -6,60 +6,50 @@
 
     pod 'WBAlamofire'
 
-### 描述-Descriptions
-#### BaseRequest
+## 使用-Use
 
-    /// 上传数据时的closure
-    typealias WBAlMutableDataClosure = (_ data: MultipartFormData) -> Void
+#### 单个请求
+    class RegisterApi: WBAlRequest {
+
+        override var requestURL: String {
+            return "/adf/2"
+        }
+
+        override var cacheInSeconds: TimeInterval{
+            return 5 * 60
+        }
+
+        override var baseURL: String { return "www.baidu.com" }
+    }
     
-    typealias WBAlRequestCompleteClosure = (_ request: WBAlBaseRequest) -> Void
+    let res = RegisterApi()
+        res.start({ (quest) in
+            // 请求成功
+            //..
+        }) { (quest) in
+            // 请求失败
+            //..
+    }
     
-    /// 需要更改baseURL时调用
-    var baseURL: String { get }
+#### 串行请求
+
+    let test = down()
+    let log = login()
+        
+    let chain = WBAlChainRequest()
+    chain.add(log) { (chain, base) in
+        chain.add(test, callBack: nil)
+    }
+    chain.add(self)
+    chain.start()
     
-    /// 每一个model请求的url
-    var requestURL: String { get }
-    
-    /// 需要使用cdnURL时调用
-    var cdnURL: String { get }
-    
-    /// 请求的method
-    var requestMethod: WBHTTPMethod { get }
-    
-    /// 需要添加的请求头
-    var requestHeaders: HTTPHeaders? { get }
-    
-    /// 需要添加的请求参数
-    var requestParams: [String: Any]? { get }
-    
-    /// 请求时param编码
-    var paramEncoding: WBParameterEncoding { get }
-    
-    /// 请求返回的数据类型
-    var responseType: WBALResponseType { get }
-    
-    /// 请求的优先权
-    var priority: WBALRequestPriority? { get }
-    
-    // 上传文件时以下面三种任选一种作为上传数据依据
-    /// 上传文件时上传的数据
-    var requestDataClosure: WBAlMutableDataClosure? { get }
-    
-    /// 上传文件时文件的url
-    var uploadFile: URL? { get }
-    
-    /// 上传文件时文件的data
-    var uploadData: Data? { get }
-    
-    /// 下载文件保存的名字，默认存放在 .../Documents/downloadCache/...下
-    var resumableDownloadPath: String { get }
-    
-    /// https时使用的证书的用户名以及密码, first is user, last is password.
-    var requestAuthHeaders: [String]? { get }
-    
-    /// 是否使用cdn
-    var useCDN: Bool { get }
-    
-    /// 响应状态码
-    var statusCode: Int { get }
-    
+#### 并行请求
+    let batch = WBAlBatchRequest(WBAlRequests: [test, log] )
+    batch.add(self)
+    batch.start({ (batch) in
+        WBALog("success ===== \(batch)")
+    }) { (batch) in
+        if let request = batch.failedRequest {
+            WBALog("failed  ======= \(request)")
+        }
+    }
