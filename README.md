@@ -9,6 +9,7 @@
 ## 使用-Use
 
 #### 单个请求
+
     class RegisterApi: WBAlRequest {
 
         override var requestURL: String {
@@ -35,7 +36,7 @@
 
     let test = down()
     let log = login()
-        
+    
     let chain = WBAlChainRequest()
     chain.add(log) { (chain, base) in
         chain.add(test, callBack: nil)
