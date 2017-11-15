@@ -9,8 +9,8 @@
 ## 使用-Use
 
 #### 单个请求
-    class RegisterApi: WBAlRequest {
-        
+    class RegisterApi: WBAlRequest {
+    
         override var requestURL: String {
             return "/adf/2"
         }
@@ -32,6 +32,7 @@
     }
     
 #### 串行请求
+
     let test = down()
     let log = login()
     let chain = WBAlChainRequest()
