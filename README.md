@@ -9,17 +9,16 @@
 ## 使用-Use
 
 #### 单个请求
-
     class RegisterApi: WBAlRequest {
-
+        
         override var requestURL: String {
             return "/adf/2"
         }
-
+        
         override var cacheInSeconds: TimeInterval{
             return 5 * 60
         }
-
+        
         override var baseURL: String { return "www.baidu.com" }
     }
     
@@ -33,10 +32,8 @@
     }
     
 #### 串行请求
-
     let test = down()
     let log = login()
-    
     let chain = WBAlChainRequest()
     chain.add(log) { (chain, base) in
         chain.add(test, callBack: nil)
