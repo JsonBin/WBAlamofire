@@ -23,7 +23,7 @@ open class WBAlamofire {
     private let _statusCode: [Int]
     private let _contentType: [String]
     private var _requestRecord:[Int: WBAlBaseRequest]
-    private let WBAlRequestErrorDomain = "com.wbalamofire.request.domain"
+    private let WBAlRequestErrorDomain = "com.wbAlamofire.request.domain"
     private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
     private let WBAlRequestErrorCode = -10   // 失败处理状态码
     
@@ -511,9 +511,12 @@ open class WBAlamofire {
         
         if !isDirectory.boolValue {
             do {
-                try manager.createDirectory(atPath: WBAlamofire.cacheFolder!, withIntermediateDirectories: true, attributes: nil)
+                if let pathStr = WBAlamofire.cacheFolder {
+                    try manager.createDirectory(atPath: pathStr, withIntermediateDirectories: true, attributes: nil)
+                    WBAlUtils.addNotBackupAttribute(pathStr)
+                }
             } catch {
-                WBALog("Down Failed! Create cache directory at \(WBAlamofire.cacheFolder!) is failed!")
+                WBALog("Down Failed! Create cache directory at \(WBAlamofire.cacheFolder ?? "") is failed!")
                 WBAlamofire.cacheFolder = nil
             }
         }

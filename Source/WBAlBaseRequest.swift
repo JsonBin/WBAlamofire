@@ -192,6 +192,7 @@ public protocol BaseRequest {
     var useCDN: Bool { get }
     
 // MARK: - Response Properties
+    /// 响应状态码
     var statusCode: Int { get }
 }
 

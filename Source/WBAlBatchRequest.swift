@@ -248,6 +248,9 @@ open class WBAlBatchAlamofire {
     }
 }
 
+extension WBAlBatchRequest : Equatable {}
+
+/// 重载操作符
 public func ==(
     lhs: WBAlBatchRequest,
     rhs: WBAlBatchRequest)

@@ -14,6 +14,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let res = RegisterApi()
+        res.start({ (quest) in
+            // 请求成功
+            //..
+        }) { (quest) in
+            // 请求失败
+            //..
+        }
+        
         let test = down()
 //        test.start()
         
@@ -21,12 +30,12 @@ class ViewController: UIViewController {
 //        log.add(log)
 //        log.start()
         
-//        let chain = WBAlChainRequest()
-//        chain.add(log) { (chain, base) in
-//            chain.add(test, callBack: nil)
-//        }
-//        chain.add(self)
-//        chain.start()
+        let chain = WBAlChainRequest()
+        chain.add(log) { (chain, base) in
+            chain.add(test, callBack: nil)
+        }
+        chain.add(self)
+        chain.start()
         
         let batch = WBAlBatchRequest(WBAlRequests: [test, log] )
         batch.add(self)

@@ -11,7 +11,7 @@ import Foundation
 /// 私有调用类
 open class WBAlUtils {
 
-    // md5加密算法 <借鉴Kingfisher算法>
+    // md5加密算法<借鉴Kingfisher算法>
     open class func md5WithString(_ string: String) -> String {
         return string.kf.md5
         /*let str = string.cString(using: .utf8)
@@ -23,6 +23,7 @@ open class WBAlUtils {
         for i in 0 ..< digestLen {
             hash = hash.appendingFormat("%02x", result[i])
         }
+        result.deallocate(capacity: digestLen)
         result.deinitialize()
         return hash*/
     }
@@ -35,7 +36,7 @@ open class WBAlUtils {
         return nil
     }
     
-    // set backup
+    // set backup(禁用iCloud自动备份)
     open class func addNotBackupAttribute(_ path:String) -> Void {
         var url = URL(fileURLWithPath: path)
         var backup = URLResourceValues()

@@ -210,6 +210,10 @@ open class WBAlChainAlamofire {
         }
     }
 }
+
+extension WBAlChainRequest : Equatable {}
+
+/// 重载操作符
 public func ==(
     lhs: WBAlChainRequest,
     rhs: WBAlChainRequest)
