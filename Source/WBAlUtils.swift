@@ -13,7 +13,8 @@ open class WBAlUtils {
 
     // md5加密算法<借鉴Kingfisher算法>
     open class func md5WithString(_ string: String) -> String {
-        return string.kf.md5
+        return string.wbal.md5
+        // 以下为系统加密方法
         /*let str = string.cString(using: .utf8)
         let strLen = CUnsignedInt(string.lengthOfBytes(using: .utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)

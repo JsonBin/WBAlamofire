@@ -271,6 +271,7 @@ open class WBAlBaseRequest : BaseRequest {
     open func requestFailedFilter() -> Void {}
     
 // MARK: - Public Properties
+    /// 代理委托
     open weak var delegate: WBAlRequestProtocol?
     
     /// use to request identify, Default 0
@@ -319,6 +320,9 @@ open class WBAlBaseRequest : BaseRequest {
     
 // MARK: - 私有调用
     open var request: Request?
+    
+// MARK: - Init
+    public init() {}
     
 // MARK: - Request Action
     open func start() -> Void {

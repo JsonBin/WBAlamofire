@@ -15,11 +15,9 @@
 		DF322DE81F8F26410030DF90 /* WBAlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE11F8F26410030DF90 /* WBAlConfig.swift */; };
 		DF322DE91F8F26410030DF90 /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE21F8F26410030DF90 /* WBAlRequest.swift */; };
 		DF322DEA1F8F26410030DF90 /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
+		DF71587D1FF3353A00D9B581 /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */; };
 		DFBA4BBD1F8F3D320096C1F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */; };
 		DFBA4BBE1F8F3D320096C1F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */; };
-		DFBA4BBF1F8F3D320096C1F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFBA4BB51F8F3D320096C1F2 /* LaunchScreen.storyboard */; };
-		DFBA4BC01F8F3D320096C1F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFBA4BB71F8F3D320096C1F2 /* Main.storyboard */; };
-		DFBA4BC11F8F3D320096C1F2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFBA4BBA1F8F3D320096C1F2 /* Info.plist */; };
 		DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */; };
 		DFBA4BC31F8F3D320096C1F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */; };
 		DFC9EE231F8F42D600D95257 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
@@ -39,10 +37,9 @@
 		DF322DE11F8F26410030DF90 /* WBAlConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlConfig.swift; sourceTree = "<group>"; };
 		DF322DE21F8F26410030DF90 /* WBAlRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlRequest.swift; sourceTree = "<group>"; };
 		DF322DE31F8F26410030DF90 /* WBAlUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlUtils.swift; sourceTree = "<group>"; };
+		DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBActivityIndicatorView.swift; sourceTree = "<group>"; };
 		DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		DFBA4BB61F8F3D320096C1F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DFBA4BB81F8F3D320096C1F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DFBA4BBA1F8F3D320096C1F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApi.swift; sourceTree = "<group>"; };
 		DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +101,7 @@
 				DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */,
 				DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */,
 				DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */,
+				DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */,
 				DF322DE11F8F26410030DF90 /* WBAlConfig.swift */,
 				DF322DE21F8F26410030DF90 /* WBAlRequest.swift */,
 				DF322DE31F8F26410030DF90 /* WBAlUtils.swift */,
@@ -127,8 +125,6 @@
 			children = (
 				DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */,
 				DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */,
-				DFBA4BB51F8F3D320096C1F2 /* LaunchScreen.storyboard */,
-				DFBA4BB71F8F3D320096C1F2 /* Main.storyboard */,
 				DFBA4BBA1F8F3D320096C1F2 /* Info.plist */,
 				DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */,
 				DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */,
@@ -166,7 +162,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "HengSu Technology";
 				TargetAttributes = {
 					DF15862B1E84D0620053CB3D = {
@@ -198,10 +194,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFBA4BC11F8F3D320096C1F2 /* Info.plist in Resources */,
-				DFBA4BC01F8F3D320096C1F2 /* Main.storyboard in Resources */,
 				DFBA4BBE1F8F3D320096C1F2 /* Assets.xcassets in Resources */,
-				DFBA4BBF1F8F3D320096C1F2 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +265,7 @@
 				DF322DE61F8F26410030DF90 /* WBAlBatchRequest.swift in Sources */,
 				DF322DE51F8F26410030DF90 /* WBAlBaseRequest.swift in Sources */,
 				DF322DE41F8F26410030DF90 /* WBAlamofire.swift in Sources */,
+				DF71587D1FF3353A00D9B581 /* WBActivityIndicatorView.swift in Sources */,
 				DF322DE91F8F26410030DF90 /* WBAlRequest.swift in Sources */,
 				DF322DEA1F8F26410030DF90 /* WBAlUtils.swift in Sources */,
 				DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */,
@@ -281,25 +275,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		DFBA4BB51F8F3D320096C1F2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DFBA4BB61F8F3D320096C1F2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		DFBA4BB71F8F3D320096C1F2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DFBA4BB81F8F3D320096C1F2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DF15863C1E84D0620053CB3D /* Debug */ = {
@@ -311,7 +286,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -319,7 +296,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -361,7 +342,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -369,7 +352,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -401,11 +388,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/WBAlamofireDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hs.extension.WBAlamofire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -415,11 +403,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/WBAlamofireDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hs.extension.WBAlamofire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

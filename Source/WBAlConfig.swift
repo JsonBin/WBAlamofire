@@ -56,7 +56,7 @@ open class WBAlConfig {
     open var cacheDirPathFilters: [WBAlCacheDirPathFilterProtocol]
     
     /// serverPolicy will be used to Alamofire. Default nil.
-    open var serverPolicy: ServerTrustPolicyManager!
+    open var serverPolicy: ServerTrustPolicyManager?
     
     /// SessionConfiguration will be used to Alamofire.
     open var sessionConfiguration: URLSessionConfiguration

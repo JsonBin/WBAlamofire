@@ -50,8 +50,10 @@ class ViewController: UIViewController {
         print(NSHomeDirectory())
         
         let s = "abcdefghijklmnopqrstuvwxyz"
-        let m = s.substring(from: s.index(s.startIndex, offsetBy: 9))
-        let q = s.substring(to: s.index(s.startIndex, offsetBy: 5))
+        let m = String(s.suffix(s.count - 9))
+//        let m = s.substring(from: s.index(s.startIndex, offsetBy: 9))
+        let q = String(s.prefix(5))
+//        let q = s.substring(to: s.index(s.startIndex, offsetBy: 5))
         print(q)
         print(m)
         

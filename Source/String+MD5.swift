@@ -21,7 +21,7 @@ Permission is granted to anyone to use this software for any purpose,including c
 
 import Foundation
 
-public struct StringProxy {
+public struct _StringProxy {
     fileprivate let base: String
     init(proxy: String) {
         base = proxy
@@ -29,13 +29,13 @@ public struct StringProxy {
 }
 
 extension String {
-    public typealias CompatibleType = StringProxy
-    public var kf: CompatibleType {
-        return StringProxy(proxy: self)
+    public typealias CompatibleType = _StringProxy
+    public var wbal: CompatibleType {
+        return _StringProxy(proxy: self)
     }
 }
 
-extension StringProxy {
+extension _StringProxy {
     var md5: String {
         if let data = base.data(using: .utf8, allowLossyConversion: true) {
 

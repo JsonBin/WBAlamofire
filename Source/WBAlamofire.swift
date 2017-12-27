@@ -143,8 +143,22 @@ open class WBAlamofire {
     ///
     /// - Parameter request: Class from WBAlBaseRequest
     open func cancel(_ request: WBAlBaseRequest) -> Void {
-        if let request = request.request {
-            request.task?.cancel()
+        if !request.resumableDownloadPath.isEmpty {
+            // if is downloadtask, this request will save the resume data
+            // to resumabledownloadpath in temp library before cancel.
+            // otherwise cancel the request task.
+            if let down = request.request?.task as? URLSessionDownloadTask {
+                down.cancel(byProducingResumeData: { (data) in
+                    let path = self.downloadTempPathForDownloadPath(request.resumableDownloadPath)
+                    do {
+                        try data?.write(to: path, options: .atomic)
+                    } catch let error {
+                        WBALog("Cancel Request ResumeData Save Failed!, save resumeData failed. reason:\"\(error.localizedDescription)\"")
+                    }
+                })
+            }
+        }else{
+            request.request?.task?.cancel()
         }
         removeRecord(forRequest: request)
         request.clearCompleteClosure()
@@ -164,14 +178,12 @@ open class WBAlamofire {
         _lock.lock()
         let keys = _requestRecord.keys
         _lock.unlock()
-        if !keys.isEmpty {
-            keys.forEach {
-                _lock.lock()
-                let request = _requestRecord[$0]
-                _lock.unlock()
-                
-                request?.stop()
-            }
+        keys.forEach {
+            _lock.lock()
+            let request = _requestRecord[$0]
+            _lock.unlock()
+            
+            request?.stop()
         }
         // 取消网络菊花状态
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
