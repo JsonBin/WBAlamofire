@@ -505,7 +505,7 @@ open class WBAlamofire {
         }
     }
     
-// MARK: - MD5
+// MARK: - MD5 & URL
     static var cacheFolder: String?
     private func formatDownloadPathWithMd5String(_ down: String, useMD5 use:Bool) -> URL {
         var md5String = use ? WBAlUtils.md5WithString(down) : down

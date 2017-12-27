@@ -145,7 +145,7 @@ open class WBAlRequest : WBAlBaseRequest {
             if let data = data, data.count > 0 {
                 // cache
                 do {
-                    try data.write(to: URL(fileURLWithPath: cacheFilePath), options: .atomic)
+                    try data.write(to: URL(fileURLWithPath: WBAlCache.shared.cacheFilePath(self)), options: .atomic)
                 } catch let reason {
                     WBALog("Save cache failed, reason: \"\(reason.localizedDescription)\"")
                 }
@@ -155,7 +155,7 @@ open class WBAlRequest : WBAlBaseRequest {
                 metadata.stringEncoding = WBAlUtils.stringEncodingFromRequest(self)
                 metadata.createDate = Date()
                 metadata.appVersionString = WBAlUtils.appVersion
-                NSKeyedArchiver.archiveRootObject(metadata, toFile: cacheMetadataFilePath)
+                NSKeyedArchiver.archiveRootObject(metadata, toFile: WBAlCache.shared.cacheMetadataFilePath(self))
             }
         }
     }
@@ -289,7 +289,7 @@ open class WBAlRequest : WBAlBaseRequest {
     
     /// Metadata
     private var loadCacheMetadata: Bool {
-        let path = cacheMetadataFilePath
+        let path = WBAlCache.shared.cacheMetadataFilePath(self)
         let manager = FileManager.default
         if manager.fileExists(atPath: path, isDirectory: nil) {
             
@@ -305,7 +305,7 @@ open class WBAlRequest : WBAlBaseRequest {
     
     /// Data
     private var loadCacheData: Bool {
-        let path = cacheFilePath
+        let path = WBAlCache.shared.cacheFilePath(self)
         let manager = FileManager.default
         
         if manager.fileExists(atPath: path, isDirectory: nil) {
@@ -331,68 +331,5 @@ open class WBAlRequest : WBAlBaseRequest {
             }
         }
         return false
-    }
-    
-// MARK: - File && URL
-    
-    private var cacheFilePath: String {
-        let cacheName = "/" + self.cacheFileName()
-        let cachePath = self.cacheBasePath()
-        return cachePath.appending(cacheName)
-    }
-    
-    private var cacheMetadataFilePath: String {
-        let metaName = "/" + self.cacheFileName() + ".metadata"
-        let metaPath = self.cacheBasePath()
-        return metaPath.appending(metaName)
-    }
-    
-    private func cacheFileName() -> String {
-        let requestURL = self.requestURL
-        let baseURL = WBAlConfig.shared.baseURL
-        var requestInfo = String(format: "Host:%@, Url:%@, Method:%@", baseURL, requestURL, self.requestMethod.rawValue.rawValue)
-        if let params = self.requestParams {
-            let params = self.cacheFileNameFilterForRequestParams(params)
-            requestInfo = requestInfo.appendingFormat(", Params:%@", params)
-        }
-        let cacheFileName = WBAlUtils.md5WithString(requestInfo)
-        return cacheFileName
-    }
-    
-    private func cacheBasePath() -> String {
-        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!
-        var cachePath = path.appending("/" + WBAlConfig.shared.cacheSpace)
-        
-        // Filter cache dirPath if needed
-        let filters = WBAlConfig.shared.cacheDirPathFilters
-        if !filters.isEmpty {
-            for filter in filters {
-                cachePath = filter.filterCacheDirPath(cachePath, baseRequest: self)
-            }
-        }
-        
-        let manager = FileManager.default
-        var isDirectory:ObjCBool = true
-        if !manager.fileExists(atPath: cachePath, isDirectory: &isDirectory) {
-            isDirectory = false
-            // create
-            createBaseCachePath(cachePath)
-        }else{
-            if !isDirectory.boolValue {
-                try? manager.removeItem(atPath: cachePath)
-                createBaseCachePath(cachePath)
-            }
-        }
-        
-        return cachePath
-    }
-    
-    private func createBaseCachePath(_ path:String) {
-        do {
-            try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-            WBAlUtils.addNotBackupAttribute(path)
-        } catch let reason {
-            WBALog("Create cache directory failed, reason = \"\(reason.localizedDescription)\"")
-        }
     }
 }

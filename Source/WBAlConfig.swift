@@ -62,7 +62,7 @@ open class WBAlConfig {
     open var sessionConfiguration: URLSessionConfiguration
     
     /// Save to disk file name. 缓存请求文件的文件夹名
-    open var cacheSpace = "wbalamofire.request.cache.default"
+    open var cacheFileName = "wbalamofire.request.cache.default"
     
     /// Download file name. 下载文件时保存的文件名，位于.../Documents/{downFileName}下
     open var downFileName = "wbalamofire.download.default"

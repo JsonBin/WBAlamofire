@@ -18,6 +18,7 @@
 		DF71587D1FF3353A00D9B581 /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */; };
 		DF71587F1FF3534B00D9B581 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
 		DF7158811FF3758800D9B581 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7158801FF3758800D9B581 /* Launch Screen.storyboard */; };
+		DF7158831FF386F500D9B581 /* WBAlCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7158821FF386F500D9B581 /* WBAlCache.swift */; };
 		DFBA4BBD1F8F3D320096C1F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */; };
 		DFBA4BBE1F8F3D320096C1F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */; };
 		DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */; };
@@ -42,6 +43,7 @@
 		DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBActivityIndicatorView.swift; sourceTree = "<group>"; };
 		DF71587E1FF3534B00D9B581 /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		DF7158801FF3758800D9B581 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		DF7158821FF386F500D9B581 /* WBAlCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBAlCache.swift; sourceTree = "<group>"; };
 		DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFBA4BBA1F8F3D320096C1F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */,
 				DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */,
 				DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */,
+				DF7158821FF386F500D9B581 /* WBAlCache.swift */,
 				DF322DE11F8F26410030DF90 /* WBAlConfig.swift */,
 				DF322DE31F8F26410030DF90 /* WBAlUtils.swift */,
 				DFC9EE221F8F42D600D95257 /* String+MD5.swift */,
@@ -268,6 +271,7 @@
 			files = (
 				DFBA4BC31F8F3D320096C1F2 /* ViewController.swift in Sources */,
 				DFBA4BBD1F8F3D320096C1F2 /* AppDelegate.swift in Sources */,
+				DF7158831FF386F500D9B581 /* WBAlCache.swift in Sources */,
 				DFC9EE231F8F42D600D95257 /* String+MD5.swift in Sources */,
 				DF322DE61F8F26410030DF90 /* WBAlBatchRequest.swift in Sources */,
 				DF322DE51F8F26410030DF90 /* WBAlBaseRequest.swift in Sources */,

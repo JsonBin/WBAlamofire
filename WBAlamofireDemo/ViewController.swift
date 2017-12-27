@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         }
         
         let test = down()
-//        test.start()
+        test.start()
         
         let log = login()
 //        log.add(log)
@@ -32,20 +32,20 @@ class ViewController: UIViewController {
         
         let chain = WBAlChainRequest()
         chain.add(log) { (chain, base) in
-            chain.add(test, callBack: nil)
+//            chain.add(test, callBack: nil)
         }
         chain.add(self)
         chain.start()
         
-        let batch = WBAlBatchRequest(WBAlRequests: [test, log] )
-        batch.add(self)
-        batch.start({ (batch) in
-            WBALog("success ===== \(batch)")
-        }) { (batch) in
-            if let request = batch.failedRequest {
-                WBALog("failed  ======= \(request)")
-            }
-        }
+//        let batch = WBAlBatchRequest(WBAlRequests: [test, log] )
+//        batch.add(self)
+//        batch.start({ (batch) in
+//            WBALog("success ===== \(batch)")
+//        }) { (batch) in
+//            if let request = batch.failedRequest {
+//                WBALog("failed  ======= \(request)")
+//            }
+//        }
         
         print(NSHomeDirectory())
         
@@ -61,6 +61,9 @@ class ViewController: UIViewController {
         let t2 = telphone(address: "杭州市", tel: "0987654321")
         let u = user(name: "Lili", age: 35, tels: [t1, t2])
         if let j = u.toModel() { print(j) }
+        
+        let size = WBAlCache.shared.downloadCacheSize
+        print(size / 1024)
     }
 }
 
