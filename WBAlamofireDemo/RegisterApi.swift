@@ -24,13 +24,12 @@ class RegisterApi: WBAlRequest {
 class down: WBAlRequest {
     
     override var requestURL: String {
-        return "timg?image&quality=80&size=b9999_10000&sec=1490781577869&di=e130b6d26a45afb47f42cb3c14edc2f6&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F5%2F553dc1e2be070.jpg"
-        
-//        https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490781577869&di=e130b6d26a45afb47f42cb3c14edc2f6&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F5%2F553dc1e2be070.jpg
+        return "timg?image&quality=80&size=b9999_10000&sec=1514368052038&di=11dff689b5c73ea5f65ade4a6e442189&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F29381f30e924b899deb0d7ea64061d950b7bf650.jpg"
+//        return "timg?image&quality=80&size=b9999_10000&sec=1490781577869&di=e130b6d26a45afb47f42cb3c14edc2f6&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F5%2F553dc1e2be070.jpg"
     }
     
     override var resumableDownloadPath: String {
-        return "test.png"
+        return "sence.png"
     }
     
     override var responseType: WBALResponseType {
@@ -41,26 +40,24 @@ class down: WBAlRequest {
 class login : WBAlRequest {
     
     override var baseURL: String {
-//        return "http://api.qingdaikj.com/v1/"
-        return "http://api.789987789.com/"
+        return "http://www.baidu.com/"
     }
     
     override var requestURL: String {
-//        return "public/login"
-        return "oss"
+        return "userLogin"
     }
     
-//    override var requestMethod: HTTPMethod {
-//        return .post
-//    }
-//    
-//    override var paramEncoding: ParameterEncoding {
-//        return JSONEncoding.default
-//    }
+    override var requestMethod: WBHTTPMethod {
+        return .post
+    }
     
-//    override var requestParams: [String : Any]? {
-//        return ["username":"15184447833", "password":"123456", "registration_id":"000000123"]
-//    }
+    override var paramEncoding: WBParameterEncoding {
+        return .json
+    }
+    
+    override var requestParams: [String : Any]? {
+        return ["username":"15184447833", "password":"123456"]
+    }
     
     override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()

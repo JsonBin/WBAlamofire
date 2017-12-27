@@ -330,8 +330,8 @@ open class WBAlamofire {
         
         // jude if is directory
         if isDirectory.boolValue {
-            let fileName = try! urlString.asURL().lastPathComponent
-            downpath = downpath.appending(fileName)
+            let fileName = try? urlString.asURL().lastPathComponent
+            downpath = downpath.appending(fileName ?? "")
         }
         // load the cache data, is not exists, the data is nil.
         let cacheURL = formatDownloadPathWithMd5String(downpath, useMD5: isDirectory.boolValue)
@@ -514,11 +514,11 @@ open class WBAlamofire {
         
         let cacheDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
         if WBAlamofire.cacheFolder == nil {
-            WBAlamofire.cacheFolder = cacheDir?.appending("/downloadCache")
+            WBAlamofire.cacheFolder = cacheDir?.appending("/\(WBAlConfig.shared.downFileName)")
         }
         
         var isDirectory: ObjCBool = true
-        if !manager.fileExists(atPath: WBAlamofire.cacheFolder!, isDirectory: &isDirectory) {
+        if let path = WBAlamofire.cacheFolder, !manager.fileExists(atPath: path, isDirectory: &isDirectory) {
             isDirectory = false
         }
         
@@ -549,7 +549,7 @@ open class WBAlamofire {
         let manager = FileManager.default
         
         let cacheDir = NSTemporaryDirectory()
-        let cacheFolder = cacheDir.appending("downloadCache")
+        let cacheFolder = cacheDir.appending(WBAlConfig.shared.downFileName)
         
         var isDirectory: ObjCBool = true
         if !manager.fileExists(atPath: cacheFolder, isDirectory: &isDirectory) {

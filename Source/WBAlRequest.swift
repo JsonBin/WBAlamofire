@@ -114,7 +114,8 @@ open class WBAlRequest : WBAlBaseRequest {
         
         var error:Error? = nil
         if !loadCacheWithError(&error) {
-            WBALog(error)
+            // 输出错误信息
+            if let e = error { WBALog(e) }
             startWithOutCache()
             return
         }

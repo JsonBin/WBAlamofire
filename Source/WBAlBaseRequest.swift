@@ -12,14 +12,53 @@ import Alamofire
 /// 请求baseRequest
 open class WBAlBaseRequest : BaseRequest {
     
-    /// 是否为需求请求成功状态码的范围内
-    open var statusCodeValidator: Bool {
-        if WBAlConfig.shared.statusCode.contains(self.statusCode) {
-            return true
-        }
-        return false
-    }
+// MARK: - SubClass Override
+    /// 需要更改baseURL时调用
+    open var baseURL: String { return "" }
     
+    /// 每一个model请求的url
+    open var requestURL: String { return "" }
+    
+    /// 需要使用cdnURL时调用
+    open var cdnURL: String { return "" }
+    
+    /// 请求的method
+    open var requestMethod: WBHTTPMethod { return .get }
+    
+    /// 需要添加的请求头
+    open var requestHeaders: WBHTTPHeaders? { return nil /*["Content-Type": "application/json", "Accept": "application/json"]*/}
+    
+    /// 需要添加的请求参数
+    open var requestParams: [String: Any]? { return nil }
+    
+    /// 请求时对参数(params)的编码方式
+    open var paramEncoding: WBParameterEncoding { return .url }
+    
+    /// 请求返回的数据类型
+    open var responseType: WBALResponseType { return .json }
+    
+    /// 请求的优先权
+    open var priority: WBALRequestPriority? { return nil }
+    
+    // 上传文件时以下面三种任选一种作为上传数据依据
+    /// 上传文件时上传的数据
+    open var requestDataClosure: BaseRequest.WBAlMutableDataClosure? { return nil }
+    
+    /// 上传文件时文件的url
+    open var uploadFile: URL? { return nil }
+    
+    /// 上传文件时文件的data
+    open var uploadData: Data? { return nil }
+    
+    /// 下载文件保存的名字，默认存放在 .../Documents/{WBAlConfig.shared.downFileName}/...下
+    open var resumableDownloadPath: String { return "" }
+    
+    /// https时使用的证书的用户名以及密码, first is user, last is password.
+    open var requestAuthHeaders: [String]? { return nil }
+    
+    /// 是否使用cdn
+    open var useCDN: Bool { return false }
+
     /// 过滤请求params的方法, 可覆写. 默认不过滤
     open func cacheFileNameFilterForRequestParams(_ params: [String: Any]) -> [String: Any] { return params }
     
@@ -53,6 +92,14 @@ open class WBAlBaseRequest : BaseRequest {
     
     /// 完成失败的回调
     open var failureCompleteClosure: BaseRequest.WBAlRequestCompleteClosure?
+    
+    /// 是否为需求请求成功状态码的范围内
+    open var statusCodeValidator: Bool {
+        if WBAlConfig.shared.statusCode.contains(self.statusCode) {
+            return true
+        }
+        return false
+    }
     
 // MARK: - Response Properties
     

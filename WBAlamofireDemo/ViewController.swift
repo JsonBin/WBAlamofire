@@ -51,8 +51,8 @@ class ViewController: UIViewController {
         
         let s = "abcdefghijklmnopqrstuvwxyz"
         let m = String(s.suffix(s.count - 9))
-//        let m = s.substring(from: s.index(s.startIndex, offsetBy: 9))
         let q = String(s.prefix(5))
+//        let m = s.substring(from: s.index(s.startIndex, offsetBy: 9))
 //        let q = s.substring(to: s.index(s.startIndex, offsetBy: 5))
         print(q)
         print(m)
@@ -66,15 +66,15 @@ class ViewController: UIViewController {
 
 extension ViewController :  WBAlRequestAccessoryProtocol {
     func requestWillStart(_ request: Any) {
-        WBALog("---------------> chain/batch will start")
+        WBALog("====================> chain/batch will start")
     }
     
     func requestWillStop(_ request: Any) {
-        WBALog("---------------> chain/batch will stop")
+        WBALog("====================> chain/batch will stop")
     }
     
     func requestDidStop(_ request: Any) {
-        WBALog("---------------> chain/batch did stop")
+        WBALog("====================> chain/batch did stop")
     }
 }
 

@@ -187,7 +187,7 @@ public protocol BaseRequest {
     /// 上传文件时文件的data
     var uploadData: Data? { get }
     
-    /// 下载文件保存的名字，默认存放在 .../Documents/downloadCache/...下
+    /// 下载文件保存的名字，默认存放在 .../Documents/{WBAlConfig.shared.downFileName}/...下
     var resumableDownloadPath: String { get }
     
     /// https时使用的证书的用户名以及密码, first is user, last is password.
@@ -199,53 +199,4 @@ public protocol BaseRequest {
 // MARK: - Response Properties
     /// 响应状态码
     var statusCode: Int { get }
-}
-
-// MARK: - SubClass Override
-extension BaseRequest {
-    /// 需要更改baseURL时调用
-    public var baseURL: String { return "" }
-    
-    /// 每一个model请求的url
-    public var requestURL: String { return "" }
-    
-    /// 需要使用cdnURL时调用
-    public var cdnURL: String { return "" }
-    
-    /// 请求的method
-    public var requestMethod: WBHTTPMethod { return .get }
-    
-    /// 需要添加的请求头
-    public var requestHeaders: WBHTTPHeaders? { return nil /*["Content-Type": "application/json", "Accept": "application/json"]*/}
-    
-    /// 需要添加的请求参数
-    public var requestParams: [String: Any]? { return nil }
-    
-    /// 请求时对参数(params)的编码方式
-    public var paramEncoding: WBParameterEncoding { return .url }
-    
-    /// 请求返回的数据类型
-    public var responseType: WBALResponseType { return .json }
-    
-    /// 请求的优先权
-    public var priority: WBALRequestPriority? { return nil }
-    
-    // 上传文件时以下面三种任选一种作为上传数据依据
-    /// 上传文件时上传的数据
-    public var requestDataClosure: BaseRequest.WBAlMutableDataClosure? { return nil }
-    
-    /// 上传文件时文件的url
-    public var uploadFile: URL? { return nil }
-    
-    /// 上传文件时文件的data
-    public var uploadData: Data? { return nil }
-    
-    /// 下载文件保存的名字，默认存放在 .../Documents/downloadCache/...下
-    public var resumableDownloadPath: String { return "" }
-    
-    /// https时使用的证书的用户名以及密码, first is user, last is password.
-    public var requestAuthHeaders: [String]? { return nil }
-    
-    /// 是否使用cdn
-    public var useCDN: Bool { return false }
 }

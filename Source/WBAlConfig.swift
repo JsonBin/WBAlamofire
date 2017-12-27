@@ -64,13 +64,16 @@ open class WBAlConfig {
     /// Save to disk file name. 缓存请求文件的文件夹名
     open var cacheSpace = "wbalamofire.request.cache.default"
     
+    /// Download file name. 下载文件时保存的文件名，位于.../Documents/{downFileName}下
+    open var downFileName = "wbalamofire.download.default"
+    
 // MARK: - Init
     public init() {
         self.baseURL = ""
         self.cdnURL = ""
         self.requestTimeoutInterval = 30
         self.statusCode = Array(200..<300)
-        self.acceptType = ["application/json", "text/json", "text/javascript", "text/html", "text/plain"]
+        self.acceptType = ["application/json", "text/json", "text/javascript", "text/html", "text/plain", "image/jpeg"]
         self.allowsCellularAccess = true
         self.debugLogEnable = false
         self.listenNetWork = true
