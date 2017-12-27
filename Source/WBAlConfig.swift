@@ -62,7 +62,7 @@ open class WBAlConfig {
     open var sessionConfiguration: URLSessionConfiguration
     
     /// Save to disk file name. 缓存请求文件的文件夹名
-    open var cacheSpace = "WBAlamofire.requestCache.default"
+    open var cacheSpace = "wbalamofire.request.cache.default"
     
 // MARK: - Init
     public init() {

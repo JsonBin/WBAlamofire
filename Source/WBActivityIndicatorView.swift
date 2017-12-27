@@ -21,6 +21,10 @@ public enum TextLabelPosition {
     case bottom
 }
 
+/// 加载动画的类型
+///
+/// - system: 系统自带类型(菊花)
+/// - native: 圆形progress动画
 public enum AnimationType  {
     case system
     case native

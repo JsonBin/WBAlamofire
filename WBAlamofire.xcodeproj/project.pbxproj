@@ -16,6 +16,7 @@
 		DF322DE91F8F26410030DF90 /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE21F8F26410030DF90 /* WBAlRequest.swift */; };
 		DF322DEA1F8F26410030DF90 /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
 		DF71587D1FF3353A00D9B581 /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */; };
+		DF71587F1FF3534B00D9B581 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
 		DFBA4BBD1F8F3D320096C1F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */; };
 		DFBA4BBE1F8F3D320096C1F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */; };
 		DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */; };
@@ -38,6 +39,7 @@
 		DF322DE21F8F26410030DF90 /* WBAlRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlRequest.swift; sourceTree = "<group>"; };
 		DF322DE31F8F26410030DF90 /* WBAlUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlUtils.swift; sourceTree = "<group>"; };
 		DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBActivityIndicatorView.swift; sourceTree = "<group>"; };
+		DF71587E1FF3534B00D9B581 /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFBA4BBA1F8F3D320096C1F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,12 +100,13 @@
 			isa = PBXGroup;
 			children = (
 				DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */,
+				DF71587E1FF3534B00D9B581 /* BaseRequest.swift */,
 				DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */,
+				DF322DE21F8F26410030DF90 /* WBAlRequest.swift */,
 				DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */,
 				DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */,
 				DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */,
 				DF322DE11F8F26410030DF90 /* WBAlConfig.swift */,
-				DF322DE21F8F26410030DF90 /* WBAlRequest.swift */,
 				DF322DE31F8F26410030DF90 /* WBAlUtils.swift */,
 				DFC9EE221F8F42D600D95257 /* String+MD5.swift */,
 				DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */,
@@ -270,6 +273,7 @@
 				DF322DEA1F8F26410030DF90 /* WBAlUtils.swift in Sources */,
 				DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */,
 				DF322DE71F8F26410030DF90 /* WBAlChainRequest.swift in Sources */,
+				DF71587F1FF3534B00D9B581 /* BaseRequest.swift in Sources */,
 				DF322DE81F8F26410030DF90 /* WBAlConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

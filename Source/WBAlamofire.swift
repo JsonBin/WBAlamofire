@@ -304,8 +304,8 @@ open class WBAlamofire {
                 setRe = _manager.request(urlString, method: request.requestMethod.rawValue, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders)
             }
             // 添加https的user以及password
-            if let auths = request.requestAuthHeaders {
-                setRe?.authenticate(user: auths.first!, password: auths.last!)
+            if let user = request.requestAuthHeaders?.first, let pas = request.requestAuthHeaders?.last {
+                setRe?.authenticate(user: user, password: pas)
             }
             // 设置响应code范围及返回类型
             setRe?.validate(statusCode: _statusCode)
@@ -370,8 +370,9 @@ open class WBAlamofire {
             downRequest = _manager.download(urlString, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders, to: destionation)
         }
         // 添加https的user以及password
-        if let auths = request.requestAuthHeaders {
-            downRequest.authenticate(user: auths.first!, password: auths.last!)
+        // 添加https的user以及password
+        if let user = request.requestAuthHeaders?.first, let pas = request.requestAuthHeaders?.last {
+            downRequest.authenticate(user: user, password: pas)
         }
         downRequest.downloadProgress { (progress) in
             if let progressHandler = request.downloadProgress {
@@ -634,7 +635,7 @@ open class WBAlamofire {
         
         if let result = result {
             // 如果是下载，则响应返回为下载保存的路径
-            if result is NSURL {
+            if result is URL {
                 request.downloadURL = result as? URL
             }else{
                 switch request.responseType {
