@@ -41,7 +41,7 @@ WBAlamofire is based on Alamofire. You can find more detail about version compab
 
 ## Demo
 
-### YTKNetworkConfig class
+### WBAlConfig class
 
 We should set WBAlConfig's property at the beggining of app launching, the sample is below:
 
@@ -171,6 +171,8 @@ The cache mechanism is transparent to the controller, which means the request ca
 ## Thanks
 
 Thanks for [YTKNetwork][YTKNetwork] contributors. 
+
+See more information with [YTKNetwork][YTKNetwork].
 
 ## License
 
