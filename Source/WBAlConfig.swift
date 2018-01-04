@@ -67,6 +67,21 @@ open class WBAlConfig {
     /// Download file name. 下载文件时保存的文件名，位于.../Documents/{downFileName}下
     open var downFileName = "wbalamofire.download.default"
     
+    /// The load view animationType. Default is native. 加载框的动画类型，默认为native
+    open var loadViewAnimationType = AnimationType.native
+    
+    /// The load view text position. Default is bottom. 加载框的文字位置，默认为bottom
+    open var loadViewTextPosition = TextLabelPosition.bottom
+    
+    /// The load view textColor. Default is white. 加载框的文字颜色，默认为白色
+    open var loadViewTextColor = UIColor.white
+    
+    /// The load view text font. Default is 15. 加载框的文字大小，默认为15.
+    open var loadViewTextFont = UIFont.systemFont(ofSize: 15)
+    
+    /// The load view text. Default is 'Loading'. 加载框显示的文字，默认为Loading
+    open var loadViewText = "Loading"
+    
 // MARK: - Init
     public init() {
         self.baseURL = ""

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 HengSu Technology. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// 私有调用类
 open class WBAlUtils {
@@ -84,6 +84,29 @@ open class WBAlUtils {
         // complicated structue. Besides, the plist structure is different between iOS 9 and iOS 10.
         // We can only assume that the plist being successfully parsed means the resume data is valid.
         return true
+    }
+    
+    /// Get the top current viewController.
+    open class var wb_getCurrentViewController: UIViewController? {
+        var result: UIViewController?
+        var window = UIApplication.shared.keyWindow
+        if window?.windowLevel != UIWindowLevelNormal {
+            let windows = UIApplication.shared.windows
+            for win in windows {
+                if win.windowLevel == UIWindowLevelNormal {
+                    window = win
+                    break
+                }
+            }
+        }
+        let forntView = window?.subviews.first
+        let responder = forntView?.next
+        if responder is UIViewController {
+            result = responder as? UIViewController
+        }else{
+            result = window?.rootViewController
+        }
+        return result
     }
 }
 

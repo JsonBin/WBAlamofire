@@ -19,6 +19,10 @@ class RegisterApi: WBAlRequest {
     }
     
     override var baseURL: String { return "www.baidu.com" }
+    
+    override var showLoadView: Bool { return true }
+    
+    override var showLoadText: String? { return "Register" }
 }
 
 class down: WBAlRequest {
@@ -64,6 +68,10 @@ class login : WBAlRequest {
         
         WBALog("request done!")
     }
+    
+    override var showLoadView: Bool { return true }
+    
+    override var showLoadText: String? { return "Login" }
 }
 
 extension login: WBAlRequestAccessoryProtocol {

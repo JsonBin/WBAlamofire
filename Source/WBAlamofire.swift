@@ -26,6 +26,8 @@ open class WBAlamofire {
     private let WBAlRequestErrorDomain = "com.wbAlamofire.request.domain"
     private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
     private let WBAlRequestErrorCode = -10   // 失败处理状态码
+    /// Add: load view
+    private let _loadView: WBActivityIndicatorView
     
 // MARK: - Init && Request
     public init() {
@@ -42,6 +44,11 @@ open class WBAlamofire {
         _statusCode = _config.statusCode
         _contentType = _config.acceptType
         _requestRecord = [Int: WBAlBaseRequest]()
+        
+        _loadView = WBActivityIndicatorView()
+        _loadView.labelPosition = _config.loadViewTextPosition
+        _loadView.animationType = _config.loadViewAnimationType
+        _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
     }
     
     /// Add Request 添加网络请求
@@ -97,46 +104,12 @@ open class WBAlamofire {
                 }else {
                     request.request = uploadRequest
                     
-                    if let dataRequest = request.request {
-                        // 对请求进行优先权赋值
-                        if let priority = request.priority {
-                            switch priority {
-                            case .default:
-                                dataRequest.task?.priority = URLSessionTask.defaultPriority
-                            case .low:
-                                dataRequest.task?.priority = URLSessionTask.lowPriority
-                            case .high:
-                                dataRequest.task?.priority = URLSessionTask.highPriority
-                            }
-                        }
-                        
-                        // retain request
-                        WBALog("Add Request: \(request)")
-                        self.addRecord(request)
-                        dataRequest.resume()
-                    }
+                    self.requestSetTaskPriority(request)
                 }
             })
         }
         
-        if let dataRequest = request.request {
-            // 对请求进行优先权赋值
-            if let priority = request.priority {
-                switch priority {
-                case .default:
-                    dataRequest.task?.priority = URLSessionTask.defaultPriority
-                case .low:
-                    dataRequest.task?.priority = URLSessionTask.lowPriority
-                case .high:
-                    dataRequest.task?.priority = URLSessionTask.highPriority
-                }
-            }
-            
-            // retain request
-            WBALog("Add Request: \(request)")
-            self.addRecord(request)
-            dataRequest.resume()
-        }
+        self.requestSetTaskPriority(request)
     }
     
     /// Cancel Request 取消网络请求
@@ -237,6 +210,44 @@ open class WBAlamofire {
         }
         
         return URL(string: detailUrl, relativeTo: url)?.absoluteString ?? detailUrl
+    }
+  
+// MARK: - Request Set Priority
+    
+    /// Set the request task priority
+    private func requestSetTaskPriority(_ request: WBAlBaseRequest) {
+        if let dataRequest = request.request {
+            // 对请求进行优先权赋值
+            if let priority = request.priority {
+                switch priority {
+                case .default:
+                    dataRequest.task?.priority = URLSessionTask.defaultPriority
+                case .low:
+                    dataRequest.task?.priority = URLSessionTask.lowPriority
+                case .high:
+                    dataRequest.task?.priority = URLSessionTask.highPriority
+                }
+            }
+            
+            // retain request
+            WBALog("Add Request: \(request)")
+            self.addRecord(request)
+            dataRequest.resume()
+            
+            // if download file, not to show load view
+            if !request.resumableDownloadPath.isEmpty { return }
+            // Whether show load view
+            if let view = WBAlUtils.wb_getCurrentViewController?.view, request.showLoadView {
+                // set the load view's properties from the request settting.
+                _loadView.setActivityLabel(text: request.showLoadText, font: request.showLoadTextFont, color: request.showLoadTextColor)
+                if let type = request.showLoadAnimationType { _loadView.animationType = type }
+                if let position = request.showLoadTextPosition { _loadView.labelPosition = position }
+                // show the load view in main thread
+                DispatchQueue.main.async {
+                    self._loadView.startAnimation(inView: view)
+                }
+            }
+        }
     }
     
  // MARK: - Request
@@ -626,6 +637,10 @@ open class WBAlamofire {
             // 移除request
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
+            
+            // remove load view
+            self._loadView.stopAnimation()
+            self._loadView.removeFromSuperview()
         }
     }
     
@@ -683,6 +698,10 @@ open class WBAlamofire {
         DispatchQueue.main.async {
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
+            
+            // remove load view
+            self._loadView.stopAnimation()
+            self._loadView.removeFromSuperview()
         }
     }
 }

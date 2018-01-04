@@ -134,8 +134,8 @@
 				DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */,
 				DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */,
 				DFBA4BBA1F8F3D320096C1F2 /* Info.plist */,
-				DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */,
 				DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */,
+				DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */,
 				DF7158801FF3758800D9B581 /* Launch Screen.storyboard */,
 			);
 			path = WBAlamofireDemo;

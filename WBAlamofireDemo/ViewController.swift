@@ -27,33 +27,35 @@ class ViewController: UIViewController {
         test.start()
         
         let log = login()
-//        log.add(log)
-//        log.start()
         
         let chain = WBAlChainRequest()
         chain.add(log) { (chain, base) in
-//            chain.add(test, callBack: nil)
+            // request done then..
+            /*chain.add(test, callBack: nil)*/
         }
         chain.add(self)
-        chain.start()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            chain.start()
+        }
         
-//        let batch = WBAlBatchRequest(WBAlRequests: [test, log] )
-//        batch.add(self)
-//        batch.start({ (batch) in
-//            WBALog("success ===== \(batch)")
-//        }) { (batch) in
-//            if let request = batch.failedRequest {
-//                WBALog("failed  ======= \(request)")
-//            }
-//        }
+        let batch = WBAlBatchRequest(WBAlRequests: [test, log] )
+        batch.add(self)
+        batch.start({ (batch) in
+            WBALog("success ===== \(batch)")
+        }) { (batch) in
+            if let request = batch.failedRequest {
+                WBALog("failed  ======= \(request)")
+            }
+        }
         
         print(NSHomeDirectory())
         
         let s = "abcdefghijklmnopqrstuvwxyz"
         let m = String(s.suffix(s.count - 9))
         let q = String(s.prefix(5))
-//        let m = s.substring(from: s.index(s.startIndex, offsetBy: 9))
-//        let q = s.substring(to: s.index(s.startIndex, offsetBy: 5))
+        // Before Swift 4.0.
+        /*let m = s.substring(from: s.index(s.startIndex, offsetBy: 9))
+        let q = s.substring(to: s.index(s.startIndex, offsetBy: 5))*/
         print(q)
         print(m)
         
@@ -64,6 +66,18 @@ class ViewController: UIViewController {
         
         let size = WBAlCache.shared.downloadCacheSize
         print(size / 1024)
+        
+        // custom load view
+        /*let load = WBActivityIndicatorView()
+        load.animationType = .native
+        load.startAnimation(inView: view)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            load.labelPosition = .none
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            load.animationType = .system
+            load.labelPosition = .bottom
+        }*/
     }
 }
 

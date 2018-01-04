@@ -196,6 +196,24 @@ public protocol BaseRequest {
     /// 是否使用cdn
     var useCDN: Bool { get }
     
+    /// 是否显示loadView, Default is false
+    var showLoadView: Bool { get }
+    
+    /// 显示加载框的动画类型, 若不设置则使用WBAlConfig内的配置
+    var showLoadAnimationType: AnimationType? { get }
+    
+    /// 显示加载框文字的位置, 若不设置则使用WBAlConfig内的配置
+    var showLoadTextPosition: TextLabelPosition? { get }
+    
+    /// 显示加载框文字的颜色, 若不设置则使用WBAlConfig内的配置
+    var showLoadTextColor: UIColor? { get }
+    
+    /// 显示加载框文字的字体, 若不设置则使用WBAlConfig内的配置
+    var showLoadTextFont: UIFont? { get }
+    
+    /// 显示加载框的文字, 若不设置则使用WBAlConfig内的配置
+    var showLoadText: String? { get }
+    
 // MARK: - Response Properties
     /// 响应状态码
     var statusCode: Int { get }

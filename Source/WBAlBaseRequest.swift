@@ -58,6 +58,24 @@ open class WBAlBaseRequest : BaseRequest {
     
     /// 是否使用cdn
     open var useCDN: Bool { return false }
+    
+    /// 是否显示loadView, 默认不显示
+    open var showLoadView: Bool { return false }
+    
+    /// 显示加载框的动画类型, 若不设置则使用WBAlConfig内的配置, 默认为 .native
+    open var showLoadAnimationType: AnimationType? { return nil }
+    
+    /// 显示加载框文字的位置, 若不设置则使用WBAlConfig内的配置, 默认为 .bottom
+    open var showLoadTextPosition: TextLabelPosition? { return nil }
+    
+    /// 显示加载框文字的颜色, 若不设置则使用WBAlConfig内的配置, 默认为白色
+    open var showLoadTextColor: UIColor? { return nil }
+    
+    /// 显示加载框文字的字体, 若不设置则使用WBAlConfig内的配置，默认为15
+    open var showLoadTextFont: UIFont? { return nil }
+    
+    /// 显示加载框的文字, 若不设置则使用WBAlConfig内的配置， 默认为'Loading'
+    open var showLoadText: String? { return nil }
 
     /// 过滤请求params的方法, 可覆写. 默认不过滤
     open func cacheFileNameFilterForRequestParams(_ params: [String: Any]) -> [String: Any] { return params }
