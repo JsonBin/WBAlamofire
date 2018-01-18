@@ -10,10 +10,10 @@ import UIKit
 
 /// label文字所处的位置
 ///
-/// - none: 不加载文字
+/// - no: 不加载文字
 /// - bottom: 靠底部
 public enum TextLabelPosition {
-    case none
+    case no
     case bottom
 }
 
@@ -135,7 +135,7 @@ extension WBActivityIndicatorView {
 // MARK: - 设置
 extension WBActivityIndicatorView {
     private func setLabel() {
-        if labelPosition == .none {
+        if labelPosition == .no {
             _textLabel?.isHidden = true
         }else{
             _textLabel?.isHidden = false
@@ -161,7 +161,7 @@ extension WBActivityIndicatorView {
     
     private func reloadViewFrame() {
         guard let parentView = _parentView else { return }
-        if labelPosition == .none {
+        if labelPosition == .no {
             _textLabel?.isHidden = true
             bounds = CGRect(x: 0, y: 0, width: _detault, height: _detault)
             _indicator?.frame = bounds

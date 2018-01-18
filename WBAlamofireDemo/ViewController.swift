@@ -16,10 +16,12 @@ class ViewController: UIViewController {
         
         let res = RegisterApi()
         res.start({ (quest) in
-            // 请求成功
+            // you can use self here, retain cycle won't happen
+            print("Success!")
             //..
         }) { (quest) in
-            // 请求失败
+            // you can use self here, retain cycle won't happen
+            print("Failed!")
             //..
         }
         

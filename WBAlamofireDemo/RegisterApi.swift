@@ -65,13 +65,20 @@ class login : WBAlRequest {
     
     override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()
-        
         WBALog("request done!")
     }
     
-    override var showLoadView: Bool { return true }
+    override var cacheInSeconds: TimeInterval {
+        return 10 * 60
+    }
     
-    override var showLoadText: String? { return "Login" }
+    override var showLoadView: Bool {
+        return true
+    }
+    
+    override var showLoadText: String? {
+        return "Login"
+    }
 }
 
 extension login: WBAlRequestAccessoryProtocol {

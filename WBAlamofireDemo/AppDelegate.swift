@@ -16,9 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         WBAlConfig.shared.baseURL = "https://timgsa.baidu.com/"
         WBAlConfig.shared.debugLogEnable = true
+        
+        WBAlConfig.shared.loadViewText = "Login"
+        WBAlConfig.shared.loadViewTextColor = .red
+        WBAlConfig.shared.loadViewAnimationType = .system
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
