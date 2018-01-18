@@ -46,9 +46,7 @@ open class WBAlamofire {
         _requestRecord = [Int: WBAlBaseRequest]()
         
         _loadView = WBActivityIndicatorView()
-        _loadView.labelPosition = _config.loadViewTextPosition
-        _loadView.animationType = _config.loadViewAnimationType
-        _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
+        refreshLoadViewStatus()
     }
     
     /// Add Request 添加网络请求
@@ -236,6 +234,8 @@ open class WBAlamofire {
             
             // if download file, not to show load view
             if !request.resumableDownloadPath.isEmpty { return }
+            // update the loadView status
+            refreshLoadViewStatus()
             // Whether show load view
             if let view = WBAlUtils.wb_getCurrentViewController?.view, request.showLoadView {
                 // set the load view's properties from the request settting.
@@ -248,6 +248,12 @@ open class WBAlamofire {
                 }
             }
         }
+    }
+    
+    private func refreshLoadViewStatus() {
+        _loadView.labelPosition = _config.loadViewTextPosition
+        _loadView.animationType = _config.loadViewAnimationType
+        _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
     }
     
  // MARK: - Request
