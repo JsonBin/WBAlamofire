@@ -33,6 +33,8 @@ To use WBAlamofire add the following to your Podfile
     
 ## Requirements
 
+- Swift 4.0+
+
 | WBAlamofire Version | Alamofire Version |  Minimum iOS Target | Note |
 |:------------------:|:--------------------:|:-------------------:|:-----|
 | 1.x | 4.x | iOS 9 | Xcode 9+ is required. |
