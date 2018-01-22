@@ -15,7 +15,7 @@
 		DF322DE81F8F26410030DF90 /* WBAlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE11F8F26410030DF90 /* WBAlConfig.swift */; };
 		DF322DE91F8F26410030DF90 /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE21F8F26410030DF90 /* WBAlRequest.swift */; };
 		DF322DEA1F8F26410030DF90 /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
-		DF71587D1FF3353A00D9B581 /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */; };
+		DF64F7272015CA960014B168 /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */; };
 		DF71587F1FF3534B00D9B581 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
 		DF7158811FF3758800D9B581 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7158801FF3758800D9B581 /* Launch Screen.storyboard */; };
 		DF7158831FF386F500D9B581 /* WBAlCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7158821FF386F500D9B581 /* WBAlCache.swift */; };
@@ -40,7 +40,7 @@
 		DF322DE11F8F26410030DF90 /* WBAlConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlConfig.swift; sourceTree = "<group>"; };
 		DF322DE21F8F26410030DF90 /* WBAlRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlRequest.swift; sourceTree = "<group>"; };
 		DF322DE31F8F26410030DF90 /* WBAlUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBAlUtils.swift; sourceTree = "<group>"; };
-		DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBActivityIndicatorView.swift; sourceTree = "<group>"; };
+		DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBActivityIndicatorView.swift; sourceTree = "<group>"; };
 		DF71587E1FF3534B00D9B581 /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		DF7158801FF3758800D9B581 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		DF7158821FF386F500D9B581 /* WBAlCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBAlCache.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 				DF322DE21F8F26410030DF90 /* WBAlRequest.swift */,
 				DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */,
 				DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */,
-				DF71587C1FF3353A00D9B581 /* WBActivityIndicatorView.swift */,
+				DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */,
 				DF7158821FF386F500D9B581 /* WBAlCache.swift */,
 				DF322DE11F8F26410030DF90 /* WBAlConfig.swift */,
 				DF322DE31F8F26410030DF90 /* WBAlUtils.swift */,
@@ -275,8 +275,8 @@
 				DFC9EE231F8F42D600D95257 /* String+MD5.swift in Sources */,
 				DF322DE61F8F26410030DF90 /* WBAlBatchRequest.swift in Sources */,
 				DF322DE51F8F26410030DF90 /* WBAlBaseRequest.swift in Sources */,
+				DF64F7272015CA960014B168 /* WBActivityIndicatorView.swift in Sources */,
 				DF322DE41F8F26410030DF90 /* WBAlamofire.swift in Sources */,
-				DF71587D1FF3353A00D9B581 /* WBActivityIndicatorView.swift in Sources */,
 				DF322DE91F8F26410030DF90 /* WBAlRequest.swift in Sources */,
 				DF322DEA1F8F26410030DF90 /* WBAlUtils.swift in Sources */,
 				DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */,

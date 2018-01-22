@@ -95,8 +95,12 @@ extension WBActivityIndicatorView {
     
     /// Stop Animation
     public func stopAnimation() {
+        // recover
+        bounds = CGRect(x: 0, y: 0, width: _detault, height: _detault)
         _indicator?.stopAnimating()
         _animationView?.stop()
+        _parentView = nil
+        removeFromSuperview()
     }
 }
 

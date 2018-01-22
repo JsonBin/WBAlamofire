@@ -644,9 +644,8 @@ open class WBAlamofire {
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
             
-            // remove load view
+            // stop load view
             self._loadView.stopAnimation()
-            self._loadView.removeFromSuperview()
         }
     }
     
@@ -705,9 +704,8 @@ open class WBAlamofire {
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
             
-            // remove load view
+            // stop load view
             self._loadView.stopAnimation()
-            self._loadView.removeFromSuperview()
         }
     }
 }
