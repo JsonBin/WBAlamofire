@@ -18,9 +18,6 @@ open class WBAlamofire {
     open static let shared = WBAlamofire()
     
     // MARK: - Private Properties
-#if !os(watchOS)
-    private let _listenManager: NetworkReachabilityManager?
-#endif
     private let _manager: SessionManager
     private let _config: WBAlConfig
     private let _lock: NSLock
@@ -31,6 +28,9 @@ open class WBAlamofire {
     private let WBAlRequestErrorDomain = "com.wbAlamofire.request.domain"
     private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
     private let WBAlRequestErrorCode = -10   // 失败处理状态码
+#if !os(watchOS)
+    private let _listenManager: NetworkReachabilityManager?
+#endif
 #if os(iOS)
     /// Add: load view
     private let _loadView: WBActivityIndicatorView
@@ -76,27 +76,19 @@ open class WBAlamofire {
             
             _listenManager?.listener = { status in
                 if status == .unknown {
-                    // 网络变为未知
+                    // When the Network status is Unknown.
                     WBAlamofire.shared.cancel(request)
-                    
-                    #if os(iOS)
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    #endif
+                    self.setNetworkActivityIndicatorVisible(false)
                 }else if status == .notReachable {
-                    // 网络断开
+                    // When the Network notReachable.
                     WBAlamofire.shared.cancel(request)
-                    
-                    #if os(iOS)
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    #endif
+                    self.setNetworkActivityIndicatorVisible(false)
                 }
             }
         #endif
         if _config.listenNetWork {
-            // 网络状态菊花显示
-            #if os(iOS) || os(watchOS)
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            #endif
+            // Show the Network status in status bar.
+            setNetworkActivityIndicatorVisible()
             
             #if !os(watchOS)
                 _listenManager?.startListening()
@@ -161,10 +153,8 @@ open class WBAlamofire {
                 _listenManager?.stopListening()
             #endif
             
-            // 取消网络菊花状态
-            #if os(iOS) || os(watchOS)
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            #endif
+            // cancel net work status
+            setNetworkActivityIndicatorVisible(false)
         }
     }
     
@@ -184,10 +174,9 @@ open class WBAlamofire {
             
             request?.stop()
         }
-        // 取消网络菊花状态
-        #if os(iOS) || os(watchOS)
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        #endif
+        
+        // cancel net work status
+        setNetworkActivityIndicatorVisible(false)
     }
     
     open func buildURL(_ request: WBAlBaseRequest) -> URLConvertible {
@@ -282,13 +271,24 @@ open class WBAlamofire {
         }
     }
     
-    #if os(iOS)
-        private func refreshLoadViewStatus() {
-            _loadView.labelPosition = _config.loadViewTextPosition
-            _loadView.animationType = _config.loadViewAnimationType
-            _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
-        }
-    #endif
+    /// Reset the loadView status in iOS.
+    private func refreshLoadViewStatus() {
+        #if os(iOS)
+        _loadView.labelPosition = _config.loadViewTextPosition
+        _loadView.animationType = _config.loadViewAnimationType
+        _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
+        #endif
+    }
+    
+    /// Show and hide the Network status.
+    ///
+    /// - Parameter show: whether show or hide.
+    private func setNetworkActivityIndicatorVisible(_ show: Bool = true) {
+        // in ios or watchos, show and hide the network status.
+        #if os(iOS) || os(watchOS)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = show
+        #endif
+    }
     
  // MARK: - Request
     
@@ -641,10 +641,8 @@ open class WBAlamofire {
     
 // MARK: - Success && Failure
     private func requestDidFailed(_ request:WBAlBaseRequest, error requestError:Error, cacheURL url:URL? = nil, resumeData data:Data? = nil) {
-        // 取消网络菊花状态
-        #if os(iOS) || os(watchOS)
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        #endif
+        // Hide the Network status in status bar.
+        setNetworkActivityIndicatorVisible(false)
         
         request.error = requestError
         WBALog("Request <\(request)> failed, status code = \(request.statusCode), error = \(requestError.localizedDescription)")
@@ -688,10 +686,8 @@ open class WBAlamofire {
     }
     
     private func requestSuccess(_ request: WBAlBaseRequest, requestResult result:Any?) {
-        // 取消网络菊花状态
-        #if os(iOS) || os(watchOS)
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        #endif
+        // Hide the Network status in status bar.
+        setNetworkActivityIndicatorVisible(false)
         
         if let result = result {
             // 如果是下载，则响应返回为下载保存的路径

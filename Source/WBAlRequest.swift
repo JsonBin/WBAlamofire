@@ -151,7 +151,7 @@ open class WBAlRequest : WBAlBaseRequest {
                 }
                 let metadata = WBAlMetadata()
                 metadata.version = self.cacheVersion
-                metadata.sensitiveDataString = (self.cacheSensitiveData as AnyObject).description
+                metadata.sensitiveDataString = self.cacheSensitiveData?.description
                 metadata.stringEncoding = WBAlUtils.stringEncodingFromRequest(self)
                 metadata.createDate = Date()
                 metadata.appVersionString = WBAlUtils.appVersion
@@ -187,7 +187,7 @@ open class WBAlRequest : WBAlBaseRequest {
     open var cacheVersion: Int { return 0 }
     
     /// sensitive data (可以根据两次不同的数据自动更新缓存)
-    open var cacheSensitiveData: Any? { return nil }
+    open var cacheSensitiveData: Data? { return nil }
     
     /// 是否自动异步缓存数据, Default true.
     open var writeCacheAsynchronously: Bool { return true }
@@ -260,7 +260,7 @@ open class WBAlRequest : WBAlBaseRequest {
         
         // SensitiveData
         let sensitiveString = _cacheMetadata?.sensitiveDataString
-        let currentSensitiveString = (self.cacheSensitiveData as AnyObject).description
+        let currentSensitiveString = self.cacheSensitiveData?.description
         if currentSensitiveString != nil || sensitiveString != nil {
             if currentSensitiveString?.count != sensitiveString?.count || currentSensitiveString != sensitiveString {
                 if error != nil {
