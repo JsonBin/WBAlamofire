@@ -6,8 +6,9 @@
 //  Copyright © 2017年 HengSu Technology. All rights reserved.
 //
 
+import Foundation
 import Alamofire
-#if os(iOS) || os(watchOS) || os(tvOS)
+#if os(iOS) || os(watchOS)
     import UIKit
 #endif
 
@@ -17,7 +18,9 @@ open class WBAlamofire {
     open static let shared = WBAlamofire()
     
     // MARK: - Private Properties
+#if !os(watchOS)
     private let _listenManager: NetworkReachabilityManager?
+#endif
     private let _manager: SessionManager
     private let _config: WBAlConfig
     private let _lock: NSLock
@@ -41,13 +44,16 @@ open class WBAlamofire {
         _config.sessionConfiguration.timeoutIntervalForRequest = _config.requestTimeoutInterval
         _config.sessionConfiguration.allowsCellularAccess = _config.allowsCellularAccess
         
-        _listenManager = NetworkReachabilityManager(host: "www.apple.com")
         _manager = SessionManager(configuration: _config.sessionConfiguration, serverTrustPolicyManager: _config.serverPolicy)
         _lock = NSLock()
         _asyncQueue = DispatchQueue.WBALAsyncDispatchQueue
         _statusCode = _config.statusCode
         _contentType = _config.acceptType
         _requestRecord = [Int: WBAlBaseRequest]()
+        
+        #if !os(watchOS)
+            _listenManager = NetworkReachabilityManager(host: "www.apple.com")
+        #endif
         
         #if os(iOS)
             _loadView = WBActivityIndicatorView()
@@ -60,37 +66,41 @@ open class WBAlamofire {
     /// - Parameter request: Class from WBALBaseRequest
     open func add(_ request: WBAlBaseRequest) -> Void {
         
-        if let listenManager = _listenManager, !listenManager.isReachable {
-            WBALog("NetWork Error!, the \(request)'s network is unReachable.")
-            let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestNetWorkErrorCode, userInfo: [NSLocalizedDescriptionKey:"Network is unReachable."])
-            requestDidFailed(request, error: error)
-            return
-        }
-        
-        _listenManager?.listener = { status in
-            if status == .unknown {
-                // 网络变为未知
-                WBAlamofire.shared.cancel(request)
-                
-                #if os(iOS) || os(watchOS) || os(tvOS)
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                #endif
-            }else if status == .notReachable {
-                // 网络断开
-                WBAlamofire.shared.cancel(request)
-                
-                #if os(iOS) || os(watchOS) || os(tvOS)
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                #endif
+        #if !os(watchOS)
+            if let listenManager = _listenManager, !listenManager.isReachable {
+                WBALog("NetWork Error!, the \(request)'s network is unReachable.")
+                let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestNetWorkErrorCode, userInfo: [NSLocalizedDescriptionKey:"Network is unReachable."])
+                requestDidFailed(request, error: error)
+                return
             }
-        }
+            
+            _listenManager?.listener = { status in
+                if status == .unknown {
+                    // 网络变为未知
+                    WBAlamofire.shared.cancel(request)
+                    
+                    #if os(iOS)
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    #endif
+                }else if status == .notReachable {
+                    // 网络断开
+                    WBAlamofire.shared.cancel(request)
+                    
+                    #if os(iOS)
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    #endif
+                }
+            }
+        #endif
         if _config.listenNetWork {
             // 网络状态菊花显示
-            #if os(iOS) || os(watchOS) || os(tvOS)
+            #if os(iOS) || os(watchOS)
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
             #endif
             
-            _listenManager?.startListening()
+            #if !os(watchOS)
+                _listenManager?.startListening()
+            #endif
         }
         
         let request = request
@@ -147,10 +157,12 @@ open class WBAlamofire {
         request.clearCompleteClosure()
      
         if _requestRecord.isEmpty {
-            _listenManager?.stopListening()
+            #if !os(watchOS)
+                _listenManager?.stopListening()
+            #endif
             
             // 取消网络菊花状态
-            #if os(iOS) || os(watchOS) || os(tvOS)
+            #if os(iOS) || os(watchOS)
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             #endif
         }
@@ -158,7 +170,9 @@ open class WBAlamofire {
     
     /// Cancel All Request 取消所有网络请求
     open func cancelAllRequest() -> Void {
-        _listenManager?.stopListening()
+        #if !os(watchOS)
+            _listenManager?.stopListening()
+        #endif
         
         _lock.lock()
         let keys = _requestRecord.keys
@@ -171,7 +185,7 @@ open class WBAlamofire {
             request?.stop()
         }
         // 取消网络菊花状态
-        #if os(iOS) || os(watchOS) || os(tvOS)
+        #if os(iOS) || os(watchOS)
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         #endif
     }
@@ -628,7 +642,7 @@ open class WBAlamofire {
 // MARK: - Success && Failure
     private func requestDidFailed(_ request:WBAlBaseRequest, error requestError:Error, cacheURL url:URL? = nil, resumeData data:Data? = nil) {
         // 取消网络菊花状态
-        #if os(iOS) || os(watchOS) || os(tvOS)
+        #if os(iOS) || os(watchOS)
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         #endif
         
@@ -675,7 +689,7 @@ open class WBAlamofire {
     
     private func requestSuccess(_ request: WBAlBaseRequest, requestResult result:Any?) {
         // 取消网络菊花状态
-        #if os(iOS) || os(watchOS) || os(tvOS)
+        #if os(iOS) || os(watchOS)
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         #endif
         
