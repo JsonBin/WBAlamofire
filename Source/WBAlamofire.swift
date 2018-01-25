@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-#if os(iOS) || os(watchOS)
+#if os(iOS)
     import UIKit
 #endif
 
@@ -284,8 +284,8 @@ open class WBAlamofire {
     ///
     /// - Parameter show: whether show or hide.
     private func setNetworkActivityIndicatorVisible(_ show: Bool = true) {
-        // in ios or watchos, show and hide the network status.
-        #if os(iOS) || os(watchOS)
+        // in iOS, show and hide the network status.
+        #if os(iOS)
             UIApplication.shared.isNetworkActivityIndicatorVisible = show
         #endif
     }
