@@ -6,8 +6,10 @@
 //  Copyright © 2017年 HengSu Technology. All rights reserved.
 //
 
-import Foundation
 import Alamofire
+#if os(iOS) || os(watchOS) || os(tvOS)
+    import UIKit
+#endif
 
 open class WBAlamofire {
     
@@ -70,17 +72,23 @@ open class WBAlamofire {
                 // 网络变为未知
                 WBAlamofire.shared.cancel(request)
                 
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                #if os(iOS) || os(watchOS) || os(tvOS)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                #endif
             }else if status == .notReachable {
                 // 网络断开
                 WBAlamofire.shared.cancel(request)
                 
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                #if os(iOS) || os(watchOS) || os(tvOS)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                #endif
             }
         }
         if _config.listenNetWork {
             // 网络状态菊花显示
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            #if os(iOS) || os(watchOS) || os(tvOS)
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            #endif
             
             _listenManager?.startListening()
         }
@@ -142,7 +150,9 @@ open class WBAlamofire {
             _listenManager?.stopListening()
             
             // 取消网络菊花状态
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            #if os(iOS) || os(watchOS) || os(tvOS)
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            #endif
         }
     }
     
@@ -161,7 +171,9 @@ open class WBAlamofire {
             request?.stop()
         }
         // 取消网络菊花状态
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        #if os(iOS) || os(watchOS) || os(tvOS)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        #endif
     }
     
     open func buildURL(_ request: WBAlBaseRequest) -> URLConvertible {
@@ -616,7 +628,9 @@ open class WBAlamofire {
 // MARK: - Success && Failure
     private func requestDidFailed(_ request:WBAlBaseRequest, error requestError:Error, cacheURL url:URL? = nil, resumeData data:Data? = nil) {
         // 取消网络菊花状态
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        #if os(iOS) || os(watchOS) || os(tvOS)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        #endif
         
         request.error = requestError
         WBALog("Request <\(request)> failed, status code = \(request.statusCode), error = \(requestError.localizedDescription)")
@@ -661,7 +675,9 @@ open class WBAlamofire {
     
     private func requestSuccess(_ request: WBAlBaseRequest, requestResult result:Any?) {
         // 取消网络菊花状态
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        #if os(iOS) || os(watchOS) || os(tvOS)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        #endif
         
         if let result = result {
             // 如果是下载，则响应返回为下载保存的路径
