@@ -1,17 +1,19 @@
 WBAlamofire
 ==========
 
-![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
+[![Build Status](https://api.travis-ci.org/JsonBin/WBAlamofire.svg?branch=master)](https://travis-ci.org/JsonBin/WBAlamofire)
+[![Platform info](https://img.shields.io/cocoapods/p/WBAlamofire.svg?style=flat)](http://cocoadocs.org/docsets/WBAlamofire)
 ![Pod version](https://img.shields.io/cocoapods/v/WBAlamofire.svg?style=flat)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform info](https://img.shields.io/cocoapods/p/WBAlamofire.svg?style=flat)](http://cocoadocs.org/docsets/WBAlamofire)
-[![Build Status](https://api.travis-ci.org/JsonBin/WBAlamofire.svg?branch=master)](https://travis-ci.org/JsonBin/WBAlamofire)
+![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
 
 ## What
 
 WBAlamofire is a high level request util based on [Alamofire][Alamofire]. It provides a High Level API for network request.
 
 WBAlamofire is a swift version from [YTKNetwork][YTKNetwork].
+
+[**中文说明**](Docs/README_cn.md)
 
 ## Features
 
