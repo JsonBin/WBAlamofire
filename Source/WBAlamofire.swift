@@ -6,7 +6,7 @@
 //  Copyright © 2017年 HengSu Technology. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Alamofire
 
 open class WBAlamofire {
@@ -26,8 +26,10 @@ open class WBAlamofire {
     private let WBAlRequestErrorDomain = "com.wbAlamofire.request.domain"
     private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
     private let WBAlRequestErrorCode = -10   // 失败处理状态码
+#if os(iOS)
     /// Add: load view
     private let _loadView: WBActivityIndicatorView
+#endif
     
 // MARK: - Init && Request
     public init() {
@@ -45,8 +47,10 @@ open class WBAlamofire {
         _contentType = _config.acceptType
         _requestRecord = [Int: WBAlBaseRequest]()
         
-        _loadView = WBActivityIndicatorView()
-        refreshLoadViewStatus()
+        #if os(iOS)
+            _loadView = WBActivityIndicatorView()
+            refreshLoadViewStatus()
+        #endif
     }
     
     /// Add Request 添加网络请求
@@ -232,29 +236,33 @@ open class WBAlamofire {
             self.addRecord(request)
             dataRequest.resume()
             
-            // if download file, not to show load view
-            if !request.resumableDownloadPath.isEmpty { return }
-            // update the loadView status
-            refreshLoadViewStatus()
-            // Whether show load view
-            if let view = WBAlUtils.wb_getCurrentViewController?.view, request.showLoadView {
-                // set the load view's properties from the request settting.
-                _loadView.setActivityLabel(text: request.showLoadText, font: request.showLoadTextFont, color: request.showLoadTextColor)
-                if let type = request.showLoadAnimationType { _loadView.animationType = type }
-                if let position = request.showLoadTextPosition { _loadView.labelPosition = position }
-                // show the load view in main thread
-                DispatchQueue.main.async {
-                    self._loadView.startAnimation(inView: view)
+            #if os(iOS)
+                // if download file, not to show load view
+                if !request.resumableDownloadPath.isEmpty { return }
+                // update the loadView status
+                refreshLoadViewStatus()
+                // Whether show load view
+                if let view = WBAlUtils.wb_getCurrentViewController?.view, request.showLoadView {
+                    // set the load view's properties from the request settting.
+                    _loadView.setActivityLabel(text: request.showLoadText, font: request.showLoadTextFont, color: request.showLoadTextColor)
+                    if let type = request.showLoadAnimationType { _loadView.animationType = type }
+                    if let position = request.showLoadTextPosition { _loadView.labelPosition = position }
+                    // show the load view in main thread
+                    DispatchQueue.main.async {
+                        self._loadView.startAnimation(inView: view)
+                    }
                 }
-            }
+            #endif
         }
     }
     
-    private func refreshLoadViewStatus() {
-        _loadView.labelPosition = _config.loadViewTextPosition
-        _loadView.animationType = _config.loadViewAnimationType
-        _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
-    }
+    #if os(iOS)
+        private func refreshLoadViewStatus() {
+            _loadView.labelPosition = _config.loadViewTextPosition
+            _loadView.animationType = _config.loadViewAnimationType
+            _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
+        }
+    #endif
     
  // MARK: - Request
     
@@ -644,8 +652,10 @@ open class WBAlamofire {
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
             
-            // stop load view
-            self._loadView.stopAnimation()
+            #if os(iOS)
+                // stop load view
+                self._loadView.stopAnimation()
+            #endif
         }
     }
     
@@ -704,8 +714,10 @@ open class WBAlamofire {
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
             
-            // stop load view
-            self._loadView.stopAnimation()
+            #if os(iOS)
+                // stop load view
+                self._loadView.stopAnimation()
+            #endif
         }
     }
 }

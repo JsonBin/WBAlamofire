@@ -6,6 +6,9 @@
 //  Copyright © 2017年 HengSu Technology. All rights reserved.
 //
 
+/// 在网络请求中添加加载框，只在iOS系统中实现，tvOS、watchOS及macOS中不涉及
+
+#if os(iOS)
 import UIKit
 
 /// label文字所处的位置
@@ -274,3 +277,4 @@ extension WBActivityRodllView : CAAnimationDelegate {
         startAnimation()
     }
 }
+#endif

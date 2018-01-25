@@ -196,6 +196,7 @@ public protocol BaseRequest {
     /// 是否使用cdn
     var useCDN: Bool { get }
     
+#if os(iOS)
     /// 是否显示loadView, Default is false
     var showLoadView: Bool { get }
     
@@ -213,6 +214,7 @@ public protocol BaseRequest {
     
     /// 显示加载框的文字, 若不设置则使用WBAlConfig内的配置
     var showLoadText: String? { get }
+#endif
     
 // MARK: - Response Properties
     /// 响应状态码

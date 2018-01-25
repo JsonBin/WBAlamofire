@@ -67,6 +67,7 @@ open class WBAlConfig {
     /// Download file name. 下载文件时保存的文件名，位于.../Documents/{downFileName}下
     open var downFileName = "wbalamofire.download.default"
     
+#if os(iOS)
     /// The load view animationType. Default is native. 加载框的动画类型，默认为native
     open var loadViewAnimationType = AnimationType.native
     
@@ -81,6 +82,7 @@ open class WBAlConfig {
     
     /// The load view text. Default is 'Loading'. 加载框显示的文字，默认为Loading
     open var loadViewText = "Loading"
+#endif
     
 // MARK: - Init
     public init() {

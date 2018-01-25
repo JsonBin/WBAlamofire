@@ -59,6 +59,7 @@ open class WBAlBaseRequest : BaseRequest {
     /// 是否使用cdn
     open var useCDN: Bool { return false }
     
+#if os(iOS)
     /// 是否显示loadView, 默认不显示
     open var showLoadView: Bool { return false }
     
@@ -76,7 +77,8 @@ open class WBAlBaseRequest : BaseRequest {
     
     /// 显示加载框的文字, 若不设置则使用WBAlConfig内的配置， 默认为'Loading'
     open var showLoadText: String? { return nil }
-
+#endif
+    
     /// 过滤请求params的方法, 可覆写. 默认不过滤
     open func cacheFileNameFilterForRequestParams(_ params: [String: Any]) -> [String: Any] { return params }
     

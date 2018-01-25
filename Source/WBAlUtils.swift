@@ -6,7 +6,11 @@
 //  Copyright © 2017年 HengSu Technology. All rights reserved.
 //
 
-import UIKit
+#if os(iOS)
+    import UIKit
+#else
+    import Foundation
+#endif
 
 /// 私有调用类
 open class WBAlUtils {
@@ -86,6 +90,7 @@ open class WBAlUtils {
         return true
     }
     
+#if os(iOS)
     /// Get the top current viewController.
     open class var wb_getCurrentViewController: UIViewController? {
         var result: UIViewController?
@@ -108,6 +113,7 @@ open class WBAlUtils {
         }
         return result
     }
+#endif
 }
 
 /// NSKeyedArchiver metadata
