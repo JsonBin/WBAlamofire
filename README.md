@@ -1,17 +1,19 @@
 WBAlamofire
 ==========
 
-![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
-![Pod version](https://img.shields.io/cocoapods/v/WBAlamofire.svg?style=flat)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform info](https://img.shields.io/cocoapods/p/WBAlamofire.svg?style=flat)](http://cocoadocs.org/docsets/WBAlamofire)
 [![Build Status](https://api.travis-ci.org/JsonBin/WBAlamofire.svg?branch=master)](https://travis-ci.org/JsonBin/WBAlamofire)
+![Pod version](https://img.shields.io/cocoapods/v/WBAlamofire.svg?style=flat)
+[![Platform info](https://img.shields.io/cocoapods/p/WBAlamofire.svg?style=flat)](http://cocoadocs.org/docsets/WBAlamofire)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)
 
 ## What
 
 WBAlamofire is a high level request util based on [Alamofire][Alamofire]. It provides a High Level API for network request.
 
 WBAlamofire is a swift version from [YTKNetwork][YTKNetwork].
+
+[**中文说明**](Docs/README_cn.md)
 
 ## Features
 
@@ -37,7 +39,7 @@ To use WBAlamofire add the following to your Podfile
 
 | WBAlamofire Version | Alamofire Version |  Minimum iOS Target | Note |
 |:------------------:|:--------------------:|:-------------------:|:-----|
-| 1.x | 4.x | iOS 9 | Xcode 9+ is required. |
+| 1.x | 4.x | iOS 8 | Xcode 9+ is required. |
 
 WBAlamofire is based on Alamofire. You can find more detail about version compability at [Alamofire README](https://github.com/Alamofire/Alamofire).
 
