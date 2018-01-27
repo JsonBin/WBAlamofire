@@ -31,17 +31,64 @@ WBAlamofire is a swift version from [YTKNetwork][YTKNetwork].
 * Plugin mechanism, handle request start and finish. A plugin for show "Loading" HUD is provided
 
 ## Installation
-To use WBAlamofire add the following to your Podfile
+WBAlamofire supports multiple methods for installing the library in a project.
 
-    pod 'WBAlamofire'
+## CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like AFNetworking in your projects. See the ["Getting Started" guide for more information](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking). You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 1.2.0+ is required to build WBAlamofire.
+
+#### Podfile
+
+To integrate WBAlamofire into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+
+target 'TargetName' do
+pod 'WBAlamofire'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+## Carthage
+
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate WBAlamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "JsonBin/WBAlamofire"
+```
+
+Run `carthage` to build the framework and drag the built `WBAlamofire.framework` into your Xcode project.
     
 ## Requirements
 
 - Swift 4.0+
 
-| WBAlamofire Version | Alamofire Version |  Minimum iOS Target | Note |
-|:------------------:|:--------------------:|:-------------------:|:-----|
-| 1.x | 4.x | iOS 8 | Xcode 9+ is required. |
+| WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |             Note            |
+|:------------------:|:--------------------:|:-------------------:|:----------------------------:|:----------------------------:|:----------------------------:|:--------------------------------------------------------|
+| 1.x | 4.x | iOS 8 | OS X 10.10 | watchOS 2.0 | tvOS 9.0 | Xcode 9+ is required. |
 
 WBAlamofire is based on Alamofire. You can find more detail about version compability at [Alamofire README](https://github.com/Alamofire/Alamofire).
 
