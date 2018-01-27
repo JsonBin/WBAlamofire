@@ -12,7 +12,6 @@ env:
     gem install xcpretty -N --no-ri --no-rdoc
 script:
 - |
-    ./setup.sh
     if [ "$TEST_TYPE" = iOS ]; then
       set -o pipefail
       xcodebuild clean test -workspace WBAlamofire.xcworkspace -scheme WBAlamofire -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.1' -enableCodeCoverage YES | xcpretty
