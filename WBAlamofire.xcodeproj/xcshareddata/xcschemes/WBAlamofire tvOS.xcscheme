@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DFCBB101201C25FD00AA4CDC"
-               BuildableName = "WBAlamofire_tvOS.framework"
+               BlueprintIdentifier = "DFCBB15D201C291200AA4CDC"
+               BuildableName = "WBAlamofire.framework"
                BlueprintName = "WBAlamofire tvOS"
                ReferencedContainer = "container:WBAlamofire.xcodeproj">
             </BuildableReference>
@@ -47,8 +47,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DFCBB101201C25FD00AA4CDC"
-            BuildableName = "WBAlamofire_tvOS.framework"
+            BlueprintIdentifier = "DFCBB15D201C291200AA4CDC"
+            BuildableName = "WBAlamofire.framework"
             BlueprintName = "WBAlamofire tvOS"
             ReferencedContainer = "container:WBAlamofire.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DFCBB101201C25FD00AA4CDC"
-            BuildableName = "WBAlamofire_tvOS.framework"
+            BlueprintIdentifier = "DFCBB15D201C291200AA4CDC"
+            BuildableName = "WBAlamofire.framework"
             BlueprintName = "WBAlamofire tvOS"
             ReferencedContainer = "container:WBAlamofire.xcodeproj">
          </BuildableReference>

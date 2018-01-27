@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DFCBB0AC201C252200AA4CDC"
-               BuildableName = "WBAlamofire_macOS.framework"
+               BlueprintIdentifier = "DFCBB16A201C292600AA4CDC"
+               BuildableName = "WBAlamofire.framework"
                BlueprintName = "WBAlamofire macOS"
                ReferencedContainer = "container:WBAlamofire.xcodeproj">
             </BuildableReference>
@@ -47,8 +47,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DFCBB0AC201C252200AA4CDC"
-            BuildableName = "WBAlamofire_macOS.framework"
+            BlueprintIdentifier = "DFCBB16A201C292600AA4CDC"
+            BuildableName = "WBAlamofire.framework"
             BlueprintName = "WBAlamofire macOS"
             ReferencedContainer = "container:WBAlamofire.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DFCBB0AC201C252200AA4CDC"
-            BuildableName = "WBAlamofire_macOS.framework"
+            BlueprintIdentifier = "DFCBB16A201C292600AA4CDC"
+            BuildableName = "WBAlamofire.framework"
             BlueprintName = "WBAlamofire macOS"
             ReferencedContainer = "container:WBAlamofire.xcodeproj">
          </BuildableReference>

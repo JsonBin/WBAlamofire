@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DFCBB112201C260B00AA4CDC"
-               BuildableName = "WBAlamofire_watchOS.framework"
+               BlueprintIdentifier = "DFCBB150201C290100AA4CDC"
+               BuildableName = "WBAlamofire.framework"
                BlueprintName = "WBAlamofire watchOS"
                ReferencedContainer = "container:WBAlamofire.xcodeproj">
             </BuildableReference>
@@ -47,8 +47,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DFCBB112201C260B00AA4CDC"
-            BuildableName = "WBAlamofire_watchOS.framework"
+            BlueprintIdentifier = "DFCBB150201C290100AA4CDC"
+            BuildableName = "WBAlamofire.framework"
             BlueprintName = "WBAlamofire watchOS"
             ReferencedContainer = "container:WBAlamofire.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DFCBB112201C260B00AA4CDC"
-            BuildableName = "WBAlamofire_watchOS.framework"
+            BlueprintIdentifier = "DFCBB150201C290100AA4CDC"
+            BuildableName = "WBAlamofire.framework"
             BlueprintName = "WBAlamofire watchOS"
             ReferencedContainer = "container:WBAlamofire.xcodeproj">
          </BuildableReference>
