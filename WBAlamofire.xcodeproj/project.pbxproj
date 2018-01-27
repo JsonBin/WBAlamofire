@@ -36,7 +36,6 @@
 		DFCBB0A4201C213C00AA4CDC /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
 		DFCBB0A5201C213C00AA4CDC /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
 		DFCBB0A7201C21E100AA4CDC /* WBAlmofire.h in Headers */ = {isa = PBXBuildFile; fileRef = DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DFCBB144201C280600AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB145201C280600AA4CDC /* Alamofire.framework */; };
 		DFCBB173201C296400AA4CDC /* WBAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */; };
 		DFCBB174201C296400AA4CDC /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
 		DFCBB175201C296400AA4CDC /* WBAlBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */; };
@@ -49,7 +48,6 @@
 		DFCBB17C201C296400AA4CDC /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
 		DFCBB17D201C296400AA4CDC /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
 		DFCBB17E201C296900AA4CDC /* WBAlmofire.h in Headers */ = {isa = PBXBuildFile; fileRef = DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DFCBB17F201C2AC100AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB180201C2AC100AA4CDC /* Alamofire.framework */; };
 		DFCBB181201C2AE000AA4CDC /* WBAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */; };
 		DFCBB182201C2AE000AA4CDC /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
 		DFCBB183201C2AE000AA4CDC /* WBAlBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */; };
@@ -74,9 +72,24 @@
 		DFCBB196201C2AF100AA4CDC /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
 		DFCBB197201C2AF100AA4CDC /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
 		DFCBB198201C2AF600AA4CDC /* WBAlmofire.h in Headers */ = {isa = PBXBuildFile; fileRef = DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DFCBB199201C2B1600AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB19A201C2B1600AA4CDC /* Alamofire.framework */; };
-		DFCBB19B201C2B5F00AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB19C201C2B5F00AA4CDC /* Alamofire.framework */; };
+		DFFFC7A1201C7D520067824A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7A0201C7D520067824A /* Alamofire.framework */; };
+		DFFFC7A3201C7D620067824A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7A2201C7D620067824A /* Alamofire.framework */; };
+		DFFFC7A5201C7D740067824A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7A4201C7D730067824A /* Alamofire.framework */; };
+		DFFFC7A7201C7D820067824A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7A6201C7D820067824A /* Alamofire.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DFFFC791201C7B530067824A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		03DE5D1FB9798699EA12B700 /* Pods-WBAlamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WBAlamofire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,17 +116,13 @@
 		DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DFC9EE221F8F42D600D95257 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		DFCBB08E201C20F400AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB145201C280600AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB147201C280B00AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB149201C281100AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB14B201C281500AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFCBB151201C290100AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFCBB15E201C291200AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFCBB16B201C292600AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB180201C2AC100AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB19A201C2B1600AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB19C201C2B5F00AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFCBB1C3201C4E0D00AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFFFC7A0201C7D520067824A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
+		DFFFC7A2201C7D620067824A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
+		DFFFC7A4201C7D730067824A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		DFFFC7A6201C7D820067824A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/watchOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFCBB144201C280600AA4CDC /* Alamofire.framework in Frameworks */,
+				DFFFC7A5201C7D740067824A /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFCBB17F201C2AC100AA4CDC /* Alamofire.framework in Frameworks */,
+				DFFFC7A7201C7D820067824A /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFCBB199201C2B1600AA4CDC /* Alamofire.framework in Frameworks */,
+				DFFFC7A3201C7D620067824A /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFCBB19B201C2B5F00AA4CDC /* Alamofire.framework in Frameworks */,
+				DFFFC7A1201C7D520067824A /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,14 +232,10 @@
 		DF68CC1C9672036D3304F168 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DFCBB1C3201C4E0D00AA4CDC /* Alamofire.framework */,
-				DFCBB19C201C2B5F00AA4CDC /* Alamofire.framework */,
-				DFCBB19A201C2B1600AA4CDC /* Alamofire.framework */,
-				DFCBB180201C2AC100AA4CDC /* Alamofire.framework */,
-				DFCBB14B201C281500AA4CDC /* Alamofire.framework */,
-				DFCBB149201C281100AA4CDC /* Alamofire.framework */,
-				DFCBB147201C280B00AA4CDC /* Alamofire.framework */,
-				DFCBB145201C280600AA4CDC /* Alamofire.framework */,
+				DFFFC7A0201C7D520067824A /* Alamofire.framework */,
+				DFFFC7A2201C7D620067824A /* Alamofire.framework */,
+				DFFFC7A4201C7D730067824A /* Alamofire.framework */,
+				DFFFC7A6201C7D820067824A /* Alamofire.framework */,
 				515C915A0D91A2EEB0968340 /* Pods_WBAlamofire.framework */,
 			);
 			name = Frameworks;
@@ -297,6 +302,7 @@
 				DF15862A1E84D0620053CB3D /* Resources */,
 				0996EE984B380F6FF2D9B2DB /* [CP] Embed Pods Frameworks */,
 				285E69F5D91041F69EE24CCE /* [CP] Copy Pods Resources */,
+				DFFFC791201C7B530067824A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -782,6 +788,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -814,6 +824,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -846,6 +860,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -879,6 +897,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -912,6 +934,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -945,6 +971,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -979,6 +1009,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
@@ -1013,6 +1047,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
