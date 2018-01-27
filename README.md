@@ -35,7 +35,7 @@ WBAlamofire supports multiple methods for installing the library in a project.
 
 ## CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like AFNetworking in your projects. See the ["Getting Started" guide for more information](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking). You can install it with the following command:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like WBAlamofire in your projects. See the ["Getting Started" guide for more information](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking). You can install it with the following command:
 
 ```bash
 $ gem install cocoapods
@@ -86,7 +86,7 @@ Run `carthage` to build the framework and drag the built `WBAlamofire.framework`
 
 - Swift 4.0+
 
-| WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |             Note            |
+| WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |                Note                 |
 |:------------------:|:--------------------:|:-------------------:|:----------------------------:|:----------------------------:|:----------------------------:|:--------------------------------------------------------|
 | 1.x | 4.x | iOS 8 | OS X 10.10 | watchOS 2.0 | tvOS 9.0 | Xcode 9+ is required. |
 
