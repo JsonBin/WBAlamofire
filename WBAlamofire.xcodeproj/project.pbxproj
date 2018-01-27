@@ -24,7 +24,85 @@
 		DFBA4BC21F8F3D320096C1F2 /* RegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */; };
 		DFBA4BC31F8F3D320096C1F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */; };
 		DFC9EE231F8F42D600D95257 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
+		DFCBB095201C20F400AA4CDC /* WBAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB08E201C20F400AA4CDC /* WBAlamofire.framework */; };
+		DFCBB096201C20F400AA4CDC /* WBAlamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB08E201C20F400AA4CDC /* WBAlamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DFCBB09B201C213C00AA4CDC /* WBAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */; };
+		DFCBB09C201C213C00AA4CDC /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
+		DFCBB09D201C213C00AA4CDC /* WBAlBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */; };
+		DFCBB09E201C213C00AA4CDC /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE21F8F26410030DF90 /* WBAlRequest.swift */; };
+		DFCBB09F201C213C00AA4CDC /* WBAlBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */; };
+		DFCBB0A0201C213C00AA4CDC /* WBAlChainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */; };
+		DFCBB0A1201C213C00AA4CDC /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */; };
+		DFCBB0A2201C213C00AA4CDC /* WBAlCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7158821FF386F500D9B581 /* WBAlCache.swift */; };
+		DFCBB0A3201C213C00AA4CDC /* WBAlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE11F8F26410030DF90 /* WBAlConfig.swift */; };
+		DFCBB0A4201C213C00AA4CDC /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
+		DFCBB0A5201C213C00AA4CDC /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
+		DFCBB0A7201C21E100AA4CDC /* WBAlmofire.h in Headers */ = {isa = PBXBuildFile; fileRef = DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DFCBB144201C280600AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB145201C280600AA4CDC /* Alamofire.framework */; };
+		DFCBB173201C296400AA4CDC /* WBAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */; };
+		DFCBB174201C296400AA4CDC /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
+		DFCBB175201C296400AA4CDC /* WBAlBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */; };
+		DFCBB176201C296400AA4CDC /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE21F8F26410030DF90 /* WBAlRequest.swift */; };
+		DFCBB177201C296400AA4CDC /* WBAlBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */; };
+		DFCBB178201C296400AA4CDC /* WBAlChainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */; };
+		DFCBB179201C296400AA4CDC /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */; };
+		DFCBB17A201C296400AA4CDC /* WBAlCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7158821FF386F500D9B581 /* WBAlCache.swift */; };
+		DFCBB17B201C296400AA4CDC /* WBAlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE11F8F26410030DF90 /* WBAlConfig.swift */; };
+		DFCBB17C201C296400AA4CDC /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
+		DFCBB17D201C296400AA4CDC /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
+		DFCBB17E201C296900AA4CDC /* WBAlmofire.h in Headers */ = {isa = PBXBuildFile; fileRef = DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DFCBB17F201C2AC100AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB180201C2AC100AA4CDC /* Alamofire.framework */; };
+		DFCBB181201C2AE000AA4CDC /* WBAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */; };
+		DFCBB182201C2AE000AA4CDC /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
+		DFCBB183201C2AE000AA4CDC /* WBAlBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */; };
+		DFCBB184201C2AE000AA4CDC /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE21F8F26410030DF90 /* WBAlRequest.swift */; };
+		DFCBB185201C2AE000AA4CDC /* WBAlBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */; };
+		DFCBB186201C2AE000AA4CDC /* WBAlChainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */; };
+		DFCBB187201C2AE000AA4CDC /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */; };
+		DFCBB188201C2AE000AA4CDC /* WBAlCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7158821FF386F500D9B581 /* WBAlCache.swift */; };
+		DFCBB189201C2AE000AA4CDC /* WBAlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE11F8F26410030DF90 /* WBAlConfig.swift */; };
+		DFCBB18A201C2AE000AA4CDC /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
+		DFCBB18B201C2AE000AA4CDC /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
+		DFCBB18C201C2AE400AA4CDC /* WBAlmofire.h in Headers */ = {isa = PBXBuildFile; fileRef = DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DFCBB18D201C2AF100AA4CDC /* WBAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */; };
+		DFCBB18E201C2AF100AA4CDC /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71587E1FF3534B00D9B581 /* BaseRequest.swift */; };
+		DFCBB18F201C2AF100AA4CDC /* WBAlBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */; };
+		DFCBB190201C2AF100AA4CDC /* WBAlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE21F8F26410030DF90 /* WBAlRequest.swift */; };
+		DFCBB191201C2AF100AA4CDC /* WBAlBatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */; };
+		DFCBB192201C2AF100AA4CDC /* WBAlChainRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */; };
+		DFCBB193201C2AF100AA4CDC /* WBActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */; };
+		DFCBB194201C2AF100AA4CDC /* WBAlCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7158821FF386F500D9B581 /* WBAlCache.swift */; };
+		DFCBB195201C2AF100AA4CDC /* WBAlConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE11F8F26410030DF90 /* WBAlConfig.swift */; };
+		DFCBB196201C2AF100AA4CDC /* WBAlUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF322DE31F8F26410030DF90 /* WBAlUtils.swift */; };
+		DFCBB197201C2AF100AA4CDC /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC9EE221F8F42D600D95257 /* String+MD5.swift */; };
+		DFCBB198201C2AF600AA4CDC /* WBAlmofire.h in Headers */ = {isa = PBXBuildFile; fileRef = DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DFCBB199201C2B1600AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB19A201C2B1600AA4CDC /* Alamofire.framework */; };
+		DFCBB19B201C2B5F00AA4CDC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFCBB19C201C2B5F00AA4CDC /* Alamofire.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DFCBB093201C20F400AA4CDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF1586241E84D0620053CB3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFCBB08D201C20F400AA4CDC;
+			remoteInfo = "WBAlamofire iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DFCBB09A201C20F400AA4CDC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DFCBB096201C20F400AA4CDC /* WBAlamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		03DE5D1FB9798699EA12B700 /* Pods-WBAlamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WBAlamofire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire.debug.xcconfig"; sourceTree = "<group>"; };
@@ -50,6 +128,17 @@
 		DFBA4BBB1F8F3D320096C1F2 /* RegisterApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterApi.swift; sourceTree = "<group>"; };
 		DFBA4BBC1F8F3D320096C1F2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DFC9EE221F8F42D600D95257 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
+		DFCBB08E201C20F400AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB145201C280600AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB147201C280B00AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB149201C281100AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB14B201C281500AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB151201C290100AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB15E201C291200AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB16B201C292600AA4CDC /* WBAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WBAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB180201C2AC100AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB19A201C2B1600AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCBB19C201C2B5F00AA4CDC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +146,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFCBB095201C20F400AA4CDC /* WBAlamofire.framework in Frameworks */,
 				2C68D3F99DD18673E41992A3 /* Pods_WBAlamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB08A201C20F400AA4CDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB144201C280600AA4CDC /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB14D201C290100AA4CDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB17F201C2AC100AA4CDC /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB15A201C291200AA4CDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB199201C2B1600AA4CDC /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB167201C292600AA4CDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB19B201C2B5F00AA4CDC /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +198,7 @@
 		DF09FCE01F8F5D8C00F5ACD9 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */,
 				DF09FCE11F8F5DE000F5ACD9 /* Info.plist */,
 			);
 			path = "Support Files";
@@ -96,6 +219,10 @@
 			isa = PBXGroup;
 			children = (
 				DF15862C1E84D0620053CB3D /* WBAlamofire.app */,
+				DFCBB08E201C20F400AA4CDC /* WBAlamofire.framework */,
+				DFCBB151201C290100AA4CDC /* WBAlamofire.framework */,
+				DFCBB15E201C291200AA4CDC /* WBAlamofire.framework */,
+				DFCBB16B201C292600AA4CDC /* WBAlamofire.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,7 +241,6 @@
 				DF322DE11F8F26410030DF90 /* WBAlConfig.swift */,
 				DF322DE31F8F26410030DF90 /* WBAlUtils.swift */,
 				DFC9EE221F8F42D600D95257 /* String+MD5.swift */,
-				DF09FCDF1F8F5D3200F5ACD9 /* WBAlmofire.h */,
 				DF09FCE01F8F5D8C00F5ACD9 /* Support Files */,
 			);
 			path = Source;
@@ -123,6 +249,13 @@
 		DF68CC1C9672036D3304F168 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFCBB19C201C2B5F00AA4CDC /* Alamofire.framework */,
+				DFCBB19A201C2B1600AA4CDC /* Alamofire.framework */,
+				DFCBB180201C2AC100AA4CDC /* Alamofire.framework */,
+				DFCBB14B201C281500AA4CDC /* Alamofire.framework */,
+				DFCBB149201C281100AA4CDC /* Alamofire.framework */,
+				DFCBB147201C280B00AA4CDC /* Alamofire.framework */,
+				DFCBB145201C280600AA4CDC /* Alamofire.framework */,
 				515C915A0D91A2EEB0968340 /* Pods_WBAlamofire.framework */,
 			);
 			name = Frameworks;
@@ -143,6 +276,41 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		DFCBB08B201C20F400AA4CDC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB0A7201C21E100AA4CDC /* WBAlmofire.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB14E201C290100AA4CDC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB18C201C2AE400AA4CDC /* WBAlmofire.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB15B201C291200AA4CDC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB198201C2AF600AA4CDC /* WBAlmofire.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB168201C292600AA4CDC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB17E201C296900AA4CDC /* WBAlmofire.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		DF15862B1E84D0620053CB3D /* WBAlamofire */ = {
 			isa = PBXNativeTarget;
@@ -154,15 +322,89 @@
 				DF15862A1E84D0620053CB3D /* Resources */,
 				0996EE984B380F6FF2D9B2DB /* [CP] Embed Pods Frameworks */,
 				285E69F5D91041F69EE24CCE /* [CP] Copy Pods Resources */,
+				DFCBB09A201C20F400AA4CDC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DFCBB094201C20F400AA4CDC /* PBXTargetDependency */,
 			);
 			name = WBAlamofire;
 			productName = WBAlamofire;
 			productReference = DF15862C1E84D0620053CB3D /* WBAlamofire.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DFCBB08D201C20F400AA4CDC /* WBAlamofire iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFCBB099201C20F400AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire iOS" */;
+			buildPhases = (
+				DFCBB089201C20F400AA4CDC /* Sources */,
+				DFCBB08A201C20F400AA4CDC /* Frameworks */,
+				DFCBB08B201C20F400AA4CDC /* Headers */,
+				DFCBB08C201C20F400AA4CDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WBAlamofire iOS";
+			productName = "WBAlamofire iOS";
+			productReference = DFCBB08E201C20F400AA4CDC /* WBAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DFCBB150201C290100AA4CDC /* WBAlamofire watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFCBB156201C290100AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire watchOS" */;
+			buildPhases = (
+				DFCBB14C201C290100AA4CDC /* Sources */,
+				DFCBB14D201C290100AA4CDC /* Frameworks */,
+				DFCBB14E201C290100AA4CDC /* Headers */,
+				DFCBB14F201C290100AA4CDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WBAlamofire watchOS";
+			productName = "WBAlamofire watchOS";
+			productReference = DFCBB151201C290100AA4CDC /* WBAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DFCBB15D201C291200AA4CDC /* WBAlamofire tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFCBB163201C291200AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire tvOS" */;
+			buildPhases = (
+				DFCBB159201C291200AA4CDC /* Sources */,
+				DFCBB15A201C291200AA4CDC /* Frameworks */,
+				DFCBB15B201C291200AA4CDC /* Headers */,
+				DFCBB15C201C291200AA4CDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WBAlamofire tvOS";
+			productName = "WBAlamofire tvOS";
+			productReference = DFCBB15E201C291200AA4CDC /* WBAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DFCBB16A201C292600AA4CDC /* WBAlamofire macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFCBB170201C292600AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire macOS" */;
+			buildPhases = (
+				DFCBB166201C292600AA4CDC /* Sources */,
+				DFCBB167201C292600AA4CDC /* Frameworks */,
+				DFCBB168201C292600AA4CDC /* Headers */,
+				DFCBB169201C292600AA4CDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WBAlamofire macOS";
+			productName = "WBAlamofire macOS";
+			productReference = DFCBB16B201C292600AA4CDC /* WBAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -176,6 +418,22 @@
 				TargetAttributes = {
 					DF15862B1E84D0620053CB3D = {
 						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Manual;
+					};
+					DFCBB08D201C20F400AA4CDC = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+					DFCBB150201C290100AA4CDC = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+					DFCBB15D201C291200AA4CDC = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+					DFCBB16A201C292600AA4CDC = {
+						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -194,6 +452,10 @@
 			projectRoot = "";
 			targets = (
 				DF15862B1E84D0620053CB3D /* WBAlamofire */,
+				DFCBB08D201C20F400AA4CDC /* WBAlamofire iOS */,
+				DFCBB150201C290100AA4CDC /* WBAlamofire watchOS */,
+				DFCBB15D201C291200AA4CDC /* WBAlamofire tvOS */,
+				DFCBB16A201C292600AA4CDC /* WBAlamofire macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -205,6 +467,34 @@
 			files = (
 				DF7158811FF3758800D9B581 /* Launch Screen.storyboard in Resources */,
 				DFBA4BBE1F8F3D320096C1F2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB08C201C20F400AA4CDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB14F201C290100AA4CDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB15C201C291200AA4CDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB169201C292600AA4CDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +576,87 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFCBB089201C20F400AA4CDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB09B201C213C00AA4CDC /* WBAlamofire.swift in Sources */,
+				DFCBB09C201C213C00AA4CDC /* BaseRequest.swift in Sources */,
+				DFCBB09D201C213C00AA4CDC /* WBAlBaseRequest.swift in Sources */,
+				DFCBB09E201C213C00AA4CDC /* WBAlRequest.swift in Sources */,
+				DFCBB09F201C213C00AA4CDC /* WBAlBatchRequest.swift in Sources */,
+				DFCBB0A0201C213C00AA4CDC /* WBAlChainRequest.swift in Sources */,
+				DFCBB0A1201C213C00AA4CDC /* WBActivityIndicatorView.swift in Sources */,
+				DFCBB0A2201C213C00AA4CDC /* WBAlCache.swift in Sources */,
+				DFCBB0A3201C213C00AA4CDC /* WBAlConfig.swift in Sources */,
+				DFCBB0A4201C213C00AA4CDC /* WBAlUtils.swift in Sources */,
+				DFCBB0A5201C213C00AA4CDC /* String+MD5.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB14C201C290100AA4CDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB181201C2AE000AA4CDC /* WBAlamofire.swift in Sources */,
+				DFCBB182201C2AE000AA4CDC /* BaseRequest.swift in Sources */,
+				DFCBB183201C2AE000AA4CDC /* WBAlBaseRequest.swift in Sources */,
+				DFCBB184201C2AE000AA4CDC /* WBAlRequest.swift in Sources */,
+				DFCBB185201C2AE000AA4CDC /* WBAlBatchRequest.swift in Sources */,
+				DFCBB186201C2AE000AA4CDC /* WBAlChainRequest.swift in Sources */,
+				DFCBB187201C2AE000AA4CDC /* WBActivityIndicatorView.swift in Sources */,
+				DFCBB188201C2AE000AA4CDC /* WBAlCache.swift in Sources */,
+				DFCBB189201C2AE000AA4CDC /* WBAlConfig.swift in Sources */,
+				DFCBB18A201C2AE000AA4CDC /* WBAlUtils.swift in Sources */,
+				DFCBB18B201C2AE000AA4CDC /* String+MD5.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB159201C291200AA4CDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB18D201C2AF100AA4CDC /* WBAlamofire.swift in Sources */,
+				DFCBB18E201C2AF100AA4CDC /* BaseRequest.swift in Sources */,
+				DFCBB18F201C2AF100AA4CDC /* WBAlBaseRequest.swift in Sources */,
+				DFCBB190201C2AF100AA4CDC /* WBAlRequest.swift in Sources */,
+				DFCBB191201C2AF100AA4CDC /* WBAlBatchRequest.swift in Sources */,
+				DFCBB192201C2AF100AA4CDC /* WBAlChainRequest.swift in Sources */,
+				DFCBB193201C2AF100AA4CDC /* WBActivityIndicatorView.swift in Sources */,
+				DFCBB194201C2AF100AA4CDC /* WBAlCache.swift in Sources */,
+				DFCBB195201C2AF100AA4CDC /* WBAlConfig.swift in Sources */,
+				DFCBB196201C2AF100AA4CDC /* WBAlUtils.swift in Sources */,
+				DFCBB197201C2AF100AA4CDC /* String+MD5.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFCBB166201C292600AA4CDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFCBB173201C296400AA4CDC /* WBAlamofire.swift in Sources */,
+				DFCBB174201C296400AA4CDC /* BaseRequest.swift in Sources */,
+				DFCBB175201C296400AA4CDC /* WBAlBaseRequest.swift in Sources */,
+				DFCBB176201C296400AA4CDC /* WBAlRequest.swift in Sources */,
+				DFCBB177201C296400AA4CDC /* WBAlBatchRequest.swift in Sources */,
+				DFCBB178201C296400AA4CDC /* WBAlChainRequest.swift in Sources */,
+				DFCBB179201C296400AA4CDC /* WBActivityIndicatorView.swift in Sources */,
+				DFCBB17A201C296400AA4CDC /* WBAlCache.swift in Sources */,
+				DFCBB17B201C296400AA4CDC /* WBAlConfig.swift in Sources */,
+				DFCBB17C201C296400AA4CDC /* WBAlUtils.swift in Sources */,
+				DFCBB17D201C296400AA4CDC /* String+MD5.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DFCBB094201C20F400AA4CDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFCBB08D201C20F400AA4CDC /* WBAlamofire iOS */;
+			targetProxy = DFCBB093201C20F400AA4CDC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DF15863C1E84D0620053CB3D /* Debug */ = {
@@ -398,13 +768,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 03DE5D1FB9798699EA12B700 /* Pods-WBAlamofire.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/WBAlamofireDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hs.extension.WBAlamofire;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -416,17 +788,283 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A1AB55778BB6EB087F28DE1 /* Pods-WBAlamofire.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/WBAlamofireDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hs.extension.WBAlamofire;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		DFCBB097201C20F400AA4CDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DFCBB098201C20F400AA4CDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DFCBB157201C290100AA4CDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		DFCBB158201C290100AA4CDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		DFCBB164201C291200AA4CDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DFCBB165201C291200AA4CDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DFCBB171201C292600AA4CDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DFCBB172201C292600AA4CDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Support Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofire;
+				PRODUCT_MODULE_NAME = WBAlamofire;
+				PRODUCT_NAME = WBAlamofire;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -447,6 +1085,42 @@
 			buildConfigurations = (
 				DF15863F1E84D0620053CB3D /* Debug */,
 				DF1586401E84D0620053CB3D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFCBB099201C20F400AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFCBB097201C20F400AA4CDC /* Debug */,
+				DFCBB098201C20F400AA4CDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFCBB156201C290100AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFCBB157201C290100AA4CDC /* Debug */,
+				DFCBB158201C290100AA4CDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFCBB163201C291200AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFCBB164201C291200AA4CDC /* Debug */,
+				DFCBB165201C291200AA4CDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFCBB170201C292600AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFCBB171201C292600AA4CDC /* Debug */,
+				DFCBB172201C292600AA4CDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
