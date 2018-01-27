@@ -1,11 +1,25 @@
-language: objective-c
+language: swift
 osx_image: xcode9.1
 
+matrix:
+  include:
+    - osx_image: xcode9.1
+      env: PLATFORM="iOS"
+    - osx_image: xcode9.1
+      env: PLATFORM="tvOS"
+    - osx_image: xcode9.1
+      env: PLATFORM="macOS"
 env:
-  - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
-  - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
-  - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
-  - ACTION=test  PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 42mm'
-
+  global:
+    - LANG=en_US.UTF-8
+cache:
+  - bundler
+before_install:
+  - brew update
+  - brew upgrade carthage || true
+  - carthage version
+  - carthage bootstrap --platform $PLATFORM
 script:
-  - set -o pipefail && xcodebuild -scheme WBAlamofire -destination "$DESTINATION" $ACTION | xcpretty
+  - bundle exec rake ci[$PLATFORM]
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
