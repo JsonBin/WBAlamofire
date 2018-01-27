@@ -8,6 +8,9 @@
 
 import Foundation
 import Alamofire
+#if os(iOS)
+    import UIKit
+#endif
 
 /// 请求baseRequest
 open class WBAlBaseRequest : BaseRequest {

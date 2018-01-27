@@ -76,6 +76,7 @@
 		DFFFC7A3201C7D620067824A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7A2201C7D620067824A /* Alamofire.framework */; };
 		DFFFC7A5201C7D740067824A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7A4201C7D730067824A /* Alamofire.framework */; };
 		DFFFC7A7201C7D820067824A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7A6201C7D820067824A /* Alamofire.framework */; };
+		DFFFC7AC201C83A80067824A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7AB201C83A80067824A /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -123,6 +124,7 @@
 		DFFFC7A2201C7D620067824A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
 		DFFFC7A4201C7D730067824A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		DFFFC7A6201C7D820067824A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/watchOS/Alamofire.framework; sourceTree = "<group>"; };
+		DFFFC7AB201C83A80067824A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFFFC7AC201C83A80067824A /* UIKit.framework in Frameworks */,
 				DFFFC7A5201C7D740067824A /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,6 +235,7 @@
 		DF68CC1C9672036D3304F168 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFFFC7AB201C83A80067824A /* UIKit.framework */,
 				DFFFC7A0201C7D520067824A /* Alamofire.framework */,
 				DFFFC7A2201C7D620067824A /* Alamofire.framework */,
 				DFFFC7A4201C7D730067824A /* Alamofire.framework */,

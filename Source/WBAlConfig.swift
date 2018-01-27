@@ -8,6 +8,9 @@
 
 import Foundation
 import Alamofire
+#if os(iOS)
+    import UIKit
+#endif
 
 /// 过滤/重构URL的协议
 public protocol WBAlURLFilterProtocol {
