@@ -1,25 +1,30 @@
 language: swift
+os: osx
 osx_image: xcode9.1
 
-matrix:
-  include:
-    - osx_image: xcode9.1
-      env: PLATFORM="iOS"
-    - osx_image: xcode9.1
-      env: PLATFORM="tvOS"
-    - osx_image: xcode9.1
-      env: PLATFORM="macOS"
 env:
-  global:
-    - LANG=en_US.UTF-8
-cache:
-  - bundler
-before_install:
-  - brew update
-  - brew upgrade carthage || true
-  - carthage version
-  - carthage bootstrap --platform $PLATFORM
+  matrix:
+    - TEST_TYPE=iOS
+    - TEST_TYPE=macOS
+    - TEST_TYPE=tvOS
+-before_install:
+ - |
+    gem install xcpretty -N --no-ri --no-rdoc
 script:
-  - bundle exec rake ci[$PLATFORM]
+- |
+    ./setup.sh
+    if [ "$TEST_TYPE" = iOS ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace WBAlamofire.xcworkspace -scheme WBAlamofire -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.1' -enableCodeCoverage YES | xcpretty
+    elif [ "$TEST_TYPE" = macOS ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace WBAlamofire.xcworkspace -scheme WBAlamofire-macOS -enableCodeCoverage YES | xcpretty
+    elif [ "$TEST_TYPE" = tvOS ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace WBAlamofire.xcworkspace -scheme WBAlamofire-tvOS -destination "platform=tvOS Simulator,name=Apple TV 1080p" -enableCodeCoverage YES | xcpretty
+    fi
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+    - sleep 5
+    - if [ "$TEST_TYPE" = iOS ] || [ "$TEST_TYPE" = macOS ] || [ "$TEST_TYPE" = tvOS ]; then
+        bash <(curl -s https://codecov.io/bash)
+      fi
