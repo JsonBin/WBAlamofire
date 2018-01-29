@@ -30,6 +30,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DF94954A201F13CB0046D7A8"
+               BuildableName = "WBAlamofireTests.xctest"
+               BlueprintName = "WBAlamofireTests"
+               ReferencedContainer = "container:WBAlamofire.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

@@ -79,6 +79,16 @@
 		DFFFC7AC201C83A80067824A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFFFC7AB201C83A80067824A /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DF949550201F13CB0046D7A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF1586241E84D0620053CB3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF15862B1E84D0620053CB3D;
+			remoteInfo = WBAlamofire;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		DFFFC791201C7B530067824A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -110,6 +120,7 @@
 		DF71587E1FF3534B00D9B581 /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		DF7158801FF3758800D9B581 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		DF7158821FF386F500D9B581 /* WBAlCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBAlCache.swift; sourceTree = "<group>"; };
+		DF94954B201F13CB0046D7A8 /* WBAlamofireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WBAlamofireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFBA4BB31F8F3D320096C1F2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFBA4BB41F8F3D320096C1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFBA4BBA1F8F3D320096C1F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +144,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C68D3F99DD18673E41992A3 /* Pods_WBAlamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF949548201F13CB0046D7A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +227,7 @@
 				DFCBB151201C290100AA4CDC /* WBAlamofire.framework */,
 				DFCBB15E201C291200AA4CDC /* WBAlamofire.framework */,
 				DFCBB16B201C292600AA4CDC /* WBAlamofire.framework */,
+				DF94954B201F13CB0046D7A8 /* WBAlamofireTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,6 +336,24 @@
 			productReference = DF15862C1E84D0620053CB3D /* WBAlamofire.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DF94954A201F13CB0046D7A8 /* WBAlamofireTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF949554201F13CB0046D7A8 /* Build configuration list for PBXNativeTarget "WBAlamofireTests" */;
+			buildPhases = (
+				DF949547201F13CB0046D7A8 /* Sources */,
+				DF949548201F13CB0046D7A8 /* Frameworks */,
+				DF949549201F13CB0046D7A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF949551201F13CB0046D7A8 /* PBXTargetDependency */,
+			);
+			name = WBAlamofireTests;
+			productName = WBAlamofireTests;
+			productReference = DF94954B201F13CB0046D7A8 /* WBAlamofireTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DFCBB08D201C20F400AA4CDC /* WBAlamofire iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DFCBB099201C20F400AA4CDC /* Build configuration list for PBXNativeTarget "WBAlamofire iOS" */;
@@ -403,6 +440,12 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Manual;
 					};
+					DF94954A201F13CB0046D7A8 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 6R9HK9G946;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DF15862B1E84D0620053CB3D;
+					};
 					DFCBB08D201C20F400AA4CDC = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
@@ -439,6 +482,7 @@
 				DFCBB150201C290100AA4CDC /* WBAlamofire watchOS */,
 				DFCBB15D201C291200AA4CDC /* WBAlamofire tvOS */,
 				DFCBB16A201C292600AA4CDC /* WBAlamofire macOS */,
+				DF94954A201F13CB0046D7A8 /* WBAlamofireTests */,
 			);
 		};
 /* End PBXProject section */
@@ -450,6 +494,13 @@
 			files = (
 				DF7158811FF3758800D9B581 /* Launch Screen.storyboard in Resources */,
 				DFBA4BBE1F8F3D320096C1F2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF949549201F13CB0046D7A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +610,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF949547201F13CB0046D7A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DFCBB089201C20F400AA4CDC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -632,6 +690,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DF949551201F13CB0046D7A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF15862B1E84D0620053CB3D /* WBAlamofire */;
+			targetProxy = DF949550201F13CB0046D7A8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DF15863C1E84D0620053CB3D /* Debug */ = {
@@ -774,6 +840,50 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		DF949552201F13CB0046D7A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6R9HK9G946;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WBAlamofireTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofireTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WBAlamofire.app/WBAlamofire";
+			};
+			name = Debug;
+		};
+		DF949553201F13CB0046D7A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6R9HK9G946;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WBAlamofireTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hs.WBAlamofireTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WBAlamofire.app/WBAlamofire";
 			};
 			name = Release;
 		};
@@ -1090,6 +1200,15 @@
 			buildConfigurations = (
 				DF15863F1E84D0620053CB3D /* Debug */,
 				DF1586401E84D0620053CB3D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF949554201F13CB0046D7A8 /* Build configuration list for PBXNativeTarget "WBAlamofireTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF949552201F13CB0046D7A8 /* Debug */,
+				DF949553201F13CB0046D7A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
