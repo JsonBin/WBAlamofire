@@ -10,15 +10,24 @@ WBAlamofire
 
 <!-- ![License MIT](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000) -->
 
-## What
+## 是什么？
 
-WBAlamofire is a high level request util based on [Alamofire][Alamofire]. It provides a High Level API for network request.
+WBAlamofire是一个基于[Alamofire][Alamofire]的网络请求框架。它提供了一组高性能的网络请求API。
 
-WBAlamofire is a swift version from [YTKNetwork][YTKNetwork].
+WBAlamofire当前为[YTKNetwork][YTKNetwork]的Swift版本。
 
-[**中文说明**](Docs/README_cn.md)
+## 特点
 
-## Features
+* 支持按缓存时间来缓存请求结果
+* 支持按版本号来缓存请求结果
+* 支持设置统一可替换的URL和CDN URL
+* 支持设置请求的返回类型
+* 支持断点下载功能
+* 使用`closure` 和 `delegate`回调结果
+* 提供并列网络请求(具体查看 `WBAlBatchRequest`)
+* 提供串行网络请求(具体查看 `WBAlChainRequest`)
+* 支持网络请求 URL 的 filter，可以统一为网络请求加上一些参数，或者修改一些路径。
+* 提供了一套
 
 * Response can be cached by expiration time
 * Response can be cached by version number
