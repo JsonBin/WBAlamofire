@@ -1,15 +1,9 @@
 language: swift
+os: osx
 osx_image: xcode9.1
 
-matrix:
-  include:
-    - osx_image: xcode9.1
-      env: PLATFORM="iOS"
-    - osx_image: xcode9.1
-      env: PLATFORM="tvOS"
-    - osx_image: xcode9.1
-      env: PLATFORM="macOS"
 env:
+<<<<<<< HEAD
   global:
     - LANG=en_US.UTF-8
 cache:
@@ -26,5 +20,29 @@ script:
   - xcodebuild -workspace WBAlamofire.xcworkspace -scheme "WBAlamofire macOS"
   - xcodebuild -workspace WBAlamofire.xcworkspace -scheme "WBAlamofire tvOS" -destination "platform=tvOS Simulator,name=Apple TV 4K"
   - xcodebuild -workspace WBAlamofire.xcworkspace -scheme "WBAlamofire watchOS" -destination "platform=watchOS Simulator,name=Apple Watch - 42mm"
+=======
+  matrix:
+    - TEST_TYPE=iOS
+    - TEST_TYPE=macOS
+    - TEST_TYPE=tvOS
+-before_install:
+ - |
+    gem install xcpretty -N --no-ri --no-rdoc
+script:
+- |
+    if [ "$TEST_TYPE" = iOS ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace WBAlamofire.xcworkspace -scheme WBAlamofire -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.1' -enableCodeCoverage YES | xcpretty
+    elif [ "$TEST_TYPE" = macOS ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace WBAlamofire.xcworkspace -scheme WBAlamofire-macOS -enableCodeCoverage YES | xcpretty
+    elif [ "$TEST_TYPE" = tvOS ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace WBAlamofire.xcworkspace -scheme WBAlamofire-tvOS -destination "platform=tvOS Simulator,name=Apple TV 1080p" -enableCodeCoverage YES | xcpretty
+    fi
+>>>>>>> 685e8abc06d1e2c3b6f4a685d8308e5afa635d75
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+    - sleep 5
+    - if [ "$TEST_TYPE" = iOS ] || [ "$TEST_TYPE" = macOS ] || [ "$TEST_TYPE" = tvOS ]; then
+        bash <(curl -s https://codecov.io/bash)
+      fi
