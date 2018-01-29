@@ -1,4 +1,4 @@
-# Like as SDWebImage. https://github.com/rs/SDWebImage/blob/master/.travis.yml
+# Like as SDWebImage but use Carthage. https://github.com/rs/SDWebImage/blob/master/.travis.yml
 language: objective-c
 osx_image: xcode9.1
 
@@ -13,21 +13,16 @@ before_install:
     - brew update
     - brew upgrade carthage || true
     - carthage version
-#    - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
     - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
-#    - pod --version
-#    - pod setup --silent > /dev/null
-#    - pod repo update --silent
     - xcpretty --version
     - xcodebuild -version
     - xcodebuild -showsdks
-    - carthage bootstrap
 
 script:
     - set -o pipefail
 
-#    - echo Check if the library described by the podspec can be built
-#    - pod lib lint --allow-warnings
+    - echo Check if the library described by the podspec can be built
+    - carthage bootstrap
 
     - echo Build as static library
     - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire iOS' -sdk iphonesimulator PLATFORM_NAME=iphonesimulator -configuration Debug | xcpretty -c
@@ -40,10 +35,14 @@ script:
     - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire watchOS' -sdk watchsimulator -configuration Debug | xcpretty -c
 
     - echo Build the Demo apps
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -sdk macosx -configuration Debug | xcpretty -c
+    # mac demo (not complete)
+    #- xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -sdk macosx -configuration Debug | xcpretty -c
+    
     - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -configuration Debug -destination 'name=iPhone 7' | xcpretty -c
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -sdk appletvsimulator -configuration Debug | xcpretty -c
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -configuration Debug -destination 'name=iPhone 7' | xcpretty -c
+    # tvos demo (not complete)
+    #- xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -sdk appletvsimulator -configuration Debug | xcpretty -c
+    # watchos demo (not complete)
+    #- xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -configuration Debug -destination 'name=iPhone 7' | xcpretty -c
     
 after_success:
     - bash <(curl -s https://codecov.io/bash)
