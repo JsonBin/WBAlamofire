@@ -3,6 +3,7 @@ WBAlamofire
 
 [![Build Status](https://api.travis-ci.org/JsonBin/WBAlamofire.svg?branch=master)](https://travis-ci.org/JsonBin/WBAlamofire)
 ![Pod version](https://img.shields.io/cocoapods/v/WBAlamofire.svg?style=flat)
+[![GitHub release](https://img.shields.io/github/release/JsonBin/WBAlamofire.svg)](https://shields.io/)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform info](https://img.shields.io/cocoapods/p/WBAlamofire.svg?style=flat)](http://cocoadocs.org/docsets/WBAlamofire)
 [![codecov](https://codecov.io/gh/JsonBin/WBAlamofire/branch/master/graph/badge.svg)](https://codecov.io/gh/JsonBin/WBAlamofire)
