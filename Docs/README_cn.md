@@ -231,7 +231,7 @@ class login : WBAlRequest {
 
 ## 开源许可
 
-WBAlamofire遵循MIT license开源许可. 点击[LICENSE file](https://raw.github.com/rs/SDWebImage/master/LICENSE)查看更多的信息
+WBAlamofire遵循[MIT license](https://raw.github.com/rs/SDWebImage/master/LICENSE)开源许可. 在LICENSE file查看更多的信息
 
 <!-- external links -->
 
