@@ -1,6 +1,7 @@
 # Like as SDWebImage but use Carthage. https://github.com/rs/SDWebImage/blob/master/.travis.yml
 language: objective-c
 osx_image: xcode9.1
+cache: bundler
 
 env:
   global:
