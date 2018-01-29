@@ -1,19 +1,10 @@
 language: swift
-os: osx
 osx_image: xcode9.1
 
 env:
   global:
     - LANG=en_US.UTF-8
-cache:
-  - bundler
-before_install:
-  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
 script:
-  - set -o pipefail
   - xcodebuild -workspace WBAlamofire.xcworkspace -scheme "WBAlamofire iOS" -destination "platform=iOS Simulator,name=iPhone 8"
-  - xcodebuild -workspace WBAlamofire.xcworkspace -scheme "WBAlamofire macOS"
-  - xcodebuild -workspace WBAlamofire.xcworkspace -scheme "WBAlamofire tvOS" -destination "platform=tvOS Simulator,name=Apple TV 4K"
-  - xcodebuild -workspace WBAlamofire.xcworkspace -scheme "WBAlamofire watchOS" -destination "platform=watchOS Simulator,name=Apple Watch - 42mm"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
