@@ -12,11 +12,11 @@ WBAlamofire
 
 ## 是什么？
 
-WBAlamofire是一个基于[Alamofire][Alamofire]的网络请求框架。它提供了一组高性能的网络请求API。
+WBAlamofire是一个基于[Alamofire][Alamofire]的网络请求框架。它提供了一组高性能的网络请求API.
 
-WBAlamofire当前为[YTKNetwork][YTKNetwork]的Swift版本。
+WBAlamofire当前为[YTKNetwork][YTKNetwork]的Swift版本.
 
-## 特点
+## 提供的功能
 
 * 支持按缓存时间来缓存请求结果
 * 支持按版本号来缓存请求结果
@@ -24,38 +24,28 @@ WBAlamofire当前为[YTKNetwork][YTKNetwork]的Swift版本。
 * 支持设置请求的返回类型
 * 支持断点下载功能
 * 使用`closure` 和 `delegate`回调结果
-* 提供并列网络请求(具体查看 `WBAlBatchRequest`)
-* 提供串行网络请求(具体查看 `WBAlChainRequest`)
-* 支持网络请求 URL 的 filter，可以统一为网络请求加上一些参数，或者修改一些路径。
-* 提供了一套
+* 提供批量的网络请求(具体查看 `WBAlBatchRequest`)
+* 提供具有相互依赖关系的网络请求(具体查看 `WBAlChainRequest`)
+* 支持网络请求 URL 的 filter，可以统一为网络请求加上一些参数，或者修改一些路径
+* 支持对缓存的处理方法，统计及删除缓存结果(详情查看 `WBAlCache`)
+* 为iOS提供了一套插件机制，可快速的为请求设置HUD，可在网络请求过程中显示 "Loading" 样式的HUD
 
-* Response can be cached by expiration time
-* Response can be cached by version number
-* Set common base URL and CDN URL
-* Validate JSON response
-* Resume download
-* `closure` and `delegate` callback
-* Batch requests (see `WBAlBatchRequest`)
-* Chain requests (see `WBAlChainRequest`)
-* URL filter, replace part of URL, or append common parameter 
-* Plugin mechanism, handle request start and finish. A plugin for show "Loading" HUD is provided
-
-## Installation
-WBAlamofire supports multiple methods for installing the library in a project.
+## 安装
+WBAlamofire支持多种安装方法.
 
 ## CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like WBAlamofire in your projects. See the ["Getting Started" guide for more information](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking). You can install it with the following command:
+若还未安装[Cocoapods](https://cocoapods.org/)，请先通过以下的命令先安装CocoaPods:
 
 ```bash
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.2.0+ is required to build WBAlamofire.
+> WBAlamofire安装需要使用 CocoaPods 1.2.0+ 版本以上.
 
 #### Podfile
 
-To integrate WBAlamofire into your Xcode project using CocoaPods, specify it in your `Podfile`:
+将以下代码添加到你的`Podfile`文件中:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -66,7 +56,7 @@ pod 'WBAlamofire'
 end
 ```
 
-Then, run the following command:
+之后，使用以下命令运行安装命令:
 
 ```bash
 $ pod install
@@ -74,39 +64,40 @@ $ pod install
 
 ## Carthage
 
+[Carthage](https://github.com/Carthage/Carthage)是一个分散的三方管理框架, 可编译你的依赖包并给你提供一个frameworks文件.
 
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
-
-You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+你可以运行以下命令来使用[Homebrew](http://brew.sh/)安装Carthage:
 
 ```bash
 $ brew update
 $ brew install carthage
 ```
 
-To integrate WBAlamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
+你如果想使用Carthage来将WBAlamofire导入到你的项目中, 将以下代码放入到你的`Cartfile`文件中:
 
 ```ogdl
 github "JsonBin/WBAlamofire"
 ```
 
-Run `carthage` to build the framework and drag the built `WBAlamofire.framework` into your Xcode project.
+运行`carthage update`并将生成的`WBAlamofire.framework`导入到你的项目中.
     
-## Requirements
+## 安装要求
 
+- iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 9.1+
 - Swift 4.0+
 
 | WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |                Note                 |
 |:------------------:|:--------------------:|:-------------------:|:----------------------------:|:----------------------------:|:----------------------------:|:--------------------------------------------------------|
 | 1.x | 4.x | iOS 8 | OS X 10.10 | watchOS 2.0 | tvOS 9.0 | Xcode 9+ is required. |
 
-WBAlamofire is based on Alamofire. You can find more detail about version compability at [Alamofire README](https://github.com/Alamofire/Alamofire).
+WBAlamofire基于Alamofire的网络框架. 你可以在[Alamofire README](https://github.com/Alamofire/Alamofire)查看更多的细节.
 
-## Demo
+## 使用
 
-### WBAlConfig class
+### WBAlConfig类
 
-We should set WBAlConfig's property at the beggining of app launching, the sample is below:
+你可以在APP启动的时候设置`WBAlConfig`的参数，例如以下:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -116,7 +107,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     }
 ```
 
-We can set the LoadView property at the beggining of app launching:
+同样的，你可以在APP启动的时候统一设置加载框的参数数据:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -127,7 +118,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     }
 ```
 
-### WBAlRequest class
+### WBAlRequest类
+
 ```swift
 class RegisterApi: WBAlRequest {
 
@@ -142,8 +134,8 @@ class RegisterApi: WBAlRequest {
     override var baseURL: String { return "www.baidu.com" }
 }
  ```
- 
-after, you can call request. we can use `start()` or `start(_:,failure:)` method to send request in the network request queue.
+
+初始化完成之后，可以调用`start()` 或者 `start(_:,failure:)`方法在网络请求队列中发起网络请求:
  
  ```swift
 let res = RegisterApi()
@@ -158,11 +150,11 @@ res.start({ (quest) in
 }
  ```
  
-## Resumable Downloading
+## 断点现在
 
-If you want to enable resumable downloading, you just need to overwrite the  `resumableDownloadPath` method and provide a the path you want to save the downloaded file. The file will be automatically saved to that path.
+如果你想使用断点下载功能，你只需要重写`resumableDownloadPath`参数(并且不返回空)提供一个你想要保存的文件的名字. 下载的文件会自动保存到你设置文件名中.
 
-We can modify above example to support resumable downloading.
+以下为支持断点下载功能的简单示例:
 
 ```swift
 class down: WBAlRequest {
@@ -181,11 +173,11 @@ class down: WBAlRequest {
 }
 ```
 
-## Cache response data
- 
-We've implemented the `login` before, which is used for getting user information. 
+## 缓存数据
 
-We may want to cache the response. In the following example, we overwrite  the `cacheInSeconds` method, then our API will automatically cache data for specified amount of time. If the cached data is not expired, the api's `start()` and `start(_:,failure:)` will return cached data as a result directly.
+以下为`login`的简单示例，它是使用来获取用户的数据信息.
+
+同样，你也可以选择缓存返回的数据(即用户个人数据). 在下面的示例中，重新了`cacheInSeconds`方法，在获取到数据之后，API会自动缓存数据到本地直到超出了缓存的时间. 如果缓存的数据没有超过限定的时间，那么当请求数据调用`start()` 或者 `start(_:,failure:)`会优先返回本地缓存的数据.
 
 ```swift
 class login : WBAlRequest {
@@ -229,17 +221,17 @@ class login : WBAlRequest {
 }
 ```
 
-The cache mechanism is transparent to the controller, which means the request caller may get the result right after invoking the request without casuing any real network traffic as long as its cached data remains valid.
+网络缓存机制相对应控制器是可用的. 它意味着只要在缓存数据有效的范围内，用户调用网络请求是没有产生任何流量的.
     
-## Thanks
+## 感谢
 
-Thanks for [YTKNetwork][YTKNetwork] contributors. 
+十分感谢 [YTKNetwork][YTKNetwork]的作者.
 
-See more information with [YTKNetwork][YTKNetwork].
+查看更多的信息请访问[YTKNetwork][YTKNetwork]
 
-## License
+## 开源许可
 
-WBAlamofire is available under the MIT license. See the LICENSE file for more info.
+WBAlamofire遵循MIT license开源许可. 点击[LICENSE file](https://raw.github.com/rs/SDWebImage/master/LICENSE)查看更多的信息
 
 <!-- external links -->
 
