@@ -230,7 +230,7 @@ See more information with [YTKNetwork][YTKNetwork].
 
 ## License
 
-WBAlamofire is available under the MIT license. See the LICENSE file for more info.
+WBAlamofire is available under the [MIT license](https://raw.github.com/rs/SDWebImage/master/LICENSE). See the LICENSE file for more info.
 
 <!-- external links -->
 
