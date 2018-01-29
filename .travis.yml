@@ -26,8 +26,8 @@ before_install:
 script:
     - set -o pipefail
 
-    - echo Check if the library described by the podspec can be built
-    - pod lib lint --allow-warnings
+#    - echo Check if the library described by the podspec can be built
+#    - pod lib lint --allow-warnings
 
     - echo Build as static library
     - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire iOS' -sdk iphonesimulator PLATFORM_NAME=iphonesimulator -configuration Debug | xcpretty -c
