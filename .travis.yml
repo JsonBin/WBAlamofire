@@ -10,14 +10,18 @@ env:
 before_install:
     - env
     - locale
-    - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
+    - brew update
+    - brew upgrade carthage || true
+    - carthage version
+#    - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
     - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
-    - pod --version
-    - pod setup --silent > /dev/null
-    - pod repo update --silent
+#    - pod --version
+#    - pod setup --silent > /dev/null
+#    - pod repo update --silent
     - xcpretty --version
     - xcodebuild -version
     - xcodebuild -showsdks
+    - carthage bootstrap
 
 script:
     - set -o pipefail
@@ -26,20 +30,20 @@ script:
     - pod lib lint --allow-warnings
 
     - echo Build as static library
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire iOS static' -sdk iphonesimulator PLATFORM_NAME=iphonesimulator -configuration Debug | xcpretty -c
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire watchOS static' -sdk watchsimulator -configuration Debug | xcpretty -c
+    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire iOS' -sdk iphonesimulator PLATFORM_NAME=iphonesimulator -configuration Debug | xcpretty -c
+    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire watchOS' -sdk watchsimulator -configuration Debug | xcpretty -c
 
     - echo Build as dynamic framework
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire OSX' -sdk macosx -configuration Debug | xcpretty -c
+    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire macOS' -sdk macosx -configuration Debug | xcpretty -c
     - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire iOS' -sdk iphonesimulator PLATFORM_NAME=iphonesimulator -configuration Debug | xcpretty -c
     - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire tvOS' -sdk appletvsimulator -configuration Debug | xcpretty -c
     - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire watchOS' -sdk watchsimulator -configuration Debug | xcpretty -c
 
     - echo Build the Demo apps
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire OSX Demo' -sdk macosx -configuration Debug | xcpretty -c
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire iOS Demo' -configuration Debug -destination 'name=iPhone 7' | xcpretty -c
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire TV Demo' -sdk appletvsimulator -configuration Debug | xcpretty -c
-    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire Watch Demo' -configuration Debug -destination 'name=iPhone 7' | xcpretty -c
+    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -sdk macosx -configuration Debug | xcpretty -c
+    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -configuration Debug -destination 'name=iPhone 7' | xcpretty -c
+    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -sdk appletvsimulator -configuration Debug | xcpretty -c
+    - xcodebuild clean build -workspace WBAlamofire.xcworkspace -scheme 'WBAlamofire' -configuration Debug -destination 'name=iPhone 7' | xcpretty -c
     
 after_success:
     - bash <(curl -s https://codecov.io/bash)
