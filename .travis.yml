@@ -8,10 +8,6 @@ env:
 cache:
   - bundler
 before_install:
-  - brew update
-  - brew upgrade carthage || true
-  - carthage version
-  - carthage bootstrap --platform $PLATFORM
   - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
 script:
   - set -o pipefail
