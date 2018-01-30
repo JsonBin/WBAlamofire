@@ -23,6 +23,7 @@ WBAlamofire当前为[YTKNetwork][YTKNetwork]的Swift版本.
 * 支持设置统一可替换的URL和CDN URL
 * 支持设置请求的返回类型
 * 支持断点下载功能
+* 支持缓存管理类，可处理请求结果和下载数据
 * 使用`closure` 和 `delegate`回调结果
 * 提供批量的网络请求(具体查看 `WBAlBatchRequest`)
 * 提供具有相互依赖关系的网络请求(具体查看 `WBAlChainRequest`)
@@ -104,7 +105,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
         WBAlConfig.shared.baseURL = "https://timgsa.baidu.com/"
         WBAlConfig.shared.debugLogEnable = true
         return true
-    }
+}
 ```
 
 同样的，你可以在APP启动的时候统一设置加载框的参数数据:
@@ -115,7 +116,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
         WBAlConfig.shared.loadViewTextColor = .red
         WBAlConfig.shared.loadViewAnimationType = .system
         return true
-    }
+}
 ```
 
 ### WBAlRequest类
@@ -150,7 +151,72 @@ res.start({ (quest) in
 }
  ```
  
-## 断点现在
+### WBActivityIndicatorView类
+
+WBAlamofire自带的一套插件仅支持iOS系统使用. 可在发起网络请求的时候显示一个默认 "Loading" 样式的HUD，该插件带有两种形式的动画效果，一种为系统，另一种为自定义动画. 此插件默认是处于禁用状态，若想使用该插件，可参照以下示例设置:
+
+对每一个request单独设置:
+
+```swift
+class login : WBAlRequest {
+    /// 开启HUD插件
+    override var showLoadView: Bool {
+        return true
+    }
+    /// 设置HUD文字
+    override var showLoadText: String? {
+        return "Login"
+    }
+    /// 设置HUD字体
+    override var showLoadTextFont: UIFont? {
+        return .systemFont(ofSize: 19)
+    }
+    /// 设置HUD字体颜色
+    override var showLoadTextColor: UIColor? {
+        return .red
+    }
+    /// 设置HUD动画效果
+    override var showLoadAnimationType: AnimationType? {
+        //  .system  采用系统动画, 即菊花
+        //  .native  采用自定义动画
+        return .native
+    }
+    /// 设置HUD字体显示位置
+    override var showLoadTextPosition: TextLabelPosition? {
+        //  .no   不显示文字
+        //  .bottom  文字放于动画底部
+        return .no
+    }
+}
+```
+
+在APP启动时统一设置:
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        WBAlConfig.shared.loadViewText = "Login"
+        WBAlConfig.shared.loadViewTextFont = .systemFont(ofSize: 16)
+        WBAlConfig.shared.loadViewTextColor = .red
+        WBAlConfig.shared.loadViewAnimationType = .system
+        WBAlConfig.shared.loadViewTextPosition = .bottom
+}
+```
+
+但是，在进行统一设置的时候，需要对每一个request进行单独的设置，使HUD插件处于可用状态:
+
+```swift
+class login : WBAlRequest {
+    /// 开启HUD插件
+    override var showLoadView: Bool {
+        return true
+    }
+}
+```
+
+### WBAlCache缓存管理
+
+ 
+## 断点下载
 
 如果你想使用断点下载功能，你只需要重写`resumableDownloadPath`参数(并且不返回空)提供一个你想要保存的文件的名字. 下载的文件会自动保存到你设置文件名中.
 
