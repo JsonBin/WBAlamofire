@@ -25,6 +25,7 @@ WBAlamofire is a swift version from [YTKNetwork][YTKNetwork].
 * Set common base URL and CDN URL
 * Validate JSON response
 * Resume download
+* Cache manager for response and download
 * `closure` and `delegate` callback
 * Batch requests (see `WBAlBatchRequest`)
 * Chain requests (see `WBAlChainRequest`)
@@ -36,7 +37,7 @@ WBAlamofire supports multiple methods for installing the library in a project.
 
 ## CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like WBAlamofire in your projects. See the ["Getting Started" guide for more information](https://github.com/AFNetworking/AFNetworking/wiki/Getting-Started-with-AFNetworking). You can install it with the following command:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like WBAlamofire in your projects. You can install it with the following command:
 
 ```bash
 $ gem install cocoapods
@@ -53,7 +54,10 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 target 'TargetName' do
+use_frameworks!
+
 pod 'WBAlamofire'
+
 end
 ```
 
@@ -85,6 +89,8 @@ Run `carthage` to build the framework and drag the built `WBAlamofire.framework`
     
 ## Requirements
 
+- iOS 8+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 9.1+
 - Swift 4.0+
 
 | WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |                Note                 |
@@ -101,43 +107,72 @@ We should set WBAlConfig's property at the beggining of app launching, the sampl
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        WBAlConfig.shared.baseURL = "https://timgsa.baidu.com/"
-        WBAlConfig.shared.debugLogEnable = true
-        return true
-    }
+    WBAlConfig.shared.baseURL = "https://timgsa.baidu.com/"
+    WBAlConfig.shared.debugLogEnable = true
+    return true
+}
 ```
 
 We can set the LoadView property at the beggining of app launching:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        WBAlConfig.shared.loadViewText = "Login"
-        WBAlConfig.shared.loadViewTextColor = .red
-        WBAlConfig.shared.loadViewAnimationType = .system
-        return true
-    }
+    WBAlConfig.shared.loadViewText = "Login"
+    WBAlConfig.shared.loadViewTextColor = .red
+    WBAlConfig.shared.loadViewAnimationType = .system
+    return true
+}
 ```
 
 ### WBAlRequest class
 ```swift
 class RegisterApi: WBAlRequest {
-
-    override var requestURL: String {
+    
+    private let phone: String
+    private let psd: String
+    
+    init(phone: String, psd: String) {
+        self.phone = phone
+        self.psd = psd
+    }
+    
+    /// request url
+    override var requestURL: String {
         return "/adf/2"
     }
-
-    override var cacheInSeconds: TimeInterval{
-        return 5 * 60
+    
+    /// request params
+    override var requestParams: [String : Any]? {
+        return ["phone": phone, "password": psd]
     }
-
-    override var baseURL: String { return "www.baidu.com" }
+    
+    /// request method
+    override var requestMethod: WBHTTPMethod {
+        return .post
+    }
+    
+    /// request params encoding
+    override var paramEncoding: WBParameterEncoding {
+        return .json
+    }
+    
+    override func requestCompleteFilter() {
+        super.requestCompleteFilter()
+        // request success, you can dely response in there.
+    }
+    
+    override func requestFailedFilter() {
+        super.requestFailedFilter()
+        // request failed. you can do something in there.
+    }
 }
  ```
  
 after, you can call request. we can use `start()` or `start(_:,failure:)` method to send request in the network request queue.
  
  ```swift
-let res = RegisterApi()
+ let res = RegisterApi(phone: "177xxxx2467", psd: "123456")
+res.ignoreCache = true  // whether don't use cache data. Default is false.
 res.start({ (quest) in
     // you can use self here, retain cycle won't happen
     print("Success!")
@@ -148,6 +183,89 @@ res.start({ (quest) in
     //..
 }
  ```
+ 
+### WBActivityIndicatorView class
+
+WBAlamofire has a set of plug-ins support iOS system use only. It can be displayed when a network request to a default "Loading" style of the HUD. the plug-in with two forms of animation effects, one is system, another for custom animation. This plugin is the default in a disabled state, if want to use the plug-in, can refer to the following sample set:
+
+For each request set up separately:
+
+```swift
+class login : WBAlRequest {
+    /// open the HUD plug-in
+    override var showLoadView: Bool {
+        return true
+    }
+    /// set HUD text
+    override var showLoadText: String? {
+        return "Login"
+    }
+    /// set the HUD font
+    override var showLoadTextFont: UIFont? {
+        return .systemFont(ofSize: 19)
+    }
+    /// set the HUD textcolor
+    override var showLoadTextColor: UIColor? {
+        return .red
+    }
+    /// set the HUD animation effects
+    override var showLoadAnimationType: AnimationType? {
+        //  .system  use system animation
+        //  .native  use a custom animation
+        return .native
+    }
+    /// set the HUD font display position
+    override var showLoadTextPosition: TextLabelPosition? {
+        //  .no   don't show the words
+        //  .bottom  on the bottom of the animation
+        return .no
+    }
+}
+```
+
+In the APP starts unified set:
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    WBAlConfig.shared.loadViewText = "Login"
+    WBAlConfig.shared.loadViewTextFont = .systemFont(ofSize: 16)
+    WBAlConfig.shared.loadViewTextColor = .red
+    WBAlConfig.shared.loadViewAnimationType = .system
+    WBAlConfig.shared.loadViewTextPosition = .bottom
+}
+```
+
+When make unified set, however, need to separate Settings for each request, make the HUD plug-in in the available state:
+
+```swift
+class login : WBAlRequest {
+    /// open the HUD plug-in
+    override var showLoadView: Bool {
+        return true
+    }
+}
+```
+
+### WBAlCache class
+
+WBAlamofire provides a mechanism of cache handling. A set with the result of the request and download data processing of apis, include statistics, remove, and other functions.
+
+```swift
+// all the download cache file size
+WBAlCache.shared.downloadCacheSize
+// all requests the cache file size
+WBAlCache.shared.responseCacheFilesSize
+// remove single download file
+WBAlCache.shared.removeDownloadFiles(with: `YourFileName`)
+// remove all requests results cache file
+WBAlCache.shared.removeCacheFiles()
+// remove all the downloaded file
+WBAlCache.shared.removeDownloadFiles()
+// remove all download cache and network request results
+WBAlCache.shared.removeAllFiles()
+```
+
+ 
  
 ## Resumable Downloading
 
@@ -198,7 +316,7 @@ class login : WBAlRequest {
     }
     
     override var requestParams: [String : Any]? {
-        return ["username":"15184447833", "password":"123456"]
+        return ["username":"151xxxx7833", "password":"123456"]
     }
     
     override func requestCompletePreprocessor() {
@@ -206,6 +324,7 @@ class login : WBAlRequest {
         WBALog("request done!")
     }
     
+    /// the request of validity cache Settings for 10 minutes
     override var cacheInSeconds: TimeInterval {
         return 10 * 60
     }
@@ -230,7 +349,7 @@ See more information with [YTKNetwork][YTKNetwork].
 
 ## License
 
-WBAlamofire is available under the MIT license. See the LICENSE file for more info.
+WBAlamofire is available under the [MIT license](https://raw.github.com/rs/SDWebImage/master/LICENSE). See the LICENSE file for more info.
 
 <!-- external links -->
 
