@@ -102,9 +102,9 @@ WBAlamofire基于Alamofire的网络框架. 你可以在[Alamofire README](https:
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        WBAlConfig.shared.baseURL = "https://timgsa.baidu.com/"
-        WBAlConfig.shared.debugLogEnable = true
-        return true
+    WBAlConfig.shared.baseURL = "https://timgsa.baidu.com/"
+    WBAlConfig.shared.debugLogEnable = true
+    return true
 }
 ```
 
@@ -112,10 +112,10 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        WBAlConfig.shared.loadViewText = "Login"
-        WBAlConfig.shared.loadViewTextColor = .red
-        WBAlConfig.shared.loadViewAnimationType = .system
-        return true
+    WBAlConfig.shared.loadViewText = "Login"
+    WBAlConfig.shared.loadViewTextColor = .red
+    WBAlConfig.shared.loadViewAnimationType = .system
+    return true
 }
 ```
 
@@ -123,29 +123,58 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ```swift
 class RegisterApi: WBAlRequest {
-
+    
+    private let phone: String
+    private let psd: String
+    
+    init(phone: String, psd: String) {
+        self.phone = phone
+        self.psd = psd
+    }
+    
+    /// 网络请求地址
     override var requestURL: String {
         return "/adf/2"
     }
-
-    override var cacheInSeconds: TimeInterval{
-        return 5 * 60
+    
+    /// 网络请求参数
+    override var requestParams: [String : Any]? {
+        return ["phone": phone, "password": psd]
     }
-
-    override var baseURL: String { return "www.baidu.com" }
+    
+    /// 网络请求方式
+    override var requestMethod: WBHTTPMethod {
+        return .post
+    }
+    
+    /// 网络请求参数编码方式
+    override var paramEncoding: WBParameterEncoding {
+        return .json
+    }
+    
+    override func requestCompleteFilter() {
+        super.requestCompleteFilter()
+        // 请求成功后执行，可在这里处理请求结果数据
+    }
+    
+    override func requestFailedFilter() {
+        super.requestFailedFilter()
+        // 请求失败住线程执行，可在这里处理请求失败之后逻辑
+    }
 }
  ```
 
 初始化完成之后，可以调用`start()` 或者 `start(_:,failure:)`方法在网络请求队列中发起网络请求:
  
  ```swift
-let res = RegisterApi()
+let res = RegisterApi(phone: "177xxxx2467", psd: "123456")
+res.ignoreCache = true  // 是否不使用缓存，默认使用
 res.start({ (quest) in
-    // you can use self here, retain cycle won't happen
+    // 你可以直接在这里使用self，不会造成循环引用
     print("Success!")
     //..
 }) { (quest) in
-    // you can use self here, retain cycle won't happen
+    // 你可以直接在这里使用self，不会造成循环引用
     print("Failed!")
     //..
 }
@@ -194,11 +223,11 @@ class login : WBAlRequest {
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        WBAlConfig.shared.loadViewText = "Login"
-        WBAlConfig.shared.loadViewTextFont = .systemFont(ofSize: 16)
-        WBAlConfig.shared.loadViewTextColor = .red
-        WBAlConfig.shared.loadViewAnimationType = .system
-        WBAlConfig.shared.loadViewTextPosition = .bottom
+    WBAlConfig.shared.loadViewText = "Login"
+    WBAlConfig.shared.loadViewTextFont = .systemFont(ofSize: 16)
+    WBAlConfig.shared.loadViewTextColor = .red
+    WBAlConfig.shared.loadViewAnimationType = .system
+    WBAlConfig.shared.loadViewTextPosition = .bottom
 }
 ```
 
@@ -215,12 +244,28 @@ class login : WBAlRequest {
 
 ### WBAlCache缓存管理
 
+WBAlamofire提供了一套对缓存处理的机制. 有一套对请求结果和下载数据进行处理的API，包含统计、移除等功能.
+
+```swift
+// 所有的下载缓存文件大小
+WBAlCache.shared.downloadCacheSize
+// 所有的请求结果缓存文件大小
+WBAlCache.shared.responseCacheFilesSize
+// 对单个的下载文件删除
+WBAlCache.shared.removeDownloadFiles(with: `YourFileName`)
+// 移除所有的请求结果缓存文件
+WBAlCache.shared.removeCacheFiles()
+// 移除所有的下载文件
+WBAlCache.shared.removeDownloadFiles()
+// 移除所有的下载和网络请求结果缓存
+WBAlCache.shared.removeAllFiles()
+```
  
 ## 断点下载
 
 如果你想使用断点下载功能，你只需要重写`resumableDownloadPath`参数(并且不返回空)提供一个你想要保存的文件的名字. 下载的文件会自动保存到你设置文件名中.
 
-以下为支持断点下载功能的简单示例:
+断点下载不支持使用缓存. 以下为支持断点下载功能的简单示例:
 
 ```swift
 class down: WBAlRequest {
@@ -273,7 +318,8 @@ class login : WBAlRequest {
         WBALog("request done!")
     }
     
-    override var cacheInSeconds: TimeInterval {
+    /// 对请求结果设置10分钟的缓存有效期
+    override var cacheInSeconds: TimeInterval {
         return 10 * 60
     }
     
