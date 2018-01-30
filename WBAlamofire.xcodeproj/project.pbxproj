@@ -235,10 +235,10 @@
 		DF322DDC1F8F26410030DF90 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */,
 				DF71587E1FF3534B00D9B581 /* BaseRequest.swift */,
 				DF322DDE1F8F26410030DF90 /* WBAlBaseRequest.swift */,
 				DF322DE21F8F26410030DF90 /* WBAlRequest.swift */,
+				DF322DDD1F8F26410030DF90 /* WBAlamofire.swift */,
 				DF322DDF1F8F26410030DF90 /* WBAlBatchRequest.swift */,
 				DF322DE01F8F26410030DF90 /* WBAlChainRequest.swift */,
 				DF64F7262015CA960014B168 /* WBActivityIndicatorView.swift */,

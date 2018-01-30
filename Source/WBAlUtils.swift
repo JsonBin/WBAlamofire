@@ -12,13 +12,12 @@
     import Foundation
 #endif
 
-/// 私有调用类
 open class WBAlUtils {
 
-    // md5加密算法<借鉴Kingfisher算法>
+    /// Md5 encryption algorithm. And reference to Kingfisher algorithm
     open class func md5WithString(_ string: String) -> String {
         return string.wbal.md5
-        // 以下为系统加密方法
+        // the system method
         /*let str = string.cString(using: .utf8)
         let strLen = CUnsignedInt(string.lengthOfBytes(using: .utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
@@ -33,7 +32,7 @@ open class WBAlUtils {
         return hash*/
     }
     
-    /// app 版本号
+    /// app version
     open class var appVersion: String? {
         if let dictionary = Bundle.main.infoDictionary, let version = dictionary["CFBundleShortVersionString"] as? String {
             return version
@@ -41,7 +40,7 @@ open class WBAlUtils {
         return nil
     }
     
-    // set backup(禁用iCloud自动备份)
+    // set backup(disable up automatic backup for iCloud)
     open class func addNotBackupAttribute(_ path:String) -> Void {
         var url = URL(fileURLWithPath: path)
         var backup = URLResourceValues()
@@ -119,19 +118,19 @@ open class WBAlUtils {
 /// NSKeyedArchiver metadata
 open class WBAlMetadata: NSObject, NSSecureCoding {
     
-    /// 缓存版本号
+    /// Cached version number
     open var version: Int?
     
-    /// 设置的刷新标志
+    /// Set the refresh data
     open var sensitiveDataString: String?
     
-    /// string编码
+    /// string encoding
     open var stringEncoding: String.Encoding?
     
-    /// 创建时间
+    /// create date
     open var createDate: Date?
     
-    /// app版本号
+    /// app version
     open var appVersionString: String?
     
     public static var supportsSecureCoding: Bool {

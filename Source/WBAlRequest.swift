@@ -8,15 +8,16 @@
 
 import Foundation
 
+/// While reading web cache data error code
 /// 读取网络缓存数据时错误码
 ///
-/// - expired: 超时
-/// - versionMismatch: 版本不匹配
-/// - sensitiveDataMismatch: sensitive Data 不匹配
-/// - appVersionMismatch: app版本不匹配
-/// - invalidCacheTime: 缓存时间错误
-/// - invalidMetadata: meta Data错误
-/// - invalidCacheData: 缓存数据错误
+/// - expired: expired
+/// - versionMismatch: Version mismatch
+/// - sensitiveDataMismatch: sensitive Data mismatch
+/// - appVersionMismatch: app versions mismatch
+/// - invalidCacheTime: Cache time error
+/// - invalidMetadata: meta Data error
+/// - invalidCacheData: Cache the data error
 public enum WBAlRequestCacheDomain: Int {
     case expired = -1
     case versionMismatch = -2
@@ -28,27 +29,81 @@ public enum WBAlRequestCacheDomain: Int {
 }
 
 /// 网络请求的子类
-/// 缓存的网络数据默认放在.../Library/WBAlamofire.requestCache.default/..目录下
+/// 缓存的网络数据默认放在.../Library/{WBAlConfig.shared.cacheFileName}/..目录下
+///  WBAlRequest is the base class you should inherit to create your own request class.
+///  Based on WBAlBaseRequest, WBAlRequest adds local caching feature. Note download
+///  request will not be cached whatsoever, because download request may involve complicated
+///  cache control policy controlled by `Cache-Control`, `Last-Modified`, etc.
+///  And the cache data will save in .../Library/{WBAlConfig.shared.cacheFileName}/..
 open class WBAlRequest : WBAlBaseRequest {
     
     /// 是否不使用缓存作为网络请求返回数据，默认false
+    ///  Whether to use cache as response or not.
+    ///  Default is NO, which means caching will take effect with specific arguments.
+    ///  Note that `cacheInSeconds` default is 2m. As a result cache data is not actually
+    ///  used as response unless you return a positive value in `cacheInSeconds`.
+    ///
+    ///  Also note that this option does not affect storing the response, which means
+    ///  response will always be saved
+    ///  even `ignoreCache` is YES.
     open var ignoreCache: Bool = false
     
     /// 返回是否是从缓存读取的数据
+    ///  Whether data is from local cache.
     open var isDataFromCache: Bool { return _dataFromCache }
     
-// MARK: - Cache Response
+// MARK: - SubClass Override
+    
+///=============================================================================
+/// @name SubClass Override
+///=============================================================================
+    
+    /// 多长时间范围内不进行网络请求，使用缓存作为请求的返回数据.默认2m
+    ///  The max time duration that cache can stay in disk until it's considered expired.
+    ///  Default is 2m, which means response will actually saved as cache.
+    open var cacheInSeconds: TimeInterval { return 2 * 60 }
+    
+    /// 以版本号来缓存数据
+    ///  Version can be used to identify and invalidate local cache. Default is 0.
+    open var cacheVersion: Int { return 0 }
+    
+    /// sensitive data (可以根据两次不同的数据自动更新缓存)
+    ///  This can be used as additional identifier that tells the cache needs updating.
+    ///
+    ///  @discussion The `description` string of this object will be used as an identifier to verify whether cache
+    ///   is invalid. Using `NSArray` or `NSDictionary` as return value type is recommended. However,
+    ///   If you intend to use your custom class type, make sure that `description` is correctly implemented.
+    open var cacheSensitiveData: Data? { return nil }
+    
+    /// 是否自动异步缓存数据, Default true.
+    ///  Whether cache is asynchronously written to storage. Default is YES.
+    open var writeCacheAsynchronously: Bool { return true }
+   
+// MARK: - Private Properties
+    
+///=============================================================================
+/// @name Cache Response
+///=============================================================================
+    
     private var _cacheData: Data?
     private var _cacheString: String?
     private var _cacheJson: [String: Any]?
     private var _cachePlist: Any?
     
-// MARK: - Private Properties
+///=============================================================================
+/// @name Other Infomations
+///=============================================================================
+    
     private var _dataFromCache:Bool = false
     private var _cacheMetadata: WBAlMetadata?
     private let WBAlRequestCahceErrorDomain = "com.wbAlamofire.request.cache"
     
-// MARK: - Override SuperClass
+// MARK: - Override WBAlBaseRequest Response
+    
+///=============================================================================
+/// @name Override WBAlBaseRequest Response
+///=============================================================================
+    
     open override var responseData: Data? {
         set{ super.responseData = newValue }
         get{
@@ -99,7 +154,12 @@ open class WBAlRequest : WBAlBaseRequest {
         }
     }
     
-// MARK:  - Start
+// MARK: - Request Action
+    
+///=============================================================================
+/// @name Request Action
+///=============================================================================
+    
     open override func start() {
         if self.ignoreCache {
             startWithOutCache()
@@ -114,7 +174,7 @@ open class WBAlRequest : WBAlBaseRequest {
         
         var error:Error? = nil
         if !loadCacheWithError(&error) {
-            // 输出错误信息
+            // if load cache data, print error info.
             if let e = error { WBALog(e) }
             startWithOutCache()
             return
@@ -134,12 +194,19 @@ open class WBAlRequest : WBAlBaseRequest {
         }
     }
     
+    ///  Start request without reading local cache even if it exists. Use this to update local cache.
     open func startWithOutCache() -> Void {
         clearCacheVariables()
         super.start()
     }
     
 // MARK: - Save Data
+    
+///=============================================================================
+/// @name Save Data
+///=============================================================================
+    
+    ///  Save response data (probably from another request) to this request's cache location
     open func saveResponseDataToCacheFile(_ data:Data?) {
         if self.cacheInSeconds > 0 && !self.isDataFromCache {
             if let data = data, data.count > 0 {
@@ -160,7 +227,12 @@ open class WBAlRequest : WBAlBaseRequest {
         }
     }
     
-// MARK: - Request Delegate
+// MARK:  - Request Delegate
+    
+///=============================================================================
+/// @name Request Delegate
+///=============================================================================
+    
     open override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()
         
@@ -169,7 +241,7 @@ open class WBAlRequest : WBAlBaseRequest {
         
         if self.writeCacheAsynchronously {
             // 自动异步缓存
-            DispatchQueue.WBALAsyncDispatchQueue.async {
+            DispatchQueue.wbCurrent.async {
                 self.saveResponseDataToCacheFile(super.responseData)
             }
         }else{
@@ -178,21 +250,11 @@ open class WBAlRequest : WBAlBaseRequest {
         }
     }
     
-// MARK: - SubClass Override
-    
-    /// 多长时间范围内不进行网络请求，使用缓存作为请求的返回数据.默认2m
-    open var cacheInSeconds: TimeInterval { return 2 * 60 }
-    
-    /// 以版本号来缓存数据
-    open var cacheVersion: Int { return 0 }
-    
-    /// sensitive data (可以根据两次不同的数据自动更新缓存)
-    open var cacheSensitiveData: Data? { return nil }
-    
-    /// 是否自动异步缓存数据, Default true.
-    open var writeCacheAsynchronously: Bool { return true }
-    
 // MARK:  - Privates
+    
+///=============================================================================
+/// @name Privates Func
+///=============================================================================
     
     private func clearCacheVariables() -> Void {
         _cacheData = nil
@@ -203,6 +265,11 @@ open class WBAlRequest : WBAlBaseRequest {
         _dataFromCache = false
     }
     
+    ///  Manually load cache from storage.
+    ///
+    ///  @param error If an error occurred causing cache loading failed, an error object will be passed, otherwise NULL.
+    ///
+    ///  @return Whether cache is successfully loaded.
     private func loadCacheWithError(_ error: inout Error? ) -> Bool {
          // Make sure cache time in valid.
         if self.cacheInSeconds < 0 {

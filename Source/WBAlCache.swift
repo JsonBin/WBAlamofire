@@ -8,32 +8,42 @@
 
 import Foundation
 
-/// 缓存处理类
+/// WBAlCache is a cache handler class
 public struct WBAlCache {
     
     public static let shared = WBAlCache()
     
-    // MARK: - Cache & Download Files Size
+// MARK: - Cache and Download Files Size
     
-    /// The download files size. 所有下载文件的大小
+///=============================================================================
+/// @name Cache and Download Files Size
+///=============================================================================
+    
+    /// 所有下载文件的大小.
+    /// The download files size.
     public var downloadCacheSize: Double {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.downFileName)")
         guard let filePath = path else { return 0}
         return forderSize(with: filePath)
     }
     
-    /// The cache files size. 所有缓存文件的大小
-    public var cacheFilesSize: Double {
+    /// 所有缓存文件的大小.
+    /// The cache files size.
+    public var responseCacheFilesSize: Double {
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.cacheFileName)")
         guard let filePath = path else { return 0}
         return forderSize(with: filePath)
     }
     
-    // MARK: - Remove Cache & Download Files
+// MARK: - Remove Cache and Download Files
     
-    /// 移除所有的下载文件或指定名字的文件
+///=============================================================================
+/// @name Remove Cache and Download Files
+///=============================================================================
+    
+    /// Remove all the downloaded file, or the name of the specified file
     ///
-    /// - Parameter name: 需要移除的文件的名字. 不传参数，默认为移除所有的下载文件
+    /// - Parameter name: need to remove the name of the file. Don't pass parameters, to remove all the downloaded file by default
     public func removeDownloadFiles(with name: String? = nil) {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.downFileName)")
         guard let filePath = path else { return }
@@ -44,9 +54,9 @@ public struct WBAlCache {
         removeForder(with: filePath)
     }
     
-    /// 移除单个或所有的缓存文件
+    /// To remove a single or all the cache files
     ///
-    /// - Parameter request: 需要移除缓存文件的request.不传此参数，默认为移除所有的缓存文件
+    /// - Parameter request: need to remove the cache file request. Don't pass this parameter, the default to remove all the cache files
     public func removeCacheFiles(for request: WBAlRequest? = nil) {
         if let request = request {
             removeForder(with: cacheFilePath(request))
@@ -58,35 +68,45 @@ public struct WBAlCache {
         removeForder(with: filePath)
     }
     
-    /// 移除所有的文件
+    /// Remove all files
     public func removeAllFiles() {
         removeDownloadFiles()
         removeCacheFiles()
     }
+
+// MARK: - Cache File Path
     
-    // MARK: - Cache File Path
+///=============================================================================
+/// @name Cache File Path
+///=============================================================================
     
-    /// 获取缓存文件的路径
+    /// Access to the path of the cache file
     ///
-    /// - Parameter request: 需要获取缓存路径的request
-    /// - Returns: 缓存文件路径
+    /// - Parameter request: Need to get the cache the request of the path
+    /// - Returns: The cache file path
     public func cacheFilePath(_ request: WBAlRequest) -> String {
         let cacheName = "/" + self.cacheFileName(request)
         let cachePath = self.cacheBasePath(request)
         return cachePath.appending(cacheName)
     }
     
-    /// 获取metadata文件的路径
+    /// Take the path of the metadata file
     ///
-    /// - Parameter request: 需要获取metadata文件路径的request
-    /// - Returns: metadata文件的路径
+    /// - Parameter request: Need to get the metadata file path of the request
+    /// - Returns: The path of the metadata file
     public func cacheMetadataFilePath(_ request: WBAlRequest) -> String {
         let metaName = "/" + self.cacheFileName(request) + ".metadata"
         let metaPath = self.cacheBasePath(request)
         return metaPath.appending(metaName)
     }
+
+// MARK: - Private
     
-    /// 缓存文件的名字
+///=============================================================================
+/// @name Private
+///=============================================================================
+    
+    /// The name of the cache file
     private func cacheFileName(_ request: WBAlRequest) -> String {
         let requestURL = request.requestURL
         let baseURL = WBAlConfig.shared.baseURL
@@ -99,7 +119,7 @@ public struct WBAlCache {
         return cacheFileName
     }
     
-    /// 缓存文件的路径
+    /// The path of the cache file
     private func cacheBasePath(_ request: WBAlRequest) -> String {
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!
         var cachePath = path.appending("/" + WBAlConfig.shared.cacheFileName)
@@ -137,11 +157,9 @@ public struct WBAlCache {
         }
     }
     
-    // MARK: - File Dely
-    
-    /// 移除文件夹内的所有内容
+    /// Remove the entire contents of a folder
     ///
-    /// - Parameter filePath: 需要移除的文件夹
+    /// - Parameter filePath: Need to remove the folder
     private func removeForder(with filePath: String) {
         let manager = FileManager.default
         if !manager.fileExists(atPath: filePath, isDirectory: nil) { return }
@@ -156,10 +174,10 @@ public struct WBAlCache {
         }
     }
     
-    /// 计算文件夹的大小
+    /// Calculate the size of the folder
     ///
-    /// - Parameter filePath: 文件夹路径
-    /// - Returns: 文件夹大小
+    /// - Parameter filePath: The folder path
+    /// - Returns: The folder size
     private func forderSize(with filePath: String) -> Double {
         let manager = FileManager.default
         if !manager.fileExists(atPath: filePath, isDirectory: nil) {
@@ -174,10 +192,10 @@ public struct WBAlCache {
         return size
     }
     
-    /// 计算单个文件大小
+    /// A single file size
     ///
-    /// - Parameter path: 文件路径
-    /// - Returns: 获取文件大小
+    /// - Parameter path: The file path
+    /// - Returns: Access to the file size
     private func sizeOfFilePath(path: String) -> Double {
         let manager = FileManager.default
         if !manager.fileExists(atPath: path) { return 0 }

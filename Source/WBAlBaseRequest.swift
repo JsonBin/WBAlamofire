@@ -12,111 +12,132 @@ import Alamofire
     import UIKit
 #endif
 
-/// 请求baseRequest
+/// WBAlBaseRequest是实现BaseRequest的类，是完成基础的默认参数的设置，
+/// 在这里面实现所有的基本参数的重写
+
+///  WBAlBaseRequest is to realize the BaseRequest class, is the foundation of complete the
+///  default parameter Settings, in which all the basic parameters can be rewritten. It's the
+///  base class of `WBAlRequest`.
 open class WBAlBaseRequest : BaseRequest {
+  
+// MARK: - Request Information
     
-// MARK: - SubClass Override
-    /// 需要更改baseURL时调用
+///=============================================================================
+/// @name Request Information
+///=============================================================================
+    
     open var baseURL: String { return "" }
     
-    /// 每一个model请求的url
     open var requestURL: String { return "" }
     
-    /// 需要使用cdnURL时调用
     open var cdnURL: String { return "" }
     
-    /// 请求的method
     open var requestMethod: WBHTTPMethod { return .get }
     
-    /// 需要添加的请求头
-    open var requestHeaders: WBHTTPHeaders? { return nil /*["Content-Type": "application/json", "Accept": "application/json"]*/}
+    open var requestHeaders: WBHTTPHeaders? { return nil }
     
-    /// 需要添加的请求参数
     open var requestParams: [String: Any]? { return nil }
     
-    /// 请求时对参数(params)的编码方式
     open var paramEncoding: WBParameterEncoding { return .url }
     
-    /// 请求返回的数据类型
     open var responseType: WBALResponseType { return .json }
     
-    /// 请求的优先权
     open var priority: WBALRequestPriority? { return nil }
     
-    // 上传文件时以下面三种任选一种作为上传数据依据
-    /// 上传文件时上传的数据
     open var requestDataClosure: BaseRequest.WBAlMutableDataClosure? { return nil }
     
-    /// 上传文件时文件的url
     open var uploadFile: URL? { return nil }
-    
-    /// 上传文件时文件的data
+
     open var uploadData: Data? { return nil }
     
-    /// 下载文件保存的名字，默认存放在 .../Documents/{WBAlConfig.shared.downFileName}/...下
     open var resumableDownloadPath: String { return "" }
     
-    /// https时使用的证书的用户名以及密码, first is user, last is password.
     open var requestAuthHeaders: [String]? { return nil }
-    
-    /// 是否使用cdn
+
     open var useCDN: Bool { return false }
+ 
+// MARK: - SubClass Override
     
-#if os(iOS)
-    /// 是否显示loadView, 默认不显示
-    open var showLoadView: Bool { return false }
-    
-    /// 显示加载框的动画类型, 若不设置则使用WBAlConfig内的配置, 默认为 .native
-    open var showLoadAnimationType: AnimationType? { return nil }
-    
-    /// 显示加载框文字的位置, 若不设置则使用WBAlConfig内的配置, 默认为 .bottom
-    open var showLoadTextPosition: TextLabelPosition? { return nil }
-    
-    /// 显示加载框文字的颜色, 若不设置则使用WBAlConfig内的配置, 默认为白色
-    open var showLoadTextColor: UIColor? { return nil }
-    
-    /// 显示加载框文字的字体, 若不设置则使用WBAlConfig内的配置，默认为15
-    open var showLoadTextFont: UIFont? { return nil }
-    
-    /// 显示加载框的文字, 若不设置则使用WBAlConfig内的配置， 默认为'Loading'
-    open var showLoadText: String? { return nil }
-#endif
+///=============================================================================
+/// @name Subclass Override
+///=============================================================================
     
     /// 过滤请求params的方法, 可覆写. 默认不过滤
+    ///  Override this method to filter requests with certain arguments when caching.
     open func cacheFileNameFilterForRequestParams(_ params: [String: Any]) -> [String: Any] { return params }
     
     /// 请求完成成功响应方法 <** 在回到主线程之前的子线程响应，如果是加载的缓存，则一定是在主线程之中响应
+    ///  Called on background thread after request succeded but before switching to main thread. Note if
+    ///  cache is loaded, this method WILL be called on the main thread, just like `requestCompleteFilter`.
     open func requestCompletePreprocessor() -> Void {}
     
     /// 请求完成成功响应方法 <** 在主线程响应
+    ///  Called on the main thread after request succeeded.
     open func requestCompleteFilter() -> Void {}
     
     /// 请求失败完成响应方法 <** 在回到主线程之前的子线程中响应,可参考 `requestCompletePreprocessor`
+    ///  Called on background thread after request succeded but before switching to main thread. See also
+    ///  `requestCompletePreprocessor`.
     open func requestFailedPreprocessor() -> Void {}
     
     /// 请求失败完成响应方法 <** 在主线程响应
+    ///  Called on the main thread when request failed.
     open func requestFailedFilter() -> Void {}
+
+// MARK: - iOS LoadView
+    
+///=============================================================================
+/// @name iOS LoadView
+///=============================================================================
+    
+#if os(iOS)
+    open var showLoadView: Bool { return false }
+    
+    open var showLoadAnimationType: AnimationType? { return nil }
+    
+    open var showLoadTextPosition: TextLabelPosition? { return nil }
+    
+    open var showLoadTextColor: UIColor? { return nil }
+    
+    open var showLoadTextFont: UIFont? { return nil }
+
+    open var showLoadText: String? { return nil }
+#endif
     
 // MARK: - Public Properties
-    /// 代理委托
-    open weak var delegate: WBAlRequestProtocol?
     
     /// use to request identify, Default 0
+    ///  Tag can be used to identify request. Default value is 0.
     open var tag: Int = 0
     
+    /// 代理委托
+    ///  The delegate object of the request. If you choose block style callback you can ignore this.
+    ///  Default is nil.
+    open weak var delegate: WBAlRequestProtocol?
+    
     /// 网络请求的协议组
+    ///  This can be used to add several accossories object. Note if you use `add(_ requestAccessory:)` to add acceesory
+    ///  this array will be automatically created. Default is nil.
     open var requestAccessories: [WBAlRequestAccessoryProtocol]?
     
     /// 下载文件或上传文件的进度
+    ///  You can use this block to track the download progress. See also `resumableDownloadPath`.
     open var downloadProgress: Request.ProgressHandler?
     
     /// 完成成功的回调
+    ///  The success callback. Note if this value is not nil and `requestFinished` delegate method is
+    ///  also implemented, both will be executed but delegate method is first called. This block
+    ///  will be called on the main queue.
     open var successCompleteClosure: BaseRequest.WBAlRequestCompleteClosure?
     
     /// 完成失败的回调
+    ///  The failure callback. Note if this value is not nil and `requestFailed` delegate method is
+    ///  also implemented, both will be executed but delegate method is first called. This block
+    ///  will be called on the main queue.
     open var failureCompleteClosure: BaseRequest.WBAlRequestCompleteClosure?
     
     /// 是否为需求请求成功状态码的范围内
+    ///  This validator will be used to test if `statusCodeValidator` is valid.
     open var statusCodeValidator: Bool {
         if WBAlConfig.shared.statusCode.contains(self.statusCode) {
             return true
@@ -126,45 +147,73 @@ open class WBAlBaseRequest : BaseRequest {
     
 // MARK: - Response Properties
     
-    /// 请求完成状态码
+///=============================================================================
+/// @name  Response Information
+///=============================================================================
+    
     open  var statusCode: Int { return request?.response?.statusCode ?? 500 }
     
     /// 请求状态
+    ///  Return cancelled state of request task.
     open var state : URLSessionTask.State? { return request?.task?.state }
     
     /// 请求获取的数据
+    ///  The raw data representation of response. Note this value may be nil if request failed.
     open var responseData: Data?
     
     /// 请求获取的string(返回类型为Data和String<objc返回为data时也生效>生效)
+    ///  The string representation of response. Note this value may be nil if request failed.
     open var responseString: String?
     
     /// 默认返回的数据结果
+    ///  This serialized response object. The actual type of this object is determined by
+    ///  `WBALResponseType.default` or `WBALResponseType.data`. Note this value
+    ///  can be nil if request failed.
+    ///
+    ///  @discussion If `resumableDownloadPath` and DownloadTask is using, this value will
+    ///  be the path to which file is successfully saved (NSURL), or nil if request failed.
     open var responseObj: Any?
     
     /// 返回为json时请求的结果
+    ///  If you use `WBALResponseType.json`, this is a convenience (and sematic) getter
+    ///  for the response Json. Otherwise this value is nil.
     open var responseJson: [String: Any]?
     
     /// 返回为plist时请求的结果
+    ///  If you use `WBALResponseType.plist`, this is a convenience (and sematic) getter
+    ///  for the response Plist. Otherwise this value is nil.
     open var responsePlist: Any?
     
-    /// 这是下载专用的url，Default nil.
+    /// 这是下载专用的url，仅当有下载时才生效. Default nil.
+    /// If you use `resumableDownloadPath`, this is a convenience (and sematic) getter
+    ///  for the response result. Otherwise this value is nil.
     open var downloadURL: URL?
     
     /// 请求失败error
+    ///  This error can be either serialization error or network error. If nothing wrong happens
+    ///  this value will be nil.
     open var error: Error?
     
-// MARK: - 私有调用
+    ///  The current request.
     open var request: Request?
     
 // MARK: - Init
+    
     public init() {}
     
 // MARK: - Request Action
+    
+///=============================================================================
+/// @name Request Action
+///=============================================================================
+    
+    /// Append self to request queue and start the request.
     open func start() -> Void {
         self.totalAccessoriesWillStart()
         WBAlamofire.shared.add(self)
     }
     
+    /// Remove self from request queue and cancel the request.
     open func stop() -> Void {
         self.totalAccessoriesWillStop()
         self.delegate = nil
@@ -172,17 +221,20 @@ open class WBAlBaseRequest : BaseRequest {
         self.totalAccessoriesDidStop()
     }
     
+    /// Convenience method to start the request with block callbacks.
     open func start(_ success: BaseRequest.WBAlRequestCompleteClosure?, failure failureClosure: BaseRequest.WBAlRequestCompleteClosure? = nil) {
         self.set(success, failure: failureClosure)
         
         self.start()
     }
     
+    ///  Set completion callbacks
     open func set(_ success: BaseRequest.WBAlRequestCompleteClosure?, failure failureClosure: BaseRequest.WBAlRequestCompleteClosure?) {
         self.successCompleteClosure = success
         self.failureCompleteClosure = failureClosure
     }
     
+    ///  Convenience method to add request accessory. See also `requestAccessories`.
     open func add(_ requestAccessory: WBAlRequestAccessoryProtocol) {
         if requestAccessories == nil {
             requestAccessories = [WBAlRequestAccessoryProtocol]()
@@ -190,13 +242,17 @@ open class WBAlBaseRequest : BaseRequest {
         requestAccessories?.append(requestAccessory)
     }
     
+    ///  Nil out both success and failure callback blocks.
     open func clearCompleteClosure() {
         // set nil out to break the retain cycle.
         self.successCompleteClosure = nil
         self.failureCompleteClosure = nil
     }
     
-// MARK: - 自定义request
+// MARK: - Custom Request
+    
+    ///  Use this to build custom request. If this method return non-nil value, `requestURL`,
+    ///  `requestParams`, , `requestMethod` and `paramEncoding` will all be ignored.
     open var buildCustomRequest: URLRequest? { return nil }
 }
 

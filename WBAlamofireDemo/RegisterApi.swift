@@ -10,25 +10,56 @@ import UIKit
 
 class RegisterApi: WBAlRequest {
     
+    private let phone: String
+    private let psd: String
+    
+    init(phone: String, psd: String) {
+        self.phone = phone
+        self.psd = psd
+    }
+    
+    /// request url
     override var requestURL: String {
         return "/adf/2"
     }
     
-    override var cacheInSeconds: TimeInterval{
-        return 5 * 60
+    /// request params
+    override var requestParams: [String : Any]? {
+        return ["phone": phone, "password": psd]
     }
     
-    override var baseURL: String { return "www.baidu.com" }
+    /// request method
+    override var requestMethod: WBHTTPMethod {
+        return .post
+    }
     
-    override var showLoadView: Bool { return true }
+    /// request params encoding
+    override var paramEncoding: WBParameterEncoding {
+        return .json
+    }
+
+    override func requestCompleteFilter() {
+        super.requestCompleteFilter()
+        // request success, you can dely response in there.
+    }
     
-    override var showLoadText: String? { return "Register" }
+    override func requestFailedFilter() {
+        super.requestFailedFilter()
+        // request failed. you can do something in there.
+    }
+    
+    override var showLoadView: Bool {
+        return true
+    }
+    
+    override var showLoadText: String? {
+        return "Register"
+    }
 }
 
 class down: WBAlRequest {
     
     override var requestURL: String {
-//        return "timg?image&quality=80&size=b9999_10000&sec=1514368052038&di=11dff689b5c73ea5f65ade4a6e442189&imgtype=0&src=http%3A%2F%2Fh.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F29381f30e924b899deb0d7ea64061d950b7bf650.jpg"
         return "timg?image&quality=80&size=b9999_10000&sec=1490781577869&di=e130b6d26a45afb47f42cb3c14edc2f6&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F5%2F553dc1e2be070.jpg"
     }
     
@@ -60,24 +91,46 @@ class login : WBAlRequest {
     }
     
     override var requestParams: [String : Any]? {
-        return ["username":"15184447833", "password":"123456"]
+        return ["username":"1518xxxx7833", "password":"123456"]
     }
     
     override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()
-        WBALog("request done!")
+        WBALog("request success!")
     }
     
+    /// the request of validity cache Settings for 10 minutes
     override var cacheInSeconds: TimeInterval {
         return 10 * 60
     }
     
+    /// open the HUD plug-in
     override var showLoadView: Bool {
         return true
     }
-    
+    /// set HUD text
     override var showLoadText: String? {
         return "Login"
+    }
+    /// set the HUD font
+    override var showLoadTextFont: UIFont? {
+        return .systemFont(ofSize: 19)
+    }
+    /// set the HUD textcolor
+    override var showLoadTextColor: UIColor? {
+        return .red
+    }
+    /// set the HUD animation effects
+    override var showLoadAnimationType: AnimationType? {
+        //  .system  use system animation
+        //  .native    use a custom animation
+        return .native
+    }
+    /// set the HUD font display position
+    override var showLoadTextPosition: TextLabelPosition? {
+        //  .no   don't show the words
+        //  .bottom  on the bottom of the animation
+        return .no
     }
 }
 

@@ -14,7 +14,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let res = RegisterApi()
+        let res = RegisterApi(phone: "177xxxx2467", psd: "123456")
+        res.ignoreCache = true  // whether don't use cache data. Default is false.
         res.start({ (quest) in
             // you can use self here, retain cycle won't happen
             print("Success!")
@@ -61,8 +62,8 @@ class ViewController: UIViewController {
         print(q)
         print(m)
         
-        let t1 = telphone(address: "成都市", tel: "12345678")
-        let t2 = telphone(address: "杭州市", tel: "0987654321")
+        let t1 = telphone(address: "CD", tel: "12345678")
+        let t2 = telphone(address: "HZ", tel: "0987654321")
         let u = user(name: "Lili", age: 35, tels: [t1, t2])
         if let j = u.toModel() { print(j) }
         

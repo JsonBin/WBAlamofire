@@ -20,8 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WBAlConfig.shared.debugLogEnable = true
         
         WBAlConfig.shared.loadViewText = "Login"
+        WBAlConfig.shared.loadViewTextFont = .systemFont(ofSize: 16)
         WBAlConfig.shared.loadViewTextColor = .red
         WBAlConfig.shared.loadViewAnimationType = .system
+        WBAlConfig.shared.loadViewTextPosition = .bottom
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
@@ -29,6 +31,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = ViewController()
 
+        /*
+        // all the download cache file size
+        WBAlCache.shared.downloadCacheSize
+        // all requests the cache file size
+        WBAlCache.shared.responseCacheFilesSize
+        // remove single download file
+        WBAlCache.shared.removeDownloadFiles(with: `YourFileName`)
+        // remove all requests results cache file
+        WBAlCache.shared.removeCacheFiles()
+        // remove all the downloaded file
+        WBAlCache.shared.removeDownloadFiles()
+        // remove all download cache and network request results
+        WBAlCache.shared.removeAllFiles()
+         */
         return true
     }
 

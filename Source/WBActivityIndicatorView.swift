@@ -6,30 +6,30 @@
 //  Copyright © 2017年 HengSu Technology. All rights reserved.
 //
 
-/// 在网络请求中添加加载框，只在iOS系统中实现，tvOS、watchOS及macOS中不涉及
+/// Loading box is added in the network request, only in the iOS implementation,
+/// tvOS, watchOS and does not involve in the macOS
 
 #if os(iOS)
 import UIKit
 
-/// label文字所处的位置
+/// The position of the label text
 ///
-/// - no: 不加载文字
-/// - bottom: 靠底部
+/// - no: Don't show text
+/// - bottom: in bottom
 public enum TextLabelPosition {
     case no
     case bottom
 }
 
-/// 加载动画的类型
+/// The type of loading animation
 ///
-/// - system: 系统自带类型(菊花)
-/// - native: 圆形progress动画
+/// - system: System built-in types (Daisy)
+/// - native: Circular progress animation
 public enum AnimationType  {
     case system
     case native
 }
 
-/// 加载视图
 open class WBActivityIndicatorView: UIView {
 
     private var _textLabel: UILabel?
@@ -48,7 +48,7 @@ open class WBActivityIndicatorView: UIView {
         initUI()
     }
     
-    /// 设置文本的位置，默认为右边
+    /// Set the location of the text, defaults to the bottom
     public var labelPosition: TextLabelPosition = .bottom {
         didSet{
             if labelPosition == oldValue { return }
@@ -56,7 +56,7 @@ open class WBActivityIndicatorView: UIView {
         }
     }
     
-    /// 设置动画的类型，默认为系统菊花
+    /// Set the type of animation. The default is system
     public var animationType: AnimationType = .system {
         didSet{
             if animationType == oldValue { return }
@@ -139,7 +139,7 @@ extension WBActivityIndicatorView {
     }
 }
 
-// MARK: - 设置
+// MARK: - Set Infomation
 extension WBActivityIndicatorView {
     private func setLabel() {
         if labelPosition == .no {

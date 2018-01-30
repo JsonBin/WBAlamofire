@@ -12,12 +12,19 @@ import Alamofire
     import UIKit
 #endif
 
+///  WBAlamofire is the underlying class that handles actual request generation,
+///  serialization and response handling.
 open class WBAlamofire {
     
-    /// 实例化，唯一性
+    ///  Get the shared.
     open static let shared = WBAlamofire()
     
-    // MARK: - Private Properties
+// MARK: - Private Properties
+    
+///=============================================================================
+/// @name Private Properties
+///=============================================================================
+    
     private let _manager: SessionManager
     private let _config: WBAlConfig
     private let _lock: NSLock
@@ -36,7 +43,12 @@ open class WBAlamofire {
     private let _loadView: WBActivityIndicatorView
 #endif
     
-// MARK: - Init && Request
+// MARK: - Init and Reqest
+    
+///=============================================================================
+/// @name Init and Reqest
+///=============================================================================
+    
     public init() {
         _config = WBAlConfig.shared
         _config.sessionConfiguration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
@@ -46,7 +58,7 @@ open class WBAlamofire {
         
         _manager = SessionManager(configuration: _config.sessionConfiguration, serverTrustPolicyManager: _config.serverPolicy)
         _lock = NSLock()
-        _asyncQueue = DispatchQueue.WBALAsyncDispatchQueue
+        _asyncQueue = DispatchQueue.wbCurrent
         _statusCode = _config.statusCode
         _contentType = _config.acceptType
         _requestRecord = [Int: WBAlBaseRequest]()
@@ -61,7 +73,8 @@ open class WBAlamofire {
         #endif
     }
     
-    /// Add Request 添加网络请求
+    /// Add request to session and start it.
+    /// 添加网络请求
     ///
     /// - Parameter request: Class from WBALBaseRequest
     open func add(_ request: WBAlBaseRequest) -> Void {
@@ -98,17 +111,17 @@ open class WBAlamofire {
         let request = request
         if let customRequest = request.buildCustomRequest {
             let dataRequest = _manager.request(customRequest)
-            // 添加https的user以及password
+            // add the user and password if use https or server need.
             if let auths = request.requestAuthHeaders {
                 dataRequest.authenticate(user: auths.first!, password: auths.last!)
             }
-            // 设置响应code范围及返回类型
+            // set the validator response code and type.
             dataRequest.validate(statusCode: _statusCode)
             dataRequest.validate(contentType: _contentType)
             requestResponse(request, dataRequest: dataRequest)
             request.request = dataRequest
         }else {
-            // 返回和回调一起使用，如果是上传数据则走回调，否则返回Request
+            // return type and closure. if upload data, it will reponse closure, Otherwise will return Request.
             request.request = sessionRequest(request, closure: { [unowned self] (uploadRequest, error) in
                 if let error = error {
                     self.requestDidFailed(request, error: error)
@@ -123,8 +136,9 @@ open class WBAlamofire {
         
         self.requestSetTaskPriority(request)
     }
-    
-    /// Cancel Request 取消网络请求
+
+    /// Cancel a request that was previously added.
+    /// 取消网络请求
     ///
     /// - Parameter request: Class from WBAlBaseRequest
     open func cancel(_ request: WBAlBaseRequest) -> Void {
@@ -158,7 +172,8 @@ open class WBAlamofire {
         }
     }
     
-    /// Cancel All Request 取消所有网络请求
+    ///  取消所有网络请求
+    ///  Cancel all requests that were previously added.
     open func cancelAllRequest() -> Void {
         #if !os(watchOS)
             _listenManager?.stopListening()
@@ -178,7 +193,11 @@ open class WBAlamofire {
         // cancel net work status
         setNetworkActivityIndicatorVisible(false)
     }
-    
+
+    /// Return the constructed URL of request.
+    ///
+    /// - Parameter request: The request to parse. Should not be nil.
+    /// - Returns: The result URL.
     open func buildURL(_ request: WBAlBaseRequest) -> URLConvertible {
         var detailUrl = request.requestURL
         if !detailUrl.isEmpty {
@@ -231,10 +250,15 @@ open class WBAlamofire {
   
 // MARK: - Request Set Priority
     
+///=============================================================================
+/// @name Request Set Priority
+///=============================================================================
+    
     /// Set the request task priority
     private func requestSetTaskPriority(_ request: WBAlBaseRequest) {
         if let dataRequest = request.request {
-            // 对请求进行优先权赋值
+            // set the request task priority
+            // !!Available on iOS 8 +
             if let priority = request.priority {
                 switch priority {
                 case .default:
@@ -271,7 +295,7 @@ open class WBAlamofire {
         }
     }
     
-    /// Reset the loadView status in iOS.
+    /// Reset the loadView status only in iOS.
     private func refreshLoadViewStatus() {
         #if os(iOS)
         _loadView.labelPosition = _config.loadViewTextPosition
@@ -290,7 +314,11 @@ open class WBAlamofire {
         #endif
     }
     
- // MARK: - Request
+ // MARK: - Init Request
+    
+///=============================================================================
+/// @name Init Request
+///=============================================================================
     
     private func sessionRequest(_ request:WBAlBaseRequest, closure dataClosure: dataRequestClosure? = nil) -> Request? {
         let method = request.requestMethod
@@ -312,8 +340,12 @@ open class WBAlamofire {
         return addRequest
     }
     
+// MARK: - Data Request
     
-// MARK:  - DataRequest
+///=============================================================================
+/// @name Data Request
+///=============================================================================
+
     private typealias dataRequestClosure = (_ request:DataRequest?, _ error:Error? ) -> Void
     private func setRequest(_ request:WBAlBaseRequest, url urlString:URLConvertible, closure dataClosure: dataRequestClosure? = nil)  -> DataRequest? {
         var setRe: DataRequest?
@@ -322,7 +354,7 @@ open class WBAlamofire {
            _manager.upload(multipartFormData: closure, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders, encodingCompletion: { (result) in
             switch result {
             case .success(let upload, _, _):
-                // 添加https的user以及password
+                // add the user and password if use https or server need.
                 if let auths = request.requestAuthHeaders {
                     upload.authenticate(user: auths.first!, password: auths.last!)
                 }
@@ -331,7 +363,7 @@ open class WBAlamofire {
                         uploadProgressHandler(progress)
                     }
                 })
-                /// 设置响应code范围及返回类型
+                // set the validator response code and type.
                 upload.validate(statusCode: self._statusCode)
                 upload.validate(contentType: self._contentType)
                 
@@ -354,11 +386,11 @@ open class WBAlamofire {
             }else{
                 setRe = _manager.request(urlString, method: request.requestMethod.rawValue, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders)
             }
-            // 添加https的user以及password
+            // add the user and password if use https or server need.
             if let user = request.requestAuthHeaders?.first, let pas = request.requestAuthHeaders?.last {
                 setRe?.authenticate(user: user, password: pas)
             }
-            // 设置响应code范围及返回类型
+            // set the validator response code and type.
             setRe?.validate(statusCode: _statusCode)
             setRe?.validate(contentType: _contentType)
             
@@ -370,6 +402,10 @@ open class WBAlamofire {
     }
     
 // MARK: - Download Request
+    
+///=============================================================================
+/// @name Download Request
+///=============================================================================
     
     private func download(_ request:WBAlBaseRequest, url urlString:URLConvertible) -> DownloadRequest {
         var downpath = request.resumableDownloadPath
@@ -413,15 +449,14 @@ open class WBAlamofire {
         }
         // create request
         let downRequest: DownloadRequest
-        // 文件存在，及data可用
+        // if file exist and the resumeData is vaildator
         if resumeFileExisits, resumeDataVaild, let data = data {
-            // 断点续传功能
+            // download with resumeData
             downRequest = _manager.download(resumingWith: data, to: destionation)
         }else{
             downRequest = _manager.download(urlString, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders, to: destionation)
         }
-        // 添加https的user以及password
-        // 添加https的user以及password
+        // add the user and password if use https or server need.
         if let user = request.requestAuthHeaders?.first, let pas = request.requestAuthHeaders?.last {
             downRequest.authenticate(user: user, password: pas)
         }
@@ -430,9 +465,8 @@ open class WBAlamofire {
                 progressHandler(progress)
             }
         }
-        // 设置响应code范围及返回类型
+        // set the validator response code and type.
         downRequest.validate(statusCode: _statusCode)
-        /*downRequest.validate(contentType: ["application/json"])*/
         downRequest.validate(contentType: _contentType)
         // response
         requestResponse(request, downRequest: downRequest, cacheURL: tmp)
@@ -440,9 +474,14 @@ open class WBAlamofire {
         return downRequest
     }
     
-// MARK: - DataRequest && DownRequest Response
+// MARK: - DataRequest and DownRequest Response
+    
+///=============================================================================
+/// @name DataRequest and DownRequest Response
+///=============================================================================
+    
     private func requestResponse(_ request:WBAlBaseRequest, dataRequest dataRe:DataRequest?) {
-        // 对应返回类型进行处理
+        // Corresponding to the return type for processing
         switch request.responseType {
         case .default:
             dataRe?.response(completionHandler: { (response) in
@@ -461,9 +500,9 @@ open class WBAlamofire {
                     self.requestSuccess(request, requestResult: value)
                 case .failure(let error):
                     if let data = response.data, let jsonString = String(data: data, encoding: .utf8) {
-                        WBALog("请求失败................................................>\n Response:\(response) \n//////////////////////////////////////////////////////////////////////////\n Data:\(jsonString)")
+                        WBALog("Request Failed:................................................>\n Response:\(response) \n//////////////////////////////////////////////////////////////////////////\n Data:\(jsonString)")
                     }else {
-                        WBALog("请求失败......................> \(response)")
+                        WBALog("Request Failed:......................> \(response)")
                     }
                     self.requestDidFailed(request, error: error)
                 }
@@ -502,7 +541,7 @@ open class WBAlamofire {
     }
     
     private func requestResponse(_ request:WBAlBaseRequest, downRequest downRe:DownloadRequest, cacheURL url: URL) {
-        // 对应返回类型进行处理
+        // Corresponding to the return type for processing
         switch request.responseType {
         case .default:
             downRe.response(completionHandler: { (response) in
@@ -556,7 +595,12 @@ open class WBAlamofire {
         }
     }
     
-// MARK: - MD5 & URL
+// MARK: - MD5 and URL
+    
+///=============================================================================
+/// @name MD5 and URL
+///=============================================================================
+
     static var cacheFolder: String?
     private func formatDownloadPathWithMd5String(_ down: String, useMD5 use:Bool) -> URL {
         var md5String = use ? WBAlUtils.md5WithString(down) : down
@@ -621,6 +665,10 @@ open class WBAlamofire {
     
 // MARK: - Request Record
     
+///=============================================================================
+/// @name Request Record
+///=============================================================================
+    
     private func addRecord(_ request:WBAlBaseRequest) {
         _lock.lock()
         defer {
@@ -639,7 +687,12 @@ open class WBAlamofire {
         }
     }
     
-// MARK: - Success && Failure
+// MARK: - Request Success and Failure
+    
+///=============================================================================
+/// @name Request Success and Failure
+///=============================================================================
+
     private func requestDidFailed(_ request:WBAlBaseRequest, error requestError:Error, cacheURL url:URL? = nil, resumeData data:Data? = nil) {
         // Hide the Network status in status bar.
         setNetworkActivityIndicatorVisible(false)
@@ -674,7 +727,7 @@ open class WBAlamofire {
             
             request.totalAccessoriesDidStop()
             
-            // 移除request
+            // remove request
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
             
@@ -690,7 +743,7 @@ open class WBAlamofire {
         setNetworkActivityIndicatorVisible(false)
         
         if let result = result {
-            // 如果是下载，则响应返回为下载保存的路径
+            // If it is to download the response returns the path of save for download
             if result is URL {
                 request.downloadURL = result as? URL
             }else{
@@ -735,7 +788,7 @@ open class WBAlamofire {
             }
         }
         
-        // 移除request
+        // remove request
         DispatchQueue.main.async {
             self.removeRecord(forRequest: request)
             request.clearCompleteClosure()
