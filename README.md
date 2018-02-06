@@ -89,7 +89,7 @@ Run `carthage` to build the framework and drag the built `WBAlamofire.framework`
 
 ## Swift Package Manager
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the swift compiler. It is in early development, but WBAlamofire does support its use on supported platforms.
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the swift compiler. It is in early development, but WBAlamofire does not support its use on supported platforms.
 
 Once you have your Swift package set up, adding WBAlamofire as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
