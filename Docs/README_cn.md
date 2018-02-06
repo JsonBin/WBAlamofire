@@ -81,6 +81,17 @@ github "JsonBin/WBAlamofire"
 ```
 
 运行`carthage update`并将生成的`WBAlamofire.framework`导入到你的项目中.
+
+## SPM包管理器
+
+[SPM](https://swift.org/package-manager/)是一个自动化的快速集成和编译代码的工具. 在早期的版本中，WBAlamofire并不支持在支持的平台上使用.
+
+一旦你想使用SPM管理你的项目, 只需要将WBAlamofire添加为依赖包即可. 在`Package.swift`的`dependencies`添加如下代码即可使用:
+
+```bash
+dependencies: [
+    .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "1.1.0")
+]
     
 ## 安装要求
 
@@ -337,7 +348,7 @@ class login : WBAlRequest {
     
 ## 感谢
 
-十分感谢 [YTKNetwork][YTKNetwork]的作者.
+十分感谢 [YTKNetwork][YTKNetwork]和[Alamofire][Alamofire]的作者.
 
 查看更多的信息请访问[YTKNetwork][YTKNetwork]
 
