@@ -355,7 +355,7 @@ The cache mechanism is transparent to the controller, which means the request ca
     
 ## Thanks
 
-Thanks for [YTKNetwork][YTKNetwork] contributors. 
+Thanks for [YTKNetwork][YTKNetwork] and [Alamofire][Alamofire] contributors. 
 
 See more information with [YTKNetwork][YTKNetwork].
 
