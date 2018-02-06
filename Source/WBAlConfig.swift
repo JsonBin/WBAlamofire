@@ -224,9 +224,9 @@ extension WBAlConfig : CustomDebugStringConvertible {
 ///=============================================================================
 
 extension DispatchQueue {
-    public class var wbCurrent: DispatchQueue {
+    public static var wbCurrent: DispatchQueue {
         let name = String(format: "com.wbalamofire.request.%08x%08x", arc4random(),arc4random())
-        return DispatchQueue(label: name)
+        return DispatchQueue(label: name, attributes: .concurrent)
     }
 }
 

@@ -84,10 +84,7 @@ open class WBAlBatchRequest {
         requests = WBAlRequests
         _finishCount = 0
         tag = 0
-        
-        let uuid_ref = CFUUIDCreate(nil)
-        let uuid_string_ref = CFUUIDCreateString(nil, uuid_ref)
-        rawString = String(format: "%@", uuid_string_ref as! CVarArg).lowercased()
+        rawString = UUID().uuidString
     }
     
 // MARK: - Start Action

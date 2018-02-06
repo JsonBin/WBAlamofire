@@ -157,7 +157,7 @@ open class WBAlamofire {
                 })
             }
         }else{
-            request.request?.task?.cancel()
+            request.request?.cancel()
         }
         removeRecord(forRequest: request)
         request.clearCompleteClosure()

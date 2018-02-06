@@ -57,10 +57,7 @@ open class WBAlChainRequest {
         requests = [WBAlBaseRequest]()
         _requestCallBacks = [WBAlChainRequestClosure]()
         _emptyCallBack = { _, _ in }
-        
-        let uuid_ref = CFUUIDCreate(nil)
-        let uuid_string_ref = CFUUIDCreateString(nil, uuid_ref)
-        rawString = String(format: "%@", uuid_string_ref as! CVarArg).lowercased()
+        rawString = UUID().uuidString
     }
     
 // MARK: - Start Action
