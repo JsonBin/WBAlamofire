@@ -92,6 +92,7 @@ github "JsonBin/WBAlamofire"
 dependencies: [
     .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "1.1.0")
 ]
+```
     
 ## 安装要求
 
