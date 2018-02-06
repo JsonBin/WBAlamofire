@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "WBAlamofire",
     dependencies: [
-        .Package(url: "https://github.com/Alamofire/Alamofire.git", versions: Version(4, 5, 0)..<Version(5, 0, 0))
+        .package(url: "https://github.com/Alamofire/Alamofire.git", Version(4, 5, 0)..<Version(5, 0, 0))
     ],
     swiftLanguageVersions: [4]
 )
