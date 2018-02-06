@@ -64,24 +64,29 @@ open class WBAlBaseRequest : BaseRequest {
     
     /// 过滤请求params的方法, 可覆写. 默认不过滤
     ///  Override this method to filter requests with certain arguments when caching.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     open func cacheFileNameFilterForRequestParams(_ params: [String: Any]) -> [String: Any] { return params }
     
     /// 请求完成成功响应方法 <** 在回到主线程之前的子线程响应，如果是加载的缓存，则一定是在主线程之中响应
     ///  Called on background thread after request succeded but before switching to main thread. Note if
     ///  cache is loaded, this method WILL be called on the main thread, just like `requestCompleteFilter`.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     open func requestCompletePreprocessor() -> Void {}
     
     /// 请求完成成功响应方法 <** 在主线程响应
     ///  Called on the main thread after request succeeded.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     open func requestCompleteFilter() -> Void {}
     
     /// 请求失败完成响应方法 <** 在回到主线程之前的子线程中响应,可参考 `requestCompletePreprocessor`
     ///  Called on background thread after request succeded but before switching to main thread. See also
     ///  `requestCompletePreprocessor`.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     open func requestFailedPreprocessor() -> Void {}
     
     /// 请求失败完成响应方法 <** 在主线程响应
     ///  Called on the main thread when request failed.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     open func requestFailedFilter() -> Void {}
 
 // MARK: - iOS LoadView

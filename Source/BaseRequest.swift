@@ -216,6 +216,7 @@ public protocol BaseRequest {
     /// 需要更改baseURL时调用
     ///  The baseURL of request. This should only contain the host part of URL, e.g., http://www.example.com.
     ///  See also `requestURL`
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var baseURL: String { get }
     
     /// 每一个model请求的url
@@ -228,49 +229,60 @@ public protocol BaseRequest {
     ///
     ///  Additionaly, if `requestURL` itself is a valid URL, it will be used as the result URL and
     ///  `baseURL` will be ignored.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var requestURL: String { get }
     
     /// 需要使用cdnURL时调用
     ///  Optional CDN URL for request.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var cdnURL: String { get }
     
     /// 请求的method
     ///  HTTP request method.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var requestMethod: WBHTTPMethod { get }
     
     /// 需要添加的请求头
     ///  Additional HTTP request header field.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var requestHeaders: WBHTTPHeaders? { get }
     
     /// 需要添加的请求参数
     ///  Additional request argument.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var requestParams: [String: Any]? { get }
     
     /// 请求时param编码
     ///  Request serializer type.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var paramEncoding: WBParameterEncoding { get }
     
     /// 请求返回的数据类型
     ///  Response serializer type. See also `responseObject`.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var responseType: WBALResponseType { get }
     
     /// 请求的优先权
     ///  The priority of the request. Effective only on iOS 8+. Default is `WBALRequestPriority.default`.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var priority: WBALRequestPriority? { get }
     
     // 上传文件时以下面三种任选一种作为上传数据依据
     /// 上传文件时上传的数据
     ///  This can be use to construct HTTP body when needed in POST request. Default is nil.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var requestDataClosure: WBAlMutableDataClosure? { get }
     
     /// 上传文件时文件的url
     ///  This can be use to construct HTTP body when needed in POST request. Default is nil.
     ///  If you want to upload a local file, you can use a local URL to upload this file.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var uploadFile: URL? { get }
     
     /// 上传文件时文件的data
     ///  This can be use to construct HTTP body when needed in POST request. Default is nil.
     ///  If you want to upload local data, you can use a local data to upload this data.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var uploadData: Data? { get }
     
     /// 下载文件保存的名字，默认存放在 .../Documents/{WBAlConfig.shared.downFileName}/...下
@@ -282,14 +294,17 @@ public protocol BaseRequest {
     ///   be saved to this path automatically, otherwise the response will be saved to `responseData`
     ///   and `responseString`. For this to work, server must support `Range` and response with
     ///   proper `Last-Modified` and/or `Etag`. See `NSURLSessionDownloadTask` for more detail.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var resumableDownloadPath: String { get }
     
     /// https时使用的证书的用户名以及密码, first is user, last is password.
     ///  Username and password used for HTTP authorization. Should be formed as @[@"Username", @"Password"].
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var requestAuthHeaders: [String]? { get }
     
     /// 是否使用cdn
     ///  Should use CDN when sending request.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var useCDN: Bool { get }
 
 // MARK: - iOS LoadView
@@ -303,31 +318,37 @@ public protocol BaseRequest {
     ///  Whether show the loadView. if you want use it, must be true.
     ///  When it has used, will show a "Loading" HUD plug-in in the top ViewController's view.
     ///  Default is false.
+    @available(iOS 8.0, *)
     var showLoadView: Bool { get }
     
     /// 显示加载框的动画类型, 若不设置则使用WBAlConfig内的配置
     /// According to the loading frame of animation types, if do not use the WBAlConfig
     /// within the configuration Settings
+    @available(iOS 8.0, *)
     var showLoadAnimationType: AnimationType? { get }
     
     /// 显示加载框文字的位置, 若不设置则使用WBAlConfig内的配置
     /// Shows the location of the loading text box, if do not use the WBAlConfig
     /// within the configuration Settings
+    @available(iOS 8.0, *)
     var showLoadTextPosition: TextLabelPosition? { get }
     
     /// 显示加载框文字的颜色, 若不设置则使用WBAlConfig内的配置
     /// The text box display color, if not use the WBAlConfig
     /// within the configuration Settings
+    @available(iOS 8.0, *)
     var showLoadTextColor: UIColor? { get }
     
     /// 显示加载框文字的字体, 若不设置则使用WBAlConfig内的配置
     /// The box display text font, if do not use the WBAlConfig
     /// within the configuration Settings
+    @available(iOS 8.0, *)
     var showLoadTextFont: UIFont? { get }
     
     /// 显示加载框的文字, 若不设置则使用WBAlConfig内的配置
     /// The text display loaded box, if don't use the WBAlConfig
     /// within the configuration Settings
+    @available(iOS 8.0, *)
     var showLoadText: String? { get }
 #endif
     
@@ -339,5 +360,6 @@ public protocol BaseRequest {
     
     /// 响应状态码
     ///  The response status code.
+    @available(iOS 8.0, watchOS 2.0, tvOS 9.0, OSX 10.10, *)
     var statusCode: Int { get }
 }
