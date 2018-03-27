@@ -67,8 +67,9 @@ class ViewController: UIViewController {
         let u = user(name: "Lili", age: 35, tels: [t1, t2])
         if let j = u.toModel() { print(j) }
         
-        let size = WBAlCache.shared.downloadCacheSize
-        print(size / 1024)
+        WBAlCache.shared.downloadCacheSize { (size) in
+            print(size / 1024)
+        }
         
         // custom load view
         /*let load = WBActivityIndicatorView()

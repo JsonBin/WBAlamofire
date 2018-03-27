@@ -14,10 +14,10 @@ import Alamofire
 
 ///  WBAlamofire is the underlying class that handles actual request generation,
 ///  serialization and response handling.
-open class WBAlamofire {
+public final class WBAlamofire {
     
     ///  Get the shared.
-    open static let shared = WBAlamofire()
+    public static let shared = WBAlamofire()
     
 // MARK: - Private Properties
     
@@ -77,7 +77,7 @@ open class WBAlamofire {
     /// 添加网络请求
     ///
     /// - Parameter request: Class from WBALBaseRequest
-    open func add(_ request: WBAlBaseRequest) -> Void {
+    public func add(_ request: WBAlBaseRequest) -> Void {
         
         #if !os(watchOS)
             if let listenManager = _listenManager, !listenManager.isReachable {
@@ -141,7 +141,7 @@ open class WBAlamofire {
     /// 取消网络请求
     ///
     /// - Parameter request: Class from WBAlBaseRequest
-    open func cancel(_ request: WBAlBaseRequest) -> Void {
+    public func cancel(_ request: WBAlBaseRequest) -> Void {
         if !request.resumableDownloadPath.isEmpty {
             // if is downloadtask, this request will save the resume data
             // to resumabledownloadpath in temp library before cancel.
@@ -174,7 +174,7 @@ open class WBAlamofire {
     
     ///  取消所有网络请求
     ///  Cancel all requests that were previously added.
-    open func cancelAllRequest() -> Void {
+    public func cancelAllRequest() -> Void {
         #if !os(watchOS)
             _listenManager?.stopListening()
         #endif
@@ -198,7 +198,7 @@ open class WBAlamofire {
     ///
     /// - Parameter request: The request to parse. Should not be nil.
     /// - Returns: The result URL.
-    open func buildURL(_ request: WBAlBaseRequest) -> URLConvertible {
+    public func buildURL(_ request: WBAlBaseRequest) -> URLConvertible {
         var detailUrl = request.requestURL
         if !detailUrl.isEmpty {
             var temp: URL!
@@ -499,6 +499,9 @@ open class WBAlamofire {
                 case .success(let value):
                     self.requestSuccess(request, requestResult: value)
                 case .failure(let error):
+                    // When response type is json, you can check the server's error infomation.
+                    // The error log has contain response and other string. Otherwise, that only has
+                    // response information.
                     if let data = response.data, let jsonString = String(data: data, encoding: .utf8) {
                         WBALog("Request Failed:................................................>\n Response:\(response) \n//////////////////////////////////////////////////////////////////////////\n Data:\(jsonString)")
                     }else {

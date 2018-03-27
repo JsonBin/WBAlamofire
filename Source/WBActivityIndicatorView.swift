@@ -30,7 +30,7 @@ public enum AnimationType  {
     case native
 }
 
-open class WBActivityIndicatorView: UIView {
+public final class WBActivityIndicatorView: UIView {
 
     private var _textLabel: UILabel?
     private var _indicator: UIActivityIndicatorView?
@@ -191,7 +191,7 @@ extension WBActivityIndicatorView {
 }
 
 /// Loading AnimationView
-public class WBActivityRodllView: UIView {
+public final class WBActivityRodllView: UIView {
     
     /// The line color.
     public var color: UIColor = .white {

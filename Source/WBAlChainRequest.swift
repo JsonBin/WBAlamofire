@@ -12,7 +12,7 @@ import Foundation
 ///  will only starts after another finishes. Note that when used inside WBAlChainRequest,
 ///  a single WBAlBaseRequest will have its own callback and delegate cleared, in favor
 ///  of the batch request callback.
-open class WBAlChainRequest {
+public final class WBAlChainRequest {
 
     public typealias WBAlChainRequestClosure = (_ chainRequest: WBAlChainRequest, _ baseRequest:WBAlBaseRequest) -> Void
   
@@ -24,16 +24,16 @@ open class WBAlChainRequest {
     
     /// 所有的请求数组
     ///  All the requests are stored in this array.
-    open private(set) var requests: [WBAlBaseRequest]
+    public private(set) var requests: [WBAlBaseRequest]
     
     /// 响应delegate
     ///  The delegate object of the chain request. Default is nil.
-    open weak var delegate: WBAlChainRequestProtocol?
+    public weak var delegate: WBAlChainRequestProtocol?
     
     /// 网络请求的协议组
     ///  This can be used to add several accossories object. Note if you use `add(_ requestAccessory:)` to add acceesory
     ///  this array will be automatically created. Default is nil.
-    open private(set) var requestAccessories: [WBAlRequestAccessoryProtocol]?
+    public private(set) var requestAccessories: [WBAlRequestAccessoryProtocol]?
 
 // MARK: - Private Properties
     
@@ -44,7 +44,7 @@ open class WBAlChainRequest {
     private let _emptyCallBack: WBAlChainRequestClosure
     private var _requestCallBacks: [WBAlChainRequestClosure]
     private var _nextRequestIndex: Int
-    open private(set) var rawString: String
+    public private(set) var rawString: String
     
 // MARK: - Cycle Life
     
@@ -67,7 +67,7 @@ open class WBAlChainRequest {
 ///=============================================================================
     
     ///  Start the chain request, adding first request in the chain to request queue.
-    open func start() {
+    public func start() {
         if _nextRequestIndex > 0 {
             WBALog("Chain Error! Chain request has already started!")
             return
@@ -83,7 +83,7 @@ open class WBAlChainRequest {
     }
     
     ///  Stop the chain request. Remaining request in chain will be cancelled.
-    open func stop() {
+    public func stop() {
         self.totalAccessoriesWillStop()
         self.delegate = nil
         self.cleanRequest()
@@ -97,7 +97,7 @@ open class WBAlChainRequest {
     /// - Parameters:
     ///   - request: The request to be chained.
     ///   - closure: The finish callback
-    open func add(_ request:WBAlBaseRequest, callBack closure: WBAlChainRequestClosure? = nil) {
+    public func add(_ request:WBAlBaseRequest, callBack closure: WBAlChainRequestClosure? = nil) {
         requests.append(request)
         if let closure = closure {
             _requestCallBacks.append(closure)
@@ -107,7 +107,7 @@ open class WBAlChainRequest {
     }
     
     ///  Convenience method to add request accessory. See also `requestAccessories`.
-    open func add(_ requestAccessory: WBAlRequestAccessoryProtocol) {
+    public func add(_ requestAccessory: WBAlRequestAccessoryProtocol) {
         if requestAccessories == nil {
             requestAccessories = [WBAlRequestAccessoryProtocol]()
         }
@@ -252,10 +252,10 @@ extension WBAlChainRequestProtocol {
 
 ///  WBAlChainAlamofire handles chain request management. It keeps track of all
 ///  the chain requests.
-open class WBAlChainAlamofire {
+public final class WBAlChainAlamofire {
     
     ///  Get the shared chain request.
-    open static let shared = WBAlChainAlamofire()
+    public static let shared = WBAlChainAlamofire()
     
 // MARK: - Private Properties
     
@@ -284,14 +284,14 @@ open class WBAlChainAlamofire {
 ///=============================================================================
     
     ///  Add a chain request.
-    open func add(_ chainRequest: WBAlChainRequest) {
+    public func add(_ chainRequest: WBAlChainRequest) {
         _lock.lock()
         defer { _lock.unlock() }
         _chainRequests.append(chainRequest)
     }
     
     ///  Remove a previously added chain request.
-    open func remove(_ chainRequest: WBAlChainRequest) {
+    public func remove(_ chainRequest: WBAlChainRequest) {
         _lock.lock()
         defer { _lock.unlock() }
         let index = _chainRequests.index(where: { $0 == chainRequest })

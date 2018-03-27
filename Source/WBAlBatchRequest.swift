@@ -11,7 +11,7 @@ import Foundation
 ///  WBAlBatchRequest can be used to batch several WBAlRequest. Note that when
 ///  used inside WBAlBatchRequest, a single WBAlRequest will have its own callback
 ///  and delegate cleared, in favor of the batch request callback.
-open class WBAlBatchRequest {
+public final class WBAlBatchRequest {
     
     public typealias WBAlBatchRequestClosure = (_ batchRequest: WBAlBatchRequest) -> Void
 
@@ -23,38 +23,38 @@ open class WBAlBatchRequest {
 
     /// 所有的并列请求.
     ///  All the requests are stored in this array.
-    open private(set) var requests: [WBAlRequest]
+    public private(set) var requests: [WBAlRequest]
     
     /// 响应delegate
     ///  The delegate object of the batch request. Default is nil.
-    open weak var delegate: WBAlBatchRequestProtocol?
+    public weak var delegate: WBAlBatchRequestProtocol?
     
     /// 网络请求的协议组
     ///  This can be used to add several accossories object. Note if you use `add(_ requestAccessory)` to add acceesory
     ///  this array will be automatically created. Default is nil.
-    open private(set) var requestAccessories: [WBAlRequestAccessoryProtocol]?
+    public private(set) var requestAccessories: [WBAlRequestAccessoryProtocol]?
     
     /// 如果请求失败, 此为失败的请求
     ///  The first request that failed (and causing the batch request to fail).
-    open private(set) var failedRequest: WBAlRequest?
+    public private(set) var failedRequest: WBAlRequest?
     
     ///  batch request identify. Default 0.
     ///  Tag can be used to identify batch request. Default value is 0.
-    open var tag: Int
+    public var tag: Int
     
     /// 请求成功回调
     ///  The success callback. Note this will be called only if all the requests are finished.
     ///  This block will be called on the main queue.
-    open var successCompleteClosure: WBAlBatchRequestClosure?
+    public var successCompleteClosure: WBAlBatchRequestClosure?
     
     /// 请求失败回调
     ///  The failure callback. Note this will be called if one of the requests fails.
     ///  This block will be called on the main queue.
-    open var failureCompleteClosure: WBAlBatchRequestClosure?
+    public var failureCompleteClosure: WBAlBatchRequestClosure?
     
     /// 数据源是否全部来自于缓存
     ///  Whether all response data is from local cache.
-    open var isDataFromCache: Bool {
+    public var isDataFromCache: Bool {
         var dataCache = true
         requests.forEach {
             if !$0.isDataFromCache { dataCache = false }
@@ -69,7 +69,7 @@ open class WBAlBatchRequest {
 ///=============================================================================
 
     fileprivate var _finishCount: Int
-    open private(set) var rawString: String
+    public private(set) var rawString: String
     
 // MARK: - Cycle Life
     
@@ -94,7 +94,7 @@ open class WBAlBatchRequest {
 ///=============================================================================
     
     ///  Append all the requests to queue.
-    open func start() -> Void {
+    public func start() -> Void {
         if _finishCount > 0 {
             WBALog("Batch Error! batch request has already started.")
             return
@@ -110,7 +110,7 @@ open class WBAlBatchRequest {
     }
     
     ///  Stop all the requests of the batch request.
-    open func stop() -> Void {
+    public func stop() -> Void {
         self.totalAccessoriesWillStop()
         self.delegate = nil
         self.cleanRequest()
@@ -120,7 +120,7 @@ open class WBAlBatchRequest {
     }
     
     ///  Convenience method to start the batch request with block callbacks.
-    open func start(_ success: WBAlBatchRequestClosure?, failure failureClosure: WBAlBatchRequestClosure?) {
+    public func start(_ success: WBAlBatchRequestClosure?, failure failureClosure: WBAlBatchRequestClosure?) {
         self.successCompleteClosure = success
         self.failureCompleteClosure = failureClosure
         
@@ -128,7 +128,7 @@ open class WBAlBatchRequest {
     }
     
     ///  Convenience method to add request accessory. See also `requestAccessories`.
-    open func add(_ requestAccessory: WBAlRequestAccessoryProtocol) {
+    public func add(_ requestAccessory: WBAlRequestAccessoryProtocol) {
         if requestAccessories == nil {
             requestAccessories = [WBAlRequestAccessoryProtocol]()
         }
@@ -136,13 +136,13 @@ open class WBAlBatchRequest {
     }
     
     ///  Set completion callbacks
-    open func set(_ success: WBAlBatchRequestClosure?, failure failureClosure: WBAlBatchRequestClosure?) {
+    public func set(_ success: WBAlBatchRequestClosure?, failure failureClosure: WBAlBatchRequestClosure?) {
         self.successCompleteClosure = success
         self.failureCompleteClosure = failureClosure
     }
     
     ///  Nil out both success and failure callback blocks.
-    open func cleanCompleteClosre() -> Void {
+    public func cleanCompleteClosre() -> Void {
         // nil out to break the retain cycle.
         self.successCompleteClosure = nil
         self.failureCompleteClosure = nil
@@ -287,10 +287,10 @@ extension WBAlBatchRequestProtocol {
 
 ///  WBAlBatchAlamofire handles batch request management. It keeps track of all
 ///  the batch requests.
-open class WBAlBatchAlamofire {
+public final class WBAlBatchAlamofire {
     
     ///  Get the shared batch request.
-    open static let shared = WBAlBatchAlamofire()
+    public static let shared = WBAlBatchAlamofire()
 
 // MARK: - Private Properties
     
@@ -319,14 +319,14 @@ open class WBAlBatchAlamofire {
 ///=============================================================================
     
     ///  Add a batch request.
-    open func add(_ batchRequest: WBAlBatchRequest) {
+    public func add(_ batchRequest: WBAlBatchRequest) {
         _lock.lock()
         defer { _lock.unlock() }
         _batchRequests.append(batchRequest)
     }
     
     ///  Remove a previously added batch request.
-    open func remove(_ batchRequest: WBAlBatchRequest) {
+    public func remove(_ batchRequest: WBAlBatchRequest) {
         _lock.lock()
         defer { _lock.unlock() }
         let index = _batchRequests.index(where: { $0 == batchRequest })

@@ -36,10 +36,10 @@ public protocol WBAlCacheDirPathFilterProtocol {
 
 ///  WBAlConfig stored global network-related configurations, which will be used in `WBAlamofire`
 ///  to form and filter requests, as well as caching response.
-open class WBAlConfig {
+public final class WBAlConfig {
     
     ///  Return a shared config object.
-    open static let shared = WBAlConfig()
+    public static let shared = WBAlConfig()
     
 // MARK: - Public Properties
     
@@ -49,58 +49,58 @@ open class WBAlConfig {
     
     /// 配置项目的baseURL
     ///  Request base URL, such as "http://www.baidu.com". Default is empty string.
-    open var baseURL: String
+    public var baseURL: String
     
     /// 配置项目的cdnURL
     ///  Request CDN URL. Default is empty string.
-    open var cdnURL: String
+    public var cdnURL: String
     
     /// 网络请求超时时间, Default 30s
     /// Request time out interval. Default is 30s.
-    open var requestTimeoutInterval: TimeInterval
+    public var requestTimeoutInterval: TimeInterval
     
     /// 设置响应状态码的范围, 默认为(200-300)
     /// Request vaildator code. Default is 200~300.
-    open var statusCode: [Int]
+    public var statusCode: [Int]
     
     /// 设置返回接受类型
     /// Set to return to accept type
-    open var acceptType: [String]
+    public var acceptType: [String]
     
     /// 是否能通过蜂窝网络访问数据, Default true
     /// Whether allow cellular. Default is true.
-    open var allowsCellularAccess: Bool
+    public var allowsCellularAccess: Bool
     
     /// 是否开启日志打印，默认false
     ///  Whether to log debug info. Default is NO.
-    open var debugLogEnable: Bool
+    public var debugLogEnable: Bool
     
     /// 是否开启监听网络，默认true
-    /// Whether open network monitoring. Default is true.
-    open var listenNetWork: Bool
+    /// Whether public network monitoring. Default is true.
+    public var listenNetWork: Bool
     
     /// url protocol协议组
     ///  URL filters. See also `WBAlURLFilterProtocol`.
-    open var urlFilters: [WBAlURLFilterProtocol]
+    public var urlFilters: [WBAlURLFilterProtocol]
     
     /// cache dirpath protocol 协议组
     ///  Cache path filters. See also `WBAlCacheDirPathFilterProtocol`.
-    open var cacheDirPathFilters: [WBAlCacheDirPathFilterProtocol]
+    public var cacheDirPathFilters: [WBAlCacheDirPathFilterProtocol]
     
     ///  serverPolicy will be used to Alamofire. Default nil.
     ///  Security policy will be used by Alamofire. See also `ServerTrustPolicyManager`.
-    open var serverPolicy: ServerTrustPolicyManager?
+    public var serverPolicy: ServerTrustPolicyManager?
     
     ///  SessionConfiguration will be used to Alamofire.
-    open var sessionConfiguration: URLSessionConfiguration
+    public var sessionConfiguration: URLSessionConfiguration
     
     ///  缓存请求文件的文件夹名
     /// Save to disk file name.
-    open var cacheFileName = "wbalamofire.request.cache.default"
+    public var cacheFileName = "wbalamofire.request.cache.default"
     
     /// 下载文件时保存的文件名，位于.../Documents/{downFileName}下
     /// Download file name
-    open var downFileName = "wbalamofire.download.default"
+    public var downFileName = "wbalamofire.download.default"
    
 // MARK: - Only iOS LoadView
     
@@ -111,23 +111,23 @@ open class WBAlConfig {
 #if os(iOS)
     /// 加载框的动画类型，默认为native
     /// The load view animationType. Default is native.
-    open var loadViewAnimationType = AnimationType.native
+    public var loadViewAnimationType = AnimationType.native
     
     /// 加载框的文字位置，默认为bottom
     /// The load view text position. Default is bottom.
-    open var loadViewTextPosition = TextLabelPosition.bottom
+    public var loadViewTextPosition = TextLabelPosition.bottom
     
     /// 加载框的文字颜色，默认为白色
     /// The load view textColor. Default is white.
-    open var loadViewTextColor = UIColor.white
+    public var loadViewTextColor = UIColor.white
     
     /// 加载框的文字大小，默认为15.
     /// The load view text font. Default is 15.
-    open var loadViewTextFont = UIFont.systemFont(ofSize: 15)
+    public var loadViewTextFont = UIFont.systemFont(ofSize: 15)
     
     /// 加载框显示的文字，默认为Loading
     /// The load view text. Default is 'Loading'.
-    open var loadViewText = "Loading"
+    public var loadViewText = "Loading"
 #endif
     
 // MARK: - Cycle Life
@@ -173,22 +173,22 @@ open class WBAlConfig {
 ///=============================================================================
     
     ///  Add a new URL filter.
-    open func add(_ urlFilter: WBAlURLFilterProtocol) {
+    public func add(_ urlFilter: WBAlURLFilterProtocol) {
         urlFilters.append(urlFilter)
     }
     
     ///  Add a new cache path filter
-    open func add(_ cacheFilter: WBAlCacheDirPathFilterProtocol) {
+    public func add(_ cacheFilter: WBAlCacheDirPathFilterProtocol) {
         cacheDirPathFilters.append(cacheFilter)
     }
     
     ///  Remove all URL filters.
-    open func cleanURLFilters() -> Void {
+    public func cleanURLFilters() -> Void {
         urlFilters.removeAll()
     }
     
     ///  Clear all cache path filters.
-    open func cleanCacheFilters() -> Void {
+    public func cleanCacheFilters() -> Void {
         cacheDirPathFilters.removeAll()
     }
 }
@@ -200,7 +200,7 @@ open class WBAlConfig {
 ///=============================================================================
 
 extension WBAlConfig : CustomStringConvertible {
-    open var description: String {
+    public var description: String {
         return String(format: "<%@: %p>{ bseURL: %@ } { cdnURL: %@ }", #file, #function, baseURL, cdnURL)
     }
 }
@@ -212,7 +212,7 @@ extension WBAlConfig : CustomStringConvertible {
 ///=============================================================================
 
 extension WBAlConfig : CustomDebugStringConvertible {
-    open var debugDescription: String {
+    public var debugDescription: String {
         return String(format: "<%@: %p>{ bseURL: %@ } { cdnURL: %@ }", #file, #function, baseURL, cdnURL)
     }
 }

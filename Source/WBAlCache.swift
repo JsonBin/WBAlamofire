@@ -12,6 +12,9 @@ import Foundation
 public struct WBAlCache {
     
     public static let shared = WBAlCache()
+
+    public typealias CacheSizeCompleteClosure = (_ size: Double) -> Void
+    public typealias CacheSizeCleanClosure = (_ complete: Bool) -> Void
     
 // MARK: - Cache and Download Files Size
     
@@ -21,18 +24,28 @@ public struct WBAlCache {
     
     /// 所有下载文件的大小.
     /// The download files size.
-    public var downloadCacheSize: Double {
+    ///
+    /// - Parameter complete: calculate the download file size with closure
+    public func downloadCacheSize(_ complete: @escaping CacheSizeCompleteClosure) {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.downFileName)")
-        guard let filePath = path else { return 0}
-        return forderSize(with: filePath)
+        guard let filePath = path else {
+            complete(0)
+            return
+        }
+        forderSize(with: filePath, complete: complete)
     }
     
     /// 所有缓存文件的大小.
     /// The cache files size.
-    public var responseCacheFilesSize: Double {
+    ///
+    /// - Parameter complte: calculate the response cache file size with closure
+    public func responseCacheFilesSize(_ complte: @escaping CacheSizeCompleteClosure) {
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.cacheFileName)")
-        guard let filePath = path else { return 0}
-        return forderSize(with: filePath)
+        guard let filePath = path else {
+            complte(0)
+            return
+        }
+        forderSize(with: filePath, complete: complte)
     }
     
 // MARK: - Remove Cache and Download Files
@@ -40,38 +53,50 @@ public struct WBAlCache {
 ///=============================================================================
 /// @name Remove Cache and Download Files
 ///=============================================================================
-    
+
     /// Remove all the downloaded file, or the name of the specified file
     ///
-    /// - Parameter name: need to remove the name of the file. Don't pass parameters, to remove all the downloaded file by default
-    public func removeDownloadFiles(with name: String? = nil) {
+    /// - Parameters:
+    ///   - name: need to remove the name of the file. Don't pass parameters, to remove all the downloaded file by default
+    ///   - complete: when remove completed, closure will be used. if not set, the files will remove in background.
+    public func removeDownloadFiles(with name: String? = nil, complete: CacheSizeCleanClosure? = nil) {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.downFileName)")
         guard let filePath = path else { return }
         if let name = name {
-            removeForder(with: filePath + "/" + name)
+            removeForder(with: filePath + "/" + name, complete: nil)
+            complete?(true)
             return
         }
-        removeForder(with: filePath)
+        removeForder(with: filePath, complete: complete)
     }
-    
+
     /// To remove a single or all the cache files
     ///
-    /// - Parameter request: need to remove the cache file request. Don't pass this parameter, the default to remove all the cache files
-    public func removeCacheFiles(for request: WBAlRequest? = nil) {
+    /// - Parameters:
+    ///   - request: need to remove the cache file request. Don't pass this parameter, the default to remove all the cache files
+    ///   - complete: when remove completed, closure will be used. if not set, the files will remove in background.
+    public func removeCacheFiles(for request: WBAlRequest? = nil, complete: CacheSizeCleanClosure? = nil) {
         if let request = request {
-            removeForder(with: cacheFilePath(request))
-            removeForder(with: cacheMetadataFilePath(request))
+            removeForder(with: cacheFilePath(request), complete: nil)
+            removeForder(with: cacheMetadataFilePath(request), complete: nil)
+            complete?(true)
             return
         }
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.cacheFileName)")
-        guard let filePath = path else { return}
-        removeForder(with: filePath)
+        guard let filePath = path else {
+            complete?(false)
+            return
+        }
+        removeForder(with: filePath, complete: complete)
     }
-    
+
     /// Remove all files
-    public func removeAllFiles() {
-        removeDownloadFiles()
-        removeCacheFiles()
+    ///
+    /// - Parameter complte: when remove completed, closure will be used. if not set, the files will remove in background.
+    public func removeAllFiles(_ complte: @escaping CacheSizeCleanClosure) {
+        removeDownloadFiles { (_) in
+            self.removeCacheFiles(complete: complte)
+        }
     }
 
 // MARK: - Cache File Path
@@ -156,40 +181,58 @@ public struct WBAlCache {
             WBALog("Create cache directory failed, reason = \"\(reason.localizedDescription)\"")
         }
     }
-    
+
     /// Remove the entire contents of a folder
     ///
-    /// - Parameter filePath: Need to remove the folder
-    private func removeForder(with filePath: String) {
+    /// - Parameters:
+    ///   - filePath: need to remove the folder
+    ///   - complete: whether remove complete
+    private func removeForder(with filePath: String, complete: CacheSizeCleanClosure?) {
         let manager = FileManager.default
-        if !manager.fileExists(atPath: filePath, isDirectory: nil) { return }
-        let filePaths = manager.subpaths(atPath: filePath)
-        filePaths?.forEach {
-            let fileAbsoluePath = filePath + "/" + $0
-            do {
-                try manager.removeItem(atPath: fileAbsoluePath)
-            }catch let error {
-                WBALog("Remove Failed! remove file failed from \(fileAbsoluePath) with reason is: \(error.localizedDescription)")
+        if !manager.fileExists(atPath: filePath, isDirectory: nil) {
+            DispatchQueue.main.async {
+                complete?(false)
+            }
+            return
+        }
+        DispatchQueue.wbCurrent.async {
+            let filePaths = manager.subpaths(atPath: filePath)
+            filePaths?.forEach {
+                let fileAbsoluePath = filePath + "/" + $0
+                do {
+                    try manager.removeItem(atPath: fileAbsoluePath)
+                }catch let error {
+                    WBALog("Remove Failed! remove file failed from \(fileAbsoluePath) with reason is: \(error.localizedDescription)")
+                }
+            }
+            DispatchQueue.main.async {
+                complete?(true)
             }
         }
     }
-    
+
     /// Calculate the size of the folder
     ///
-    /// - Parameter filePath: The folder path
-    /// - Returns: The folder size
-    private func forderSize(with filePath: String) -> Double {
+    /// - Parameters:
+    ///   - filePath: the folder path
+    ///   - complete: all the file's size
+    private func forderSize(with filePath: String, complete: @escaping CacheSizeCompleteClosure) -> Void {
         let manager = FileManager.default
         if !manager.fileExists(atPath: filePath, isDirectory: nil) {
-            return 0
+            complete(0)
+            return
         }
-        let filePaths = manager.subpaths(atPath: filePath)
-        var size: Double = 0
-        filePaths?.forEach {
-            let fileAbsoluePath = filePath + "/" + $0
-            size += sizeOfFilePath(path: fileAbsoluePath)
+        DispatchQueue.wbCurrent.async {
+            let filePaths = manager.subpaths(atPath: filePath)
+            var size: Double = 0
+            filePaths?.forEach {
+                let fileAbsoluePath = filePath + "/" + $0
+                size += self.sizeOfFilePath(path: fileAbsoluePath)
+            }
+            DispatchQueue.main.async {
+                complete(size)
+            }
         }
-        return size
     }
     
     /// A single file size

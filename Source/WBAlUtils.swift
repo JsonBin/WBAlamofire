@@ -12,10 +12,10 @@
     import Foundation
 #endif
 
-open class WBAlUtils {
+public final class WBAlUtils {
 
     /// Md5 encryption algorithm. And reference to Kingfisher algorithm
-    open class func md5WithString(_ string: String) -> String {
+    public class func md5WithString(_ string: String) -> String {
         return string.wbal.md5
         // the system method
         /*let str = string.cString(using: .utf8)
@@ -33,7 +33,7 @@ open class WBAlUtils {
     }
     
     /// app version
-    open class var appVersion: String? {
+    public class var appVersion: String? {
         if let dictionary = Bundle.main.infoDictionary, let version = dictionary["CFBundleShortVersionString"] as? String {
             return version
         }
@@ -41,7 +41,7 @@ open class WBAlUtils {
     }
     
     // set backup(disable up automatic backup for iCloud)
-    open class func addNotBackupAttribute(_ path:String) -> Void {
+    public class func addNotBackupAttribute(_ path:String) -> Void {
         var url = URL(fileURLWithPath: path)
         var backup = URLResourceValues()
         backup.isExcludedFromBackup = true
@@ -53,7 +53,7 @@ open class WBAlUtils {
     }
     
     // from request encoding
-    open class func stringEncodingFromRequest(_ request:WBAlBaseRequest) -> String.Encoding {
+    public class func stringEncodingFromRequest(_ request:WBAlBaseRequest) -> String.Encoding {
         var stringEncoding = String.Encoding.utf8
         if let textEncoding = request.request?.response?.textEncodingName {
             let encoding = CFStringConvertIANACharSetNameToEncoding(textEncoding as CFString)
@@ -64,7 +64,7 @@ open class WBAlUtils {
         return stringEncoding
     }
     
-    open class func validataResumeData(_ data: Data? ) -> Bool {
+    public class func validataResumeData(_ data: Data? ) -> Bool {
         // From http://stackoverflow.com/a/22137510/3562486
         guard let data = data else { return false }
         if data.count < 1 { return false }
@@ -91,7 +91,7 @@ open class WBAlUtils {
     
 #if os(iOS)
     /// Get the top current viewController.
-    open class var wb_getCurrentViewController: UIViewController? {
+    public class var wb_getCurrentViewController: UIViewController? {
         var result: UIViewController?
         var window = UIApplication.shared.keyWindow
         if window?.windowLevel != UIWindowLevelNormal {
@@ -116,22 +116,22 @@ open class WBAlUtils {
 }
 
 /// NSKeyedArchiver metadata
-open class WBAlMetadata: NSObject, NSSecureCoding {
+public final class WBAlMetadata: NSObject, NSSecureCoding {
     
     /// Cached version number
-    open var version: Int?
+    public var version: Int?
     
     /// Set the refresh data
-    open var sensitiveDataString: String?
+    public var sensitiveDataString: String?
     
     /// string encoding
-    open var stringEncoding: String.Encoding?
+    public var stringEncoding: String.Encoding?
     
     /// create date
-    open var createDate: Date?
+    public var createDate: Date?
     
     /// app version
-    open var appVersionString: String?
+    public var appVersionString: String?
     
     public static var supportsSecureCoding: Bool {
         return true
