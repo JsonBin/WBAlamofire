@@ -96,7 +96,7 @@ open class WBAlRequest : WBAlBaseRequest {
     
     private var _dataFromCache:Bool = false
     private var _cacheMetadata: WBAlMetadata?
-    private let WBAlRequestCahceErrorDomain = "com.wbAlamofire.request.cache"
+    private let WBAlRequestCahceErrorDomain = "com.wbalamofire.request.cache"
     
 // MARK: - Override WBAlBaseRequest Response
     

@@ -102,10 +102,10 @@ public final class WBAlBatchRequest {
         self.failedRequest = nil
         WBAlBatchAlamofire.shared.add(self)
         self.totalAccessoriesWillStart()
-        for request in requests {
-            request.delegate = self
-            request.clearCompleteClosure()
-            request.start()
+        requests.forEach {
+            $0.delegate = self
+            $0.clearCompleteClosure()
+            $0.start()
         }
     }
     
@@ -155,9 +155,7 @@ public final class WBAlBatchRequest {
 ///=============================================================================
     
     private func cleanRequest() -> Void {
-        for request in requests {
-            request.stop()
-        }
+        requests.forEach { $0.stop() }
         self.cleanCompleteClosre()
     }
     
@@ -229,9 +227,8 @@ extension WBAlBatchRequest : WBAlRequestProtocol {
         self.failedRequest = request as? WBAlRequest
         self.totalAccessoriesWillStop()
         // stop
-        for request in requests {
-            request.stop()
-        }
+        requests.forEach { $0.stop() }
+        
         // call back
         if let delegate = delegate {
             delegate.batchRequestDidFailed(self)

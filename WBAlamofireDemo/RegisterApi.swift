@@ -137,14 +137,14 @@ class login : WBAlRequest {
 extension login: WBAlRequestAccessoryProtocol {
     
     func requestWillStart(_ request: Any) {
-        WBALog("---------------> login will start")
+        WBALog("---------------> login: \(request) will start")
     }
     
     func requestWillStop(_ request: Any) {
-        WBALog("---------------> login will stop")
+        WBALog("---------------> login: \(request) will stop")
     }
     
     func requestDidStop(_ request: Any) {
-        WBALog("---------------> login did stop")
+        WBALog("---------------> login: \(request) did stop")
     }
 }

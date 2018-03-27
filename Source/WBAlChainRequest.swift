@@ -152,26 +152,20 @@ public final class WBAlChainRequest {
 extension WBAlChainRequest {
     
     func totalAccessoriesWillStart() -> Void {
-        if let accessoris = self.requestAccessories {
-            for accessory in accessoris {
-                accessory.requestWillStart(self)
-            }
+        requestAccessories?.forEach {
+            $0.requestWillStart(self)
         }
     }
     
     func totalAccessoriesWillStop() -> Void {
-        if let accessoris = self.requestAccessories {
-            for accessory in accessoris {
-                accessory.requestWillStop(self)
-            }
+        requestAccessories?.forEach {
+            $0.requestWillStop(self)
         }
     }
     
     func totalAccessoriesDidStop() -> Void {
-        if let accessoris = self.requestAccessories {
-            for accessory in accessoris {
-                accessory.requestDidStop(self)
-            }
+        requestAccessories?.forEach {
+            $0.requestDidStop(self)
         }
     }
 }

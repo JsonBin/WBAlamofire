@@ -30,7 +30,8 @@ class ViewController: UIViewController {
         test.start()
         
         let log = login()
-        
+        log.add(log)
+
         let chain = WBAlChainRequest()
         chain.add(log) { (chain, base) in
             // request done then..
