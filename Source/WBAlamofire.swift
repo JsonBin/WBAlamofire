@@ -606,13 +606,13 @@ public final class WBAlamofire {
 
     static var cacheFolder: String?
     private func formatDownloadPathWithMd5String(_ down: String, useMD5 use:Bool) -> URL {
-        var md5String = use ? WBAlUtils.md5WithString(down) : down
+        let md5String = use ? WBAlUtils.md5WithString(down) : down
         
         let manager = FileManager.default
         
-        let cacheDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+        let cacheDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
         if WBAlamofire.cacheFolder == nil {
-            WBAlamofire.cacheFolder = cacheDir?.appending("/\(WBAlConfig.shared.downFileName)")
+            WBAlamofire.cacheFolder = (cacheDir as NSString).appendingPathComponent(WBAlConfig.shared.downFileName)
         }
         
         var isDirectory: ObjCBool = true
@@ -631,23 +631,22 @@ public final class WBAlamofire {
                 WBAlamofire.cacheFolder = nil
             }
         }
-        
-        md5String = "/" + md5String
+
         if let folder = WBAlamofire.cacheFolder {
-            let path = folder.appending(md5String)
+            let path = (folder as NSString).appendingPathComponent(md5String)
             return URL(fileURLWithPath: path)
         }
         
-        return URL(fileURLWithPath: cacheDir!.appending(md5String))
+        return URL(fileURLWithPath: (cacheDir as NSString).appendingPathComponent(md5String))
     }
     
     // resume data url.
     private func downloadTempPathForDownloadPath(_ path: String) -> URL {
-        var md5 = WBAlUtils.md5WithString(path)
+        let md5 = WBAlUtils.md5WithString(path)
         let manager = FileManager.default
         
         let cacheDir = NSTemporaryDirectory()
-        let cacheFolder = cacheDir.appending(WBAlConfig.shared.downFileName)
+        let cacheFolder = (cacheDir as NSString).appendingPathComponent(WBAlConfig.shared.downFileName)
         
         var isDirectory: ObjCBool = true
         if !manager.fileExists(atPath: cacheFolder, isDirectory: &isDirectory) {
@@ -661,9 +660,8 @@ public final class WBAlamofire {
                 WBALog("Down Failed! Create cache directory at \(cacheFolder) is failed!")
             }
         }
-        
-        md5 = "/" + md5
-        return URL(fileURLWithPath: cacheFolder.appending(md5))
+
+        return URL(fileURLWithPath: (cacheFolder as NSString).appendingPathComponent(md5))
     }
     
 // MARK: - Request Record
@@ -760,7 +758,7 @@ public final class WBAlamofire {
                 default:
                     request.responseObj = result
                     
-                    if result is NSData {
+                    if result is Data {
                         request.responseData = result as? Data
                         request.responseString = String(data: result as! Data, encoding: WBAlUtils.stringEncodingFromRequest(request))
                     }

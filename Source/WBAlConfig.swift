@@ -94,11 +94,11 @@ public final class WBAlConfig {
     ///  SessionConfiguration will be used to Alamofire.
     public var sessionConfiguration: URLSessionConfiguration
     
-    ///  缓存请求文件的文件夹名
+    ///  缓存请求文件的文件夹名, 位于`/Library/Caches/{cacheFileName}`
     /// Save to disk file name.
     public var cacheFileName = "wbalamofire.request.cache.default"
     
-    /// 下载文件时保存的文件名，位于.../Documents/{downFileName}下
+    /// 下载文件时保存的文件名, 位于`/Library/Caches/{downFileName}`下
     /// Download file name
     public var downFileName = "wbalamofire.download.default"
    

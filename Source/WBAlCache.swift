@@ -13,8 +13,10 @@ public struct WBAlCache {
     
     public static let shared = WBAlCache()
 
-    public typealias CacheSizeCompleteClosure = (_ size: Double) -> Void
+    public typealias CacheSizeCompleteClosure = (_ size: UInt) -> Void
     public typealias CacheSizeCleanClosure = (_ complete: Bool) -> Void
+
+    private let manager = FileManager.default
     
 // MARK: - Cache and Download Files Size
     
@@ -27,12 +29,18 @@ public struct WBAlCache {
     ///
     /// - Parameter complete: calculate the download file size with closure
     public func downloadCacheSize(_ complete: @escaping CacheSizeCompleteClosure) {
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.downFileName)")
-        guard let filePath = path else {
-            complete(0)
-            return
+
+        DispatchQueue.wbCurrent.async {
+
+            var path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+            path = (path as NSString).appendingPathComponent(WBAlConfig.shared.downFileName)
+
+            let size = self.travelCacheFiles(path)
+
+            DispatchQueue.main.async {
+                complete(size)
+            }
         }
-        forderSize(with: filePath, complete: complete)
     }
     
     /// 所有缓存文件的大小.
@@ -40,12 +48,19 @@ public struct WBAlCache {
     ///
     /// - Parameter complte: calculate the response cache file size with closure
     public func responseCacheFilesSize(_ complte: @escaping CacheSizeCompleteClosure) {
-        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.cacheFileName)")
-        guard let filePath = path else {
-            complte(0)
-            return
+
+        DispatchQueue.wbCurrent.async {
+
+            var path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+            path = (path as NSString).appendingPathComponent(WBAlConfig.shared.cacheFileName)
+
+            let size = self.travelCacheFiles(path)
+
+            DispatchQueue.main.async {
+                complte(size)
+            }
         }
-        forderSize(with: filePath, complete: complte)
+
     }
     
 // MARK: - Remove Cache and Download Files
@@ -60,14 +75,21 @@ public struct WBAlCache {
     ///   - name: need to remove the name of the file. Don't pass parameters, to remove all the downloaded file by default
     ///   - complete: when remove completed, closure will be used. if not set, the files will remove in background.
     public func removeDownloadFiles(with name: String? = nil, complete: CacheSizeCleanClosure? = nil) {
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.downFileName)")
-        guard let filePath = path else { return }
+        var path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        path = (path as NSString).appendingPathComponent(WBAlConfig.shared.downFileName)
         if let name = name {
-            removeForder(with: filePath + "/" + name, complete: nil)
-            complete?(true)
+            do {
+                let path = (path as NSString).appendingPathComponent(name)
+                try manager.removeItem(atPath: path)
+                complete?(true)
+            } catch { complete?(false) }
             return
         }
-        removeForder(with: filePath, complete: complete)
+        do {
+            try manager.removeItem(atPath: path)
+            try manager.createDirectory(atPath: path, withIntermediateDirectories: true)
+            complete?(true)
+        } catch { complete?(false) }
     }
 
     /// To remove a single or all the cache files
@@ -77,25 +99,35 @@ public struct WBAlCache {
     ///   - complete: when remove completed, closure will be used. if not set, the files will remove in background.
     public func removeCacheFiles(for request: WBAlRequest? = nil, complete: CacheSizeCleanClosure? = nil) {
         if let request = request {
-            removeForder(with: cacheFilePath(request), complete: nil)
-            removeForder(with: cacheMetadataFilePath(request), complete: nil)
+            let cachePath = cacheFilePath(request)
+            let metadataPath = cacheMetadataFilePath(request)
+            do {
+                try manager.removeItem(atPath: cachePath)
+                try manager.removeItem(atPath: metadataPath)
+                complete?(true)
+            } catch { complete?(false) }
+            return
+        }
+        var path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        path = (path as NSString).appendingPathComponent(WBAlConfig.shared.cacheFileName)
+
+        do {
+            try manager.removeItem(atPath: path)
+            try manager.createDirectory(atPath: path, withIntermediateDirectories: true)
             complete?(true)
-            return
-        }
-        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/\(WBAlConfig.shared.cacheFileName)")
-        guard let filePath = path else {
-            complete?(false)
-            return
-        }
-        removeForder(with: filePath, complete: complete)
+        } catch { complete?(false) }
     }
 
     /// Remove all files
     ///
     /// - Parameter complte: when remove completed, closure will be used. if not set, the files will remove in background.
     public func removeAllFiles(_ complte: @escaping CacheSizeCleanClosure) {
-        removeDownloadFiles { (_) in
-            self.removeCacheFiles(complete: complte)
+        removeDownloadFiles { (finised) in
+            if finised {
+                self.removeCacheFiles(complete: complte)
+            } else {
+                complte(false)
+            }
         }
     }
 
@@ -110,9 +142,9 @@ public struct WBAlCache {
     /// - Parameter request: Need to get the cache the request of the path
     /// - Returns: The cache file path
     public func cacheFilePath(_ request: WBAlRequest) -> String {
-        let cacheName = "/" + self.cacheFileName(request)
-        let cachePath = self.cacheBasePath(request)
-        return cachePath.appending(cacheName)
+        let cacheName = self.cacheFileName(request)
+        let cachePath = self.cacheBasePath(request) as NSString
+        return cachePath.appendingPathComponent(cacheName)
     }
     
     /// Take the path of the metadata file
@@ -120,9 +152,9 @@ public struct WBAlCache {
     /// - Parameter request: Need to get the metadata file path of the request
     /// - Returns: The path of the metadata file
     public func cacheMetadataFilePath(_ request: WBAlRequest) -> String {
-        let metaName = "/" + self.cacheFileName(request) + ".metadata"
-        let metaPath = self.cacheBasePath(request)
-        return metaPath.appending(metaName)
+        let metaName = self.cacheFileName(request) + ".metadata"
+        let metaPath = self.cacheBasePath(request) as NSString
+        return metaPath.appendingPathComponent(metaName)
     }
 
 // MARK: - Private
@@ -146,8 +178,8 @@ public struct WBAlCache {
     
     /// The path of the cache file
     private func cacheBasePath(_ request: WBAlRequest) -> String {
-        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!
-        var cachePath = path.appending("/" + WBAlConfig.shared.cacheFileName)
+        let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        var cachePath = (path as NSString).appendingPathComponent(WBAlConfig.shared.cacheFileName)
         
         // Filter cache dirPath if needed
         let filters = WBAlConfig.shared.cacheDirPathFilters
@@ -198,7 +230,7 @@ public struct WBAlCache {
         DispatchQueue.wbCurrent.async {
             let filePaths = manager.subpaths(atPath: filePath)
             filePaths?.forEach {
-                let fileAbsoluePath = filePath + "/" + $0
+                let fileAbsoluePath = (filePath as NSString).appendingPathComponent($0)
                 do {
                     try manager.removeItem(atPath: fileAbsoluePath)
                 }catch let error {
@@ -226,11 +258,11 @@ public struct WBAlCache {
             let filePaths = manager.subpaths(atPath: filePath)
             var size: Double = 0
             filePaths?.forEach {
-                let fileAbsoluePath = filePath + "/" + $0
+                let fileAbsoluePath = (filePath as NSString).appendingPathComponent($0)
                 size += self.sizeOfFilePath(path: fileAbsoluePath)
             }
             DispatchQueue.main.async {
-                complete(size)
+                complete(UInt(size))
             }
         }
     }
@@ -247,5 +279,35 @@ public struct WBAlCache {
             if let size = dic[.size] as? Double { return size }
             return 0
         } catch { return 0 }
+    }
+
+    private func travelCacheFiles(_ path: String) -> UInt {
+        let url = URL(fileURLWithPath: path)
+
+        let resourceKeys: Set<URLResourceKey> = [.isDirectoryKey, .contentAccessDateKey, .totalFileAllocatedSizeKey]
+
+        var diskCacheSize: UInt = 0
+
+        var urls = [URL]()
+        do {
+            urls = try manager.contentsOfDirectory(at: url, includingPropertiesForKeys: Array(resourceKeys), options: .skipsHiddenFiles)
+        } catch  { }
+
+        for fileURL in urls {
+
+            do {
+
+                let resourceValues = try fileURL.resourceValues(forKeys: resourceKeys)
+                if resourceValues.isDirectory == true {
+                    continue
+                }
+
+                if let size = resourceValues.totalFileAllocatedSize {
+                    diskCacheSize += UInt(size)
+                }
+            } catch {}
+        }
+
+        return diskCacheSize
     }
 }

@@ -48,7 +48,7 @@ public final class WBAlUtils {
         do {
             try url.setResourceValues(backup)
         } catch let error {
-            WBALog("error to set do not backup attribute, reason: \"\(error.localizedDescription)\'")
+            WBALog("error to set do not backup attribute, reason: \"\(error)\'")
         }
     }
     
@@ -68,20 +68,22 @@ public final class WBAlUtils {
         // From http://stackoverflow.com/a/22137510/3562486
         guard let data = data else { return false }
         if data.count < 1 { return false }
-        let resumeDic: Dictionary<String, Any>
+        let resumeDic: Dictionary<String, Any>?
         do {
-            resumeDic = (try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as! Dictionary<String, Any>)
+            resumeDic = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? Dictionary<String, Any>
         } catch {
             return false
         }
+
+        guard let resume = resumeDic else { return false }
         
-        if resumeDic.isEmpty { return false }
+        if resume.isEmpty { return false }
         
         // Before iOS 9 & Mac OS X 10.11
         if #available(iOS 9.0, *) { }else{
-            let localPath = resumeDic["NSURLSessionResumeInfoLocalPath"] as! String
-            if localPath.isEmpty { return false}
-            return FileManager.default.fileExists(atPath: localPath)
+            let localPath = resume["NSURLSessionResumeInfoLocalPath"] as? String
+            guard let path = localPath, !path.isEmpty else { return false}
+            return FileManager.default.fileExists(atPath: path)
         }
         // After iOS 9 we can not actually detects if the cache file exists. This plist file has a somehow
         // complicated structue. Besides, the plist structure is different between iOS 9 and iOS 10.
