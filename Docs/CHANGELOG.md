@@ -1,6 +1,13 @@
+## v1.1.1
+
+### Update
+
+- Update for swift4.1
+- Change the local download and cache file path.
+
 ## v1.1.0
 
-Add Package and update notes.
+- Add Package and update notes.
 
 ## v1.0.7
 
