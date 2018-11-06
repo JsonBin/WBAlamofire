@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'WBAlamofire'
-  s.version      = '1.1.11'
+  s.version      = '1.2.0'
   s.license      = 'MIT' 
   s.summary      = 'Extend Alamofire, add the cache to result.'
   s.homepage     = 'https://github.com/JsonBin/WBAlamofire'
