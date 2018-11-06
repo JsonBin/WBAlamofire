@@ -34,14 +34,15 @@ public final class WBAlUtils {
     
     /// app version
     public class var appVersion: String? {
-        if let dictionary = Bundle.main.infoDictionary, let version = dictionary["CFBundleShortVersionString"] as? String {
+        if let dictionary = Bundle.main.infoDictionary,
+            let version = dictionary["CFBundleShortVersionString"] as? String {
             return version
         }
         return nil
     }
     
     // set backup(disable up automatic backup for iCloud)
-    public class func addNotBackupAttribute(_ path:String) -> Void {
+    public class func addNotBackupAttribute(_ path: String) -> Void {
         var url = URL(fileURLWithPath: path)
         var backup = URLResourceValues()
         backup.isExcludedFromBackup = true
@@ -53,7 +54,7 @@ public final class WBAlUtils {
     }
     
     // from request encoding
-    public class func stringEncodingFromRequest(_ request:WBAlBaseRequest) -> String.Encoding {
+    public class func stringEncodingFromRequest(_ request: WBAlBaseRequest) -> String.Encoding {
         var stringEncoding = String.Encoding.utf8
         if let textEncoding = request.request?.response?.textEncodingName {
             let encoding = CFStringConvertIANACharSetNameToEncoding(textEncoding as CFString)
@@ -96,6 +97,17 @@ public final class WBAlUtils {
     public class var wb_getCurrentViewController: UIViewController? {
         var result: UIViewController?
         var window = UIApplication.shared.keyWindow
+        #if swift(>=4.2)
+        if window?.windowLevel != .normal {
+            let windows = UIApplication.shared.windows
+            for win in windows {
+                if win.windowLevel == .normal {
+                    window = win
+                    break
+                }
+            }
+        }
+        #else
         if window?.windowLevel != UIWindowLevelNormal {
             let windows = UIApplication.shared.windows
             for win in windows {
@@ -105,6 +117,7 @@ public final class WBAlUtils {
                 }
             }
         }
+        #endif
         let forntView = window?.subviews.first
         let responder = forntView?.next
         if responder is UIViewController {

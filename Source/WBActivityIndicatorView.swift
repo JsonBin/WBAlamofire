@@ -122,8 +122,12 @@ extension WBActivityIndicatorView {
         _textLabel?.numberOfLines = 0
         _textLabel?.text = WBAlConfig.shared.loadViewText
         addSubview(_textLabel!)
-        
+
+        #if swift(>=4.2)
+        _indicator = UIActivityIndicatorView(style: .white)
+        #else
         _indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        #endif
         _indicator?.isHidden = true
         _indicator?.hidesWhenStopped = false
         _indicator?.backgroundColor = .clear
@@ -220,8 +224,13 @@ public final class WBActivityRodllView: UIView {
         _shapLayer = CAShapeLayer()
         _shapLayer?.fillColor = UIColor.clear.cgColor
         _shapLayer?.strokeColor = color.cgColor
+        #if swift(>=4.2)
+        _shapLayer?.lineCap = .round
+        _shapLayer?.lineJoin = .round
+        #else
         _shapLayer?.lineCap = kCALineCapRound
         _shapLayer?.lineJoin = kCALineJoinRound
+        #endif
         _shapLayer?.lineWidth = _lineWidth
         layer.addSublayer(_shapLayer!)
     }
@@ -237,13 +246,19 @@ public final class WBActivityRodllView: UIView {
         let start = CABasicAnimation(keyPath: "strokeStart")
         start.fromValue = 0
         start.toValue = 1
-        start.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         
         let end = CABasicAnimation(keyPath: "strokeEnd")
         end.fromValue = 0
         end.toValue = 1
-        end.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         end.duration = duration / 2
+
+        #if swift(>=4.2)
+        start.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        end.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        #else
+        start.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        end.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        #endif
         
         let group = CAAnimationGroup()
         group.duration = duration

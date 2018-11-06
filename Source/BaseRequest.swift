@@ -128,20 +128,20 @@ public protocol WBAlRequestProtocol : class {
     /// 网络请求结束触发
     ///
     ///  @param request The corresponding request.
-    func requestFinish(_ request:WBAlBaseRequest) -> Void
+    func requestFinish(_ request: WBAlBaseRequest) -> Void
     
     /// The request failed
     ///  Tell the delegate that the request has failed.
     ///  网络请求失败触发
     ///
     ///  @param request The corresponding request.
-    func requestFailed(_ request:WBAlBaseRequest) -> Void
+    func requestFailed(_ request: WBAlBaseRequest) -> Void
 }
 
 extension WBAlRequestProtocol {
-    public func requestFinish(_ request:WBAlBaseRequest) -> Void{}
+    public func requestFinish(_ request: WBAlBaseRequest) -> Void { }
     
-    public func requestFailed(_ request:WBAlBaseRequest) -> Void{}
+    public func requestFailed(_ request: WBAlBaseRequest) -> Void { }
 }
 
 // MARK:  - WBAlRequestAccessoryProtocol
@@ -194,11 +194,11 @@ public protocol BaseRequest {
     
     /// 上传数据时的closure
     /// A closure for upload data
-    typealias WBAlMutableDataClosure = (_ data:MultipartFormData) -> Void
+    typealias WBAlMutableDataClosure = (_ data: MultipartFormData) -> Void
     
     /// 网络请求完成的closure
     /// A closure for request finish
-    typealias WBAlRequestCompleteClosure = (_ request:WBAlBaseRequest) -> Void
+    typealias WBAlRequestCompleteClosure = (_ request: WBAlBaseRequest) -> Void
     
     /// A dictionary of headers to apply to a `URLRequest`.
     typealias WBHTTPHeaders = [String: String]

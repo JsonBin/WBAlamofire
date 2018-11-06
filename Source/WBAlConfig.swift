@@ -151,7 +151,7 @@ public final class WBAlConfig {
         self.sessionConfiguration = .default
     }
     
-    public init(baseURL:String = "", cdnURL: String = "", requestTimeoutInterval:TimeInterval = 30, statusCode:[Int] = Array(200..<300), acceptType: [String] = ["application/json"], allowsCellularAccess:Bool = true, debugLogEnable:Bool = false, listenNetWork:Bool = true, serverPolicy:ServerTrustPolicyManager? = nil , urlFilters: [WBAlURLFilterProtocol] = [], cacheDirPathFilters: [WBAlCacheDirPathFilterProtocol] = [], sessionConfiguration:URLSessionConfiguration = .default) {
+    public init(baseURL: String, cdnURL: String, requestTimeoutInterval: TimeInterval, statusCode: [Int], acceptType: [String], allowsCellularAccess: Bool, debugLogEnable: Bool, listenNetWork: Bool, serverPolicy: ServerTrustPolicyManager?, urlFilters: [WBAlURLFilterProtocol], cacheDirPathFilters: [WBAlCacheDirPathFilterProtocol], sessionConfiguration: URLSessionConfiguration) {
         self.baseURL = baseURL
         self.cdnURL = cdnURL
         self.requestTimeoutInterval = requestTimeoutInterval
@@ -236,7 +236,7 @@ extension DispatchQueue {
 /// @name Print Logs
 ///=============================================================================
 
-public func WBALog<T>(_ message:T, file File:NSString = #file, method Method:String = #function, line Line:Int = #line) -> Void {
+public func WBALog<T>(_ message: T, file File: NSString = #file, method Method: String = #function, line Line: Int = #line) -> Void {
     if WBAlConfig.shared.debugLogEnable {
         #if DEBUG
             print("<\(File.lastPathComponent)>{Line:\(Line)}-[\(Method)]:\(message)")

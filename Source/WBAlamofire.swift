@@ -92,7 +92,8 @@ public final class WBAlamofire {
                     // When the Network status is Unknown.
                     WBAlamofire.shared.cancel(request)
                     self.setNetworkActivityIndicatorVisible(false)
-                }else if status == .notReachable {
+                }
+                else if status == .notReachable {
                     // When the Network notReachable.
                     WBAlamofire.shared.cancel(request)
                     self.setNetworkActivityIndicatorVisible(false)
@@ -320,7 +321,7 @@ public final class WBAlamofire {
 /// @name Init Request
 ///=============================================================================
     
-    private func sessionRequest(_ request:WBAlBaseRequest, closure dataClosure: dataRequestClosure? = nil) -> Request? {
+    private func sessionRequest(_ request: WBAlBaseRequest, closure dataClosure: dataRequestClosure? = nil) -> Request? {
         let method = request.requestMethod
         let url = buildURL(request)
         
@@ -346,8 +347,8 @@ public final class WBAlamofire {
 /// @name Data Request
 ///=============================================================================
 
-    private typealias dataRequestClosure = (_ request:DataRequest?, _ error:Error? ) -> Void
-    private func setRequest(_ request:WBAlBaseRequest, url urlString:URLConvertible, closure dataClosure: dataRequestClosure? = nil)  -> DataRequest? {
+    private typealias dataRequestClosure = (_ request: DataRequest?, _ error: Error? ) -> Void
+    private func setRequest(_ request: WBAlBaseRequest, url urlString: URLConvertible, closure dataClosure:  dataRequestClosure? = nil)  -> DataRequest? {
         var setRe: DataRequest?
         if let closure = request.requestDataClosure {
             var uploadError: Error? = nil
@@ -407,7 +408,7 @@ public final class WBAlamofire {
 /// @name Download Request
 ///=============================================================================
     
-    private func download(_ request:WBAlBaseRequest, url urlString:URLConvertible) -> DownloadRequest {
+    private func download(_ request: WBAlBaseRequest, url urlString: URLConvertible) -> DownloadRequest {
         var downpath = request.resumableDownloadPath
         let manager = FileManager.default
         var isDirectory: ObjCBool = true
@@ -480,7 +481,7 @@ public final class WBAlamofire {
 /// @name DataRequest and DownRequest Response
 ///=============================================================================
     
-    private func requestResponse(_ request:WBAlBaseRequest, dataRequest dataRe:DataRequest?) {
+    private func requestResponse(_ request: WBAlBaseRequest, dataRequest dataRe: DataRequest?) {
         // Corresponding to the return type for processing
         switch request.responseType {
         case .default:
@@ -543,7 +544,7 @@ public final class WBAlamofire {
         }
     }
     
-    private func requestResponse(_ request:WBAlBaseRequest, downRequest downRe:DownloadRequest, cacheURL url: URL) {
+    private func requestResponse(_ request: WBAlBaseRequest, downRequest downRe: DownloadRequest, cacheURL url: URL) {
         // Corresponding to the return type for processing
         switch request.responseType {
         case .default:
@@ -605,7 +606,7 @@ public final class WBAlamofire {
 ///=============================================================================
 
     static var cacheFolder: String?
-    private func formatDownloadPathWithMd5String(_ down: String, useMD5 use:Bool) -> URL {
+    private func formatDownloadPathWithMd5String(_ down: String, useMD5 use: Bool) -> URL {
         let md5String = use ? WBAlUtils.md5WithString(down) : down
         
         let manager = FileManager.default
@@ -670,7 +671,7 @@ public final class WBAlamofire {
 /// @name Request Record
 ///=============================================================================
     
-    private func addRecord(_ request:WBAlBaseRequest) {
+    private func addRecord(_ request: WBAlBaseRequest) {
         _lock.lock()
         defer {
             _lock.unlock()
@@ -678,7 +679,7 @@ public final class WBAlamofire {
         _requestRecord.updateValue(request, forKey: request.request?.task?.taskIdentifier ?? 0)
     }
     
-    private func removeRecord(forRequest request:WBAlBaseRequest) {
+    private func removeRecord(forRequest request: WBAlBaseRequest) {
         _lock.lock()
         defer {
             _lock.unlock()
@@ -694,7 +695,7 @@ public final class WBAlamofire {
 /// @name Request Success and Failure
 ///=============================================================================
 
-    private func requestDidFailed(_ request:WBAlBaseRequest, error requestError:Error, cacheURL url:URL? = nil, resumeData data:Data? = nil) {
+    private func requestDidFailed(_ request: WBAlBaseRequest, error requestError: Error, cacheURL url: URL? = nil, resumeData data: Data? = nil) {
         // Hide the Network status in status bar.
         setNetworkActivityIndicatorVisible(false)
         
@@ -710,9 +711,9 @@ public final class WBAlamofire {
             }
         }
         
-        autoreleasepool(invoking: {
+        autoreleasepool {
             request.requestFailedPreprocessor()
-        })
+        }
         
         DispatchQueue.main.async {
             request.totalAccessoriesWillStop()
@@ -739,7 +740,7 @@ public final class WBAlamofire {
         }
     }
     
-    private func requestSuccess(_ request: WBAlBaseRequest, requestResult result:Any?) {
+    private func requestSuccess(_ request: WBAlBaseRequest, requestResult result: Any?) {
         // Hide the Network status in status bar.
         setNetworkActivityIndicatorVisible(false)
         
@@ -770,9 +771,9 @@ public final class WBAlamofire {
             let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestErrorCode, userInfo: [NSLocalizedDescriptionKey:"Response code range out."])
             requestDidFailed(request, error: error)
         }else{
-            autoreleasepool(invoking: {
+            autoreleasepool {
                 request.requestCompletePreprocessor()
-            })
+            }
             
             DispatchQueue.main.async {
                 request.totalAccessoriesWillStop()

@@ -14,7 +14,7 @@ import Foundation
 ///  of the batch request callback.
 public final class WBAlChainRequest {
 
-    public typealias WBAlChainRequestClosure = (_ chainRequest: WBAlChainRequest, _ baseRequest:WBAlBaseRequest) -> Void
+    public typealias WBAlChainRequestClosure = (_ chainRequest: WBAlChainRequest, _ baseRequest: WBAlBaseRequest) -> Void
   
 // MARK: - Public Properties
     
@@ -97,7 +97,7 @@ public final class WBAlChainRequest {
     /// - Parameters:
     ///   - request: The request to be chained.
     ///   - closure: The finish callback
-    public func add(_ request:WBAlBaseRequest, callBack closure: WBAlChainRequestClosure? = nil) {
+    public func add(_ request: WBAlBaseRequest, callBack closure: WBAlChainRequestClosure? = nil) {
         requests.append(request)
         if let closure = closure {
             _requestCallBacks.append(closure)
@@ -229,13 +229,13 @@ public protocol WBAlChainRequestProtocol : class {
     /// - Parameters:
     ///   - chainRequest: The corresponding chain request.
     ///   - request: First failed request that causes the whole request to fail.
-    func chainRequestDidFailed(_ chainRequest: WBAlChainRequest, failedBaseRequest request:WBAlBaseRequest) -> Void
+    func chainRequestDidFailed(_ chainRequest: WBAlChainRequest, failedBaseRequest request: WBAlBaseRequest) -> Void
 }
 
 extension WBAlChainRequestProtocol {
     public func chainRequestDidFinished(_ chainRequest: WBAlChainRequest) -> Void{}
     
-    public func chainRequestDidFailed(_ chainRequest: WBAlChainRequest, failedBaseRequest request:WBAlBaseRequest) -> Void{}
+    public func chainRequestDidFailed(_ chainRequest: WBAlChainRequest, failedBaseRequest request: WBAlBaseRequest) -> Void{}
 }
 
 // MARK: - WBAlChainAlamofire
