@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Register
+
 class RegisterApi: WBAlRequest {
     
     private let phone: String
@@ -57,6 +59,8 @@ class RegisterApi: WBAlRequest {
     }
 }
 
+// MARK: - Donwload
+
 class down: WBAlRequest {
     
     override var requestURL: String {
@@ -71,6 +75,46 @@ class down: WBAlRequest {
         return .data
     }
 }
+
+// MARK: - Upload
+
+class upload: WBAlRequest {
+
+    private let data: Data?
+
+    init(data: Data?) {
+        self.data = data
+    }
+
+    override var requestURL: String {
+        return "v2/upload/album"
+    }
+
+    override var requestMethod: WBAlHTTPMethod {
+        return .post
+    }
+
+    // TODO: Upload data to server, implement any of the following three methods
+
+    override var requestDataClosure: WBAlRequest.WBAlMutableDataClosure? {
+        if let data = self.data {
+            return { mutlidata in
+                mutlidata.append(data, withName: "file", mimeType: "image/jpg")
+            }
+        }
+        return nil
+    }
+
+    override var uploadData: Data? {
+        return data
+    }
+
+    override var uploadFile: URL? {
+        return URL(fileURLWithPath: "xxxx")
+    }
+}
+
+// MARK: - login
 
 class login : WBAlRequest {
     
@@ -108,7 +152,7 @@ class login : WBAlRequest {
     override var showLoadView: Bool {
         return true
     }
-    /// set HUD text
+    /// set the HUD text
     override var showLoadText: String? {
         return "Login"
     }
