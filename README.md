@@ -302,7 +302,7 @@ class down: WBAlRequest {
 }
 ```
 
-## 文件上传
+## Upload
 
 You can easily upload data to the server using only 4-5 lines of code:
 
