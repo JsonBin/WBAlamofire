@@ -35,7 +35,7 @@ class RegisterApi: WBAlRequest {
     
     /// request params encoding
     override var paramEncoding: WBAlParameterEncoding {
-        return .json
+        return .json(encode: .default)
     }
 
     override func requestCompleteFilter() {
@@ -87,7 +87,7 @@ class login : WBAlRequest {
     }
     
     override var paramEncoding: WBAlParameterEncoding {
-        return .json
+        return .json(encode: .default)
     }
     
     override var requestParams: [String : Any]? {

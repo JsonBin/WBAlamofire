@@ -117,7 +117,7 @@ extension JSON {
                 let value = children.value
                 if let json = value as? JSON {
                     result[property] = json.toModel()
-                }else{
+                } else {
                     result[property] = value
                 }
             }

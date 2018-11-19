@@ -195,7 +195,7 @@ public struct WBAlCache {
             isDirectory = false
             // create
             createBaseCachePath(cachePath)
-        }else{
+        } else {
             if !isDirectory.boolValue {
                 try? manager.removeItem(atPath: cachePath)
                 createBaseCachePath(cachePath)
@@ -233,8 +233,8 @@ public struct WBAlCache {
                 let fileAbsoluePath = (filePath as NSString).appendingPathComponent($0)
                 do {
                     try manager.removeItem(atPath: fileAbsoluePath)
-                }catch let error {
-                    WBAlog("Remove Failed! remove file failed from \(fileAbsoluePath) with reason is: \(error.localizedDescription)")
+                } catch {
+                    WBAlog("Remove Failed! remove file failed from \(fileAbsoluePath) with reason is: \(error)")
                 }
             }
             DispatchQueue.main.async {

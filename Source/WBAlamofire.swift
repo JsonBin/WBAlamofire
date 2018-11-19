@@ -123,13 +123,13 @@ public final class WBAlamofire {
             dataRequest.validate(contentType: contentType)
             requestResponse(request, dataRequest: dataRequest)
             request.request = dataRequest
-        }else {
+        } else {
             // return type and closure. if upload data, it will reponse closure, otherwise will return request.
             request.request = sessionRequest(request) { [unowned self] uploadRequest, error in
                 if let error = error {
                     self.requestDidFailed(request, error: error)
                     return
-                }else {
+                } else {
                     request.request = uploadRequest
                     
                     self.requestSetTaskPriority(request)
@@ -154,8 +154,8 @@ public final class WBAlamofire {
                     let path = self.downloadTempPathForDownloadPath(request.resumableDownloadPath)
                     do {
                         try data?.write(to: path, options: .atomic)
-                    } catch let error {
-                        WBAlog("Cancel Request ResumeData Save Failed!, save resumeData failed. reason:\"\(error.localizedDescription)\"")
+                    } catch {
+                        WBAlog("Cancel Request ResumeData Save Failed!, save resumeData failed. reason: \(error)")
                     }
                 }
             }
@@ -209,7 +209,7 @@ public final class WBAlamofire {
                 temp = try detailUrl.asURL()
                 // if detailURL is vaid URL
                 if let _ = temp.host, let _ = temp.scheme { return detailUrl  }
-            }catch { WBAlog("Error! the \(detailUrl) is not use as to url") }
+            } catch { WBAlog("Error! the \(detailUrl) is not use as to url") }
         }
         
         // Filter url is needed
@@ -225,13 +225,13 @@ public final class WBAlamofire {
         if request.useCDN {
             if !request.cdnURL.isEmpty {
                 baseURL = request.cdnURL
-            }else{
+            } else {
                 baseURL = config.cdnURL
             }
-        }else{
+        } else {
             if !request.baseURL.isEmpty {
                 baseURL = request.baseURL
-            }else{
+            } else {
                 baseURL = config.baseURL
             }
         }
@@ -335,7 +335,7 @@ public final class WBAlamofire {
             if !request.resumableDownloadPath.isEmpty {
                 // download || resumeDownload
                 addRequest = download(request, url: url)
-            }else{
+            } else {
                 // get request
                 addRequest = setRequest(request, url: url)
             }
@@ -357,8 +357,7 @@ public final class WBAlamofire {
         if let closure = request.requestDataClosure {
             var uploadError: Error? = nil
            manager.upload(multipartFormData: closure, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders) { result in
-                switch result {
-                case .success(let upload, _, _):
+                if case .success(let upload, _, _) = result {
                     // add the user and password if use https or server need.
                     if let user = request.requestAuthHeaders?.first,
                         let password = request.requestAuthHeaders?.last {
@@ -377,7 +376,7 @@ public final class WBAlamofire {
                     // response
                     self.requestResponse(request, dataRequest: upload)
                     setRe = upload
-                case .failure(let error):
+                } else if case .failure(let error) = result {
                     uploadError = NSError(domain: self.WBAlRequestErrorDomain,
                                           code: self.WBAlRequestErrorCode,
                                           userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
@@ -387,18 +386,18 @@ public final class WBAlamofire {
                     closure(setRe, uploadError)
                 }
             }
-        }else{
+        } else {
             if let fileURL = request.uploadFile {
                 setRe = manager.upload(fileURL,
                                        to: urlString,
                                        method: request.requestMethod.rawValue,
                                        headers: request.requestHeaders)
-            }else if let data = request.uploadData {
+            } else if let data = request.uploadData {
                 setRe = manager.upload(data,
                                        to: urlString,
                                        method: request.requestMethod.rawValue,
                                        headers: request.requestHeaders)
-            }else{
+            } else {
                 setRe = manager.request(urlString,
                                         method: request.requestMethod.rawValue,
                                         parameters: request.requestParams,
@@ -472,7 +471,7 @@ public final class WBAlamofire {
             // download with resumeData
             downRequest = self.manager.download(resumingWith: data,
                                                 to: destionation)
-        }else{
+        } else {
             downRequest = self.manager.download(urlString,
                                                 parameters: request.requestParams,
                                                 encoding: request.paramEncoding.rawValue,
@@ -513,7 +512,7 @@ public final class WBAlamofire {
                 request.responseData = response.data
                 if let error = response.error {
                     self.requestDidFailed(request, error: error)
-                }else{
+                } else {
                     self.requestSuccess(request, requestResult: response.data)
                 }
             }
@@ -529,7 +528,7 @@ public final class WBAlamofire {
                     // response information.
                     if let data = response.data, let jsonString = String(data: data, encoding: .utf8) {
                         WBAlog("Request Failed:................................................>\n Response:\(response) \n//////////////////////////////////////////////////////////////////////////\n Data:\(jsonString)")
-                    }else {
+                    } else {
                         WBAlog("Request Failed:......................> \(response)")
                     }
                     self.requestDidFailed(request, error: error)
@@ -576,7 +575,7 @@ public final class WBAlamofire {
                 request.responseData = response.resumeData
                 if let error = response.error {
                     self.requestDidFailed(request, error: error, cacheURL: url, resumeData: response.resumeData)
-                }else{
+                } else {
                     self.requestSuccess(request, requestResult: response.destinationURL)
                 }
             }
@@ -797,7 +796,7 @@ public final class WBAlamofire {
                                 code: WBAlRequestErrorCode,
                                 userInfo: [NSLocalizedDescriptionKey: "Response code range out."])
             requestDidFailed(request, error: error)
-        }else{
+        } else {
             autoreleasepool {
                 request.requestCompletePreprocessor()
             }

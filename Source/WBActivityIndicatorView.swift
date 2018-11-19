@@ -148,7 +148,7 @@ extension WBActivityIndicatorView {
     private func setLabel() {
         if labelPosition == .no {
             textLabel?.isHidden = true
-        }else{
+        } else {
             textLabel?.isHidden = false
         }
         reloadViewFrame()
@@ -184,7 +184,7 @@ extension WBActivityIndicatorView {
         guard let size = textLabel?.text?.boundingRect(with: textSize, options: [.usesFontLeading,.truncatesLastVisibleLine,.usesLineFragmentOrigin], attributes: [.font: font], context: nil).size else { return }
         if size.width > bounds.size.width - 10 {
             bounds = CGRect(x: 0, y: 0, width: size.width + 10, height: detault + 15 + size.height)
-        }else{
+        } else {
             bounds = CGRect(x: 0, y: 0, width: detault, height: detault + 15 + size.height)
         }
         let width = frame.size.width

@@ -48,8 +48,8 @@ public final class WBAlUtils {
         backup.isExcludedFromBackup = true
         do {
             try url.setResourceValues(backup)
-        } catch let error {
-            WBAlog("error to set do not backup attribute, reason: \"\(error)\'")
+        } catch {
+            WBAlog("error to set do not backup attribute, reason: \(error)")
         }
     }
     
@@ -122,7 +122,7 @@ public final class WBAlUtils {
         let responder = forntView?.next
         if responder is UIViewController {
             result = responder as? UIViewController
-        }else{
+        } else {
             result = window?.rootViewController
         }
         return result

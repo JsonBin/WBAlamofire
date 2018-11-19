@@ -244,7 +244,7 @@ open class WBAlRequest : WBAlBaseRequest {
             DispatchQueue.wbCurrent.async {
                 self.saveResponseDataToCacheFile(super.responseData)
             }
-        }else{
+        } else {
             // 自动缓存
             saveResponseDataToCacheFile(super.responseData)
         }

@@ -38,7 +38,7 @@ open class WBAlBaseRequest : BaseRequest {
     
     open var requestParams: [String: Any]? { return nil }
     
-    open var paramEncoding: WBAlParameterEncoding { return .url }
+    open var paramEncoding: WBAlParameterEncoding { return .json(encode: .default) }
     
     open var responseType: WBAlResponseType { return .json }
     

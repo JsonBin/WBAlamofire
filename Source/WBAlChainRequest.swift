@@ -78,7 +78,7 @@ public final class WBAlChainRequest {
             
             self.startNextRequest()
             WBAlChainAlamofire.shared.add(self)
-        }else{
+        } else {
             WBAlog("Chain Error! Chain requests is empty!")
         }
     }
@@ -102,7 +102,7 @@ public final class WBAlChainRequest {
         requests.append(request)
         if let closure = closure {
             requestCallBacks.append(closure)
-        }else{
+        } else {
             requestCallBacks.append(emptyCallBack)
         }
     }
