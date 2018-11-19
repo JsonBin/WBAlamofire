@@ -49,7 +49,7 @@ public final class WBAlUtils {
         do {
             try url.setResourceValues(backup)
         } catch let error {
-            WBALog("error to set do not backup attribute, reason: \"\(error)\'")
+            WBAlog("error to set do not backup attribute, reason: \"\(error)\'")
         }
     }
     

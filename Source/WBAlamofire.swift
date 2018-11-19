@@ -25,22 +25,21 @@ public final class WBAlamofire {
 /// @name Private Properties
 ///=============================================================================
     
-    private let _manager: SessionManager
-    private let _config: WBAlConfig
-    private let _lock: NSLock
-    private let _asyncQueue: DispatchQueue
-    private let _statusCode: [Int]
-    private let _contentType: [String]
-    private var _requestRecord:[Int: WBAlBaseRequest]
+    private let manager: SessionManager
+    private let config: WBAlConfig
+    private let lock: NSLock
+    private let asyncQueue: DispatchQueue
+    private let statusCode: [Int]
+    private let contentType: [String]
+    private var requestRecord:[Int: WBAlBaseRequest]
     private let WBAlRequestErrorDomain = "com.wbalamofire.request.domain"
-    private let WBAlRequestNetWorkErrorCode = -9   // 无网络链接错误状态码
     private let WBAlRequestErrorCode = -10   // 失败处理状态码
 #if !os(watchOS)
-    private let _listenManager: NetworkReachabilityManager?
+    private let listenManager: NetworkReachabilityManager?
 #endif
 #if os(iOS)
     /// Add: load view
-    private let _loadView: WBActivityIndicatorView
+    private let loadView: WBActivityIndicatorView
 #endif
     
 // MARK: - Init and Reqest
@@ -50,25 +49,25 @@ public final class WBAlamofire {
 ///=============================================================================
     
     public init() {
-        _config = WBAlConfig.shared
-        _config.sessionConfiguration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
-        _config.sessionConfiguration.timeoutIntervalForResource = _config.requestTimeoutInterval
-        _config.sessionConfiguration.timeoutIntervalForRequest = _config.requestTimeoutInterval
-        _config.sessionConfiguration.allowsCellularAccess = _config.allowsCellularAccess
+        config = WBAlConfig.shared
+        config.sessionConfiguration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+        config.sessionConfiguration.timeoutIntervalForResource = config.requestTimeoutInterval
+        config.sessionConfiguration.timeoutIntervalForRequest = config.requestTimeoutInterval
+        config.sessionConfiguration.allowsCellularAccess = config.allowsCellularAccess
         
-        _manager = SessionManager(configuration: _config.sessionConfiguration, serverTrustPolicyManager: _config.serverPolicy)
-        _lock = NSLock()
-        _asyncQueue = DispatchQueue.wbCurrent
-        _statusCode = _config.statusCode
-        _contentType = _config.acceptType
-        _requestRecord = [Int: WBAlBaseRequest]()
+        manager = SessionManager(configuration: config.sessionConfiguration, serverTrustPolicyManager: config.serverPolicy)
+        lock = NSLock()
+        asyncQueue = DispatchQueue.wbCurrent
+        statusCode = config.statusCode
+        contentType = config.acceptType
+        requestRecord = [Int: WBAlBaseRequest]()
         
         #if !os(watchOS)
-            _listenManager = NetworkReachabilityManager(host: "www.apple.com")
+            listenManager = NetworkReachabilityManager(host: "www.apple.com")
         #endif
         
         #if os(iOS)
-            _loadView = WBActivityIndicatorView()
+            loadView = WBActivityIndicatorView()
             refreshLoadViewStatus()
         #endif
     }
@@ -80,14 +79,16 @@ public final class WBAlamofire {
     public func add(_ request: WBAlBaseRequest) -> Void {
         
         #if !os(watchOS)
-            if let listenManager = _listenManager, !listenManager.isReachable {
-                WBALog("NetWork Error!, the \(request)'s network is unReachable.")
-                let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestNetWorkErrorCode, userInfo: [NSLocalizedDescriptionKey:"Network is unReachable."])
+            if let listenManager = listenManager, !listenManager.isReachable {
+                WBAlog("NetWork Error!, the \(request)'s network is unReachable.")
+                let error = NSError(domain: URLError.errorDomain,
+                                    code: URLError.notConnectedToInternet.rawValue,
+                                    userInfo: [NSLocalizedDescriptionKey: "Network is unReachable."])
                 requestDidFailed(request, error: error)
                 return
             }
             
-            _listenManager?.listener = { status in
+            listenManager?.listener = { status in
                 if status == .unknown {
                     // When the Network status is Unknown.
                     WBAlamofire.shared.cancel(request)
@@ -100,30 +101,31 @@ public final class WBAlamofire {
                 }
             }
         #endif
-        if _config.listenNetWork {
+        if config.listenNetWork {
             // Show the Network status in status bar.
             setNetworkActivityIndicatorVisible()
             
             #if !os(watchOS)
-                _listenManager?.startListening()
+                listenManager?.startListening()
             #endif
         }
         
         let request = request
         if let customRequest = request.buildCustomRequest {
-            let dataRequest = _manager.request(customRequest)
+            let dataRequest = manager.request(customRequest)
             // add the user and password if use https or server need.
-            if let auths = request.requestAuthHeaders {
-                dataRequest.authenticate(user: auths.first!, password: auths.last!)
+            if let user = request.requestAuthHeaders?.first,
+                let password = request.requestAuthHeaders?.last {
+                dataRequest.authenticate(user: user, password: password)
             }
             // set the validator response code and type.
-            dataRequest.validate(statusCode: _statusCode)
-            dataRequest.validate(contentType: _contentType)
+            dataRequest.validate(statusCode: statusCode)
+            dataRequest.validate(contentType: contentType)
             requestResponse(request, dataRequest: dataRequest)
             request.request = dataRequest
         }else {
-            // return type and closure. if upload data, it will reponse closure, Otherwise will return Request.
-            request.request = sessionRequest(request, closure: { [unowned self] (uploadRequest, error) in
+            // return type and closure. if upload data, it will reponse closure, otherwise will return request.
+            request.request = sessionRequest(request) { [unowned self] uploadRequest, error in
                 if let error = error {
                     self.requestDidFailed(request, error: error)
                     return
@@ -132,7 +134,7 @@ public final class WBAlamofire {
                     
                     self.requestSetTaskPriority(request)
                 }
-            })
+            }
         }
         
         self.requestSetTaskPriority(request)
@@ -148,24 +150,24 @@ public final class WBAlamofire {
             // to resumabledownloadpath in temp library before cancel.
             // otherwise cancel the request task.
             if let down = request.request?.task as? URLSessionDownloadTask {
-                down.cancel(byProducingResumeData: { (data) in
+                down.cancel() { data in
                     let path = self.downloadTempPathForDownloadPath(request.resumableDownloadPath)
                     do {
                         try data?.write(to: path, options: .atomic)
                     } catch let error {
-                        WBALog("Cancel Request ResumeData Save Failed!, save resumeData failed. reason:\"\(error.localizedDescription)\"")
+                        WBAlog("Cancel Request ResumeData Save Failed!, save resumeData failed. reason:\"\(error.localizedDescription)\"")
                     }
-                })
+                }
             }
-        }else{
+        } else {
             request.request?.cancel()
         }
         removeRecord(forRequest: request)
         request.clearCompleteClosure()
      
-        if _requestRecord.isEmpty {
+        if requestRecord.isEmpty {
             #if !os(watchOS)
-                _listenManager?.stopListening()
+                listenManager?.stopListening()
             #endif
             
             // cancel net work status
@@ -177,16 +179,16 @@ public final class WBAlamofire {
     ///  Cancel all requests that were previously added.
     public func cancelAllRequest() -> Void {
         #if !os(watchOS)
-            _listenManager?.stopListening()
+            listenManager?.stopListening()
         #endif
         
-        _lock.lock()
-        let keys = _requestRecord.keys
-        _lock.unlock()
+        lock.lock()
+        let keys = requestRecord.keys
+        lock.unlock()
         keys.forEach {
-            _lock.lock()
-            let request = _requestRecord[$0]
-            _lock.unlock()
+            lock.lock()
+            let request = requestRecord[$0]
+            lock.unlock()
             
             request?.stop()
         }
@@ -207,11 +209,11 @@ public final class WBAlamofire {
                 temp = try detailUrl.asURL()
                 // if detailURL is vaid URL
                 if let _ = temp.host, let _ = temp.scheme { return detailUrl  }
-            }catch { WBALog("Error! the \(detailUrl) is not use as to url") }
+            }catch { WBAlog("Error! the \(detailUrl) is not use as to url") }
         }
         
         // Filter url is needed
-        let filters = _config.urlFilters
+        let filters = config.urlFilters
         if !filters.isEmpty {
             filters.forEach {
                 detailUrl = $0.filterURL(detailUrl, baseRequest: request)
@@ -224,13 +226,13 @@ public final class WBAlamofire {
             if !request.cdnURL.isEmpty {
                 baseURL = request.cdnURL
             }else{
-                baseURL = _config.cdnURL
+                baseURL = config.cdnURL
             }
         }else{
             if !request.baseURL.isEmpty {
                 baseURL = request.baseURL
             }else{
-                baseURL = _config.baseURL
+                baseURL = config.baseURL
             }
         }
         
@@ -272,7 +274,7 @@ public final class WBAlamofire {
             }
             
             // retain request
-            WBALog("Add Request: \(request)")
+            WBAlog("Add Request: \(request)")
             self.addRecord(request)
             dataRequest.resume()
             
@@ -284,12 +286,12 @@ public final class WBAlamofire {
                 // Whether show load view
                 if let view = WBAlUtils.wb_getCurrentViewController?.view, request.showLoadView {
                     // set the load view's properties from the request settting.
-                    _loadView.setActivityLabel(text: request.showLoadText, font: request.showLoadTextFont, color: request.showLoadTextColor)
-                    if let type = request.showLoadAnimationType { _loadView.animationType = type }
-                    if let position = request.showLoadTextPosition { _loadView.labelPosition = position }
+                    loadView.setActivityLabel(text: request.showLoadText, font: request.showLoadTextFont, color: request.showLoadTextColor)
+                    if let type = request.showLoadAnimationType { loadView.animationType = type }
+                    if let position = request.showLoadTextPosition { loadView.labelPosition = position }
                     // show the load view in main thread
                     DispatchQueue.main.async {
-                        self._loadView.startAnimation(inView: view)
+                        self.loadView.startAnimation(inView: view)
                     }
                 }
             #endif
@@ -299,9 +301,11 @@ public final class WBAlamofire {
     /// Reset the loadView status only in iOS.
     private func refreshLoadViewStatus() {
         #if os(iOS)
-        _loadView.labelPosition = _config.loadViewTextPosition
-        _loadView.animationType = _config.loadViewAnimationType
-        _loadView.setActivityLabel(text: _config.loadViewText, font: _config.loadViewTextFont, color: _config.loadViewTextColor)
+        loadView.labelPosition = config.loadViewTextPosition
+        loadView.animationType = config.loadViewAnimationType
+        loadView.setActivityLabel(text: config.loadViewText,
+                                  font: config.loadViewTextFont,
+                                  color: config.loadViewTextColor)
         #endif
     }
     
@@ -352,48 +356,63 @@ public final class WBAlamofire {
         var setRe: DataRequest?
         if let closure = request.requestDataClosure {
             var uploadError: Error? = nil
-           _manager.upload(multipartFormData: closure, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders, encodingCompletion: { (result) in
-            switch result {
-            case .success(let upload, _, _):
-                // add the user and password if use https or server need.
-                if let auths = request.requestAuthHeaders {
-                    upload.authenticate(user: auths.first!, password: auths.last!)
-                }
-                upload.uploadProgress(closure: { (progress) in
-                    if let uploadProgressHandler = request.downloadProgress {
-                        uploadProgressHandler(progress)
+           manager.upload(multipartFormData: closure, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders) { result in
+                switch result {
+                case .success(let upload, _, _):
+                    // add the user and password if use https or server need.
+                    if let user = request.requestAuthHeaders?.first,
+                        let password = request.requestAuthHeaders?.last {
+                        upload.authenticate(user: user, password: password)
                     }
-                })
-                // set the validator response code and type.
-                upload.validate(statusCode: self._statusCode)
-                upload.validate(contentType: self._contentType)
-                
-                // response
-                self.requestResponse(request, dataRequest: upload)
-                setRe = upload
-            case .failure(let error):
-                uploadError = NSError(domain: self.WBAlRequestErrorDomain, code: self.WBAlRequestErrorCode, userInfo: [NSLocalizedDescriptionKey:error.localizedDescription])
+                    upload.uploadProgress() { progress in
+                        if let uploadProgressHandler = request.downloadProgress {
+                            uploadProgressHandler(progress)
+                        }
+                        request.progressHandler?(progress)
+                    }
+                    // set the validator response code and type.
+                    upload.validate(statusCode: self.statusCode)
+                    upload.validate(contentType: self.contentType)
+
+                    // response
+                    self.requestResponse(request, dataRequest: upload)
+                    setRe = upload
+                case .failure(let error):
+                    uploadError = NSError(domain: self.WBAlRequestErrorDomain,
+                                          code: self.WBAlRequestErrorCode,
+                                          userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
+                }
+                // closure
+                if let closure = dataClosure {
+                    closure(setRe, uploadError)
+                }
             }
-            // closure
-            if let closure = dataClosure {
-                closure(setRe, uploadError)
-            }
-            })
         }else{
             if let fileURL = request.uploadFile {
-                setRe = _manager.upload(fileURL, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders)
+                setRe = manager.upload(fileURL,
+                                       to: urlString,
+                                       method: request.requestMethod.rawValue,
+                                       headers: request.requestHeaders)
             }else if let data = request.uploadData {
-                setRe = _manager.upload(data, to: urlString, method: request.requestMethod.rawValue, headers: request.requestHeaders)
+                setRe = manager.upload(data,
+                                       to: urlString,
+                                       method: request.requestMethod.rawValue,
+                                       headers: request.requestHeaders)
             }else{
-                setRe = _manager.request(urlString, method: request.requestMethod.rawValue, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders)
+                setRe = manager.request(urlString,
+                                        method: request.requestMethod.rawValue,
+                                        parameters: request.requestParams,
+                                        encoding: request.paramEncoding.rawValue,
+                                        headers: request.requestHeaders)
             }
             // add the user and password if use https or server need.
-            if let user = request.requestAuthHeaders?.first, let pas = request.requestAuthHeaders?.last {
+            if let user = request.requestAuthHeaders?.first,
+                let pas = request.requestAuthHeaders?.last {
                 setRe?.authenticate(user: user, password: pas)
             }
             // set the validator response code and type.
-            setRe?.validate(statusCode: _statusCode)
-            setRe?.validate(contentType: _contentType)
+            setRe?.validate(statusCode: statusCode)
+            setRe?.validate(contentType: contentType)
             
             // response
             requestResponse(request, dataRequest: setRe)
@@ -424,10 +443,8 @@ public final class WBAlamofire {
         // load the cache data, is not exists, the data is nil.
         let cacheURL = formatDownloadPathWithMd5String(downpath, useMD5: isDirectory.boolValue)
         if !downpath.isEmpty {
-            do {
-                try _ = Data(contentsOf: cacheURL)
-            } catch {
-                WBALog("Read Error! \(downpath) data is nil. Need to download again.")
+            if !manager.fileExists(atPath: cacheURL.path) {
+                WBAlog("Read Error! \(downpath) data is nil. Need to download again.")
             }
         }
         // if need to download again, remove the exist file before start
@@ -441,11 +458,11 @@ public final class WBAlamofire {
         do {
             data = try Data(contentsOf: tmp)
         } catch {
-            WBALog("Resume Data Error! \(tmp) resume data is nil.")
+            WBAlog("Resume Data Error! \(tmp) resume data is nil.")
         }
         let resumeDataVaild = WBAlUtils.validataResumeData(data)
         
-        let destionation: DownloadRequest.DownloadFileDestination = { _,_ in
+        let destionation: DownloadRequest.DownloadFileDestination = { _, _ in
             return (cacheURL, [.removePreviousFile, .createIntermediateDirectories])
         }
         // create request
@@ -453,22 +470,29 @@ public final class WBAlamofire {
         // if file exist and the resumeData is vaildator
         if resumeFileExisits, resumeDataVaild, let data = data {
             // download with resumeData
-            downRequest = _manager.download(resumingWith: data, to: destionation)
+            downRequest = self.manager.download(resumingWith: data,
+                                                to: destionation)
         }else{
-            downRequest = _manager.download(urlString, parameters: request.requestParams, encoding: request.paramEncoding.rawValue, headers: request.requestHeaders, to: destionation)
+            downRequest = self.manager.download(urlString,
+                                                parameters: request.requestParams,
+                                                encoding: request.paramEncoding.rawValue,
+                                                headers: request.requestHeaders,
+                                                to: destionation)
         }
         // add the user and password if use https or server need.
-        if let user = request.requestAuthHeaders?.first, let pas = request.requestAuthHeaders?.last {
+        if let user = request.requestAuthHeaders?.first,
+            let pas = request.requestAuthHeaders?.last {
             downRequest.authenticate(user: user, password: pas)
         }
-        downRequest.downloadProgress { (progress) in
+        downRequest.downloadProgress { progress in
             if let progressHandler = request.downloadProgress {
                 progressHandler(progress)
             }
+            request.progressHandler?(progress)
         }
         // set the validator response code and type.
-        downRequest.validate(statusCode: _statusCode)
-        downRequest.validate(contentType: _contentType)
+        downRequest.validate(statusCode: statusCode)
+        downRequest.validate(contentType: contentType)
         // response
         requestResponse(request, downRequest: downRequest, cacheURL: tmp)
         
@@ -485,16 +509,16 @@ public final class WBAlamofire {
         // Corresponding to the return type for processing
         switch request.responseType {
         case .default:
-            dataRe?.response(completionHandler: { (response) in
+            dataRe?.response() { response in
                 request.responseData = response.data
                 if let error = response.error {
                     self.requestDidFailed(request, error: error)
                 }else{
                     self.requestSuccess(request, requestResult: response.data)
                 }
-            })
+            }
         case .json:
-            dataRe?.responseJSON(completionHandler: { (response) in
+            dataRe?.responseJSON() { response in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
@@ -504,15 +528,15 @@ public final class WBAlamofire {
                     // The error log has contain response and other string. Otherwise, that only has
                     // response information.
                     if let data = response.data, let jsonString = String(data: data, encoding: .utf8) {
-                        WBALog("Request Failed:................................................>\n Response:\(response) \n//////////////////////////////////////////////////////////////////////////\n Data:\(jsonString)")
+                        WBAlog("Request Failed:................................................>\n Response:\(response) \n//////////////////////////////////////////////////////////////////////////\n Data:\(jsonString)")
                     }else {
-                        WBALog("Request Failed:......................> \(response)")
+                        WBAlog("Request Failed:......................> \(response)")
                     }
                     self.requestDidFailed(request, error: error)
                 }
-            })
+            }
         case .data:
-            dataRe?.responseData(completionHandler: { (response) in
+            dataRe?.responseData() { response in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
@@ -520,9 +544,9 @@ public final class WBAlamofire {
                 case .failure(let error):
                     self.requestDidFailed(request, error: error)
                 }
-            })
+            }
         case .string:
-            dataRe?.responseString(completionHandler: { (response) in
+            dataRe?.responseString() { response in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
@@ -530,9 +554,9 @@ public final class WBAlamofire {
                 case .failure(let error):
                     self.requestDidFailed(request, error: error)
                 }
-            })
+            }
         case .plist:
-            dataRe?.responsePropertyList(completionHandler: { (response) in
+            dataRe?.responsePropertyList() { response in
                 request.responseData = response.data
                 switch response.result {
                 case .success(let value):
@@ -540,7 +564,7 @@ public final class WBAlamofire {
                 case .failure(let error):
                     self.requestDidFailed(request, error: error)
                 }
-            })
+            }
         }
     }
     
@@ -548,16 +572,16 @@ public final class WBAlamofire {
         // Corresponding to the return type for processing
         switch request.responseType {
         case .default:
-            downRe.response(completionHandler: { (response) in
+            downRe.response() { response in
                 request.responseData = response.resumeData
                 if let error = response.error {
                     self.requestDidFailed(request, error: error, cacheURL: url, resumeData: response.resumeData)
                 }else{
                     self.requestSuccess(request, requestResult: response.destinationURL)
                 }
-            })
+            }
         case .json:
-            downRe.responseJSON(completionHandler: { (response) in
+            downRe.responseJSON() { response in
                 request.responseData = response.resumeData
                 switch response.result {
                 case .success(let value):
@@ -565,9 +589,9 @@ public final class WBAlamofire {
                 case .failure(let error):
                     self.requestDidFailed(request, error: error, cacheURL: url, resumeData: response.resumeData)
                 }
-            })
+            }
         case .data:
-            downRe.responseData(completionHandler: { (response) in
+            downRe.responseData() { response in
                 request.responseData = response.resumeData
                 switch response.result {
                 case .success(let value):
@@ -575,9 +599,9 @@ public final class WBAlamofire {
                 case .failure(let error):
                     self.requestDidFailed(request, error: error, cacheURL: url, resumeData: response.resumeData)
                 }
-            })
+            }
         case .string:
-            downRe.responseString(completionHandler: { (response) in
+            downRe.responseString() { response in
                 request.responseData = response.resumeData
                 switch response.result {
                 case .success(let value):
@@ -585,9 +609,9 @@ public final class WBAlamofire {
                 case .failure(let error):
                     self.requestDidFailed(request, error: error, cacheURL: url, resumeData: response.resumeData)
                 }
-            })
+            }
         case .plist:
-            downRe.responsePropertyList(completionHandler: { (response) in
+            downRe.responsePropertyList() { response in
                 request.responseData = response.resumeData
                 switch response.result {
                 case .success(let value):
@@ -595,7 +619,7 @@ public final class WBAlamofire {
                 case .failure(let error):
                     self.requestDidFailed(request, error: error, cacheURL: url, resumeData: response.resumeData)
                 }
-            })
+            }
         }
     }
     
@@ -628,7 +652,7 @@ public final class WBAlamofire {
                     WBAlUtils.addNotBackupAttribute(pathStr)
                 }
             } catch {
-                WBALog("Down Failed! Create cache directory at \(WBAlamofire.cacheFolder ?? "") is failed!")
+                WBAlog("Down Failed! Create cache directory at \(WBAlamofire.cacheFolder ?? "") is failed!")
                 WBAlamofire.cacheFolder = nil
             }
         }
@@ -658,7 +682,7 @@ public final class WBAlamofire {
             do {
                 try manager.createDirectory(atPath: cacheFolder, withIntermediateDirectories: true, attributes: nil)
             } catch {
-                WBALog("Down Failed! Create cache directory at \(cacheFolder) is failed!")
+                WBAlog("Down Failed! Create cache directory at \(cacheFolder) is failed!")
             }
         }
 
@@ -672,20 +696,20 @@ public final class WBAlamofire {
 ///=============================================================================
     
     private func addRecord(_ request: WBAlBaseRequest) {
-        _lock.lock()
+        lock.lock()
         defer {
-            _lock.unlock()
+            lock.unlock()
         }
-        _requestRecord.updateValue(request, forKey: request.request?.task?.taskIdentifier ?? 0)
+        requestRecord.updateValue(request, forKey: request.request?.task?.taskIdentifier ?? 0)
     }
     
     private func removeRecord(forRequest request: WBAlBaseRequest) {
-        _lock.lock()
+        lock.lock()
         defer {
-            _lock.unlock()
+            lock.unlock()
         }
-        if let _ = _requestRecord.removeValue(forKey: request.request?.task?.taskIdentifier ?? 0) {
-            WBALog("Request<\(request)> remove from record!")
+        if let _ = requestRecord.removeValue(forKey: request.request?.task?.taskIdentifier ?? 0) {
+            WBAlog("Request<\(request)> remove from record!")
         }
     }
     
@@ -700,14 +724,14 @@ public final class WBAlamofire {
         setNetworkActivityIndicatorVisible(false)
         
         request.error = requestError
-        WBALog("Request <\(request)> failed, status code = \(request.statusCode), error = \(requestError.localizedDescription)")
+        WBAlog("Request <\(request)> failed, status code = \(request.statusCode), error = \(requestError.localizedDescription)")
         
         // save incomplete down data
         if let data = data, let url = url {
             do {
                 try data.write(to: url, options: .atomic)
-            } catch let error {
-                WBALog("Save Failed!, save resumeData failed. reason:\"\(error.localizedDescription)\"")
+            } catch {
+                WBAlog("Save Failed!, save resumeData failed. reason: \(error)")
             }
         }
         
@@ -735,7 +759,7 @@ public final class WBAlamofire {
             
             #if os(iOS)
                 // stop load view
-                self._loadView.stopAnimation()
+                self.loadView.stopAnimation()
             #endif
         }
     }
@@ -748,7 +772,7 @@ public final class WBAlamofire {
             // If it is to download the response returns the path of save for download
             if result is URL {
                 request.downloadURL = result as? URL
-            }else{
+            } else {
                 switch request.responseType {
                 case .json:
                     request.responseJson = result as? [String: Any]
@@ -761,14 +785,17 @@ public final class WBAlamofire {
                     
                     if result is Data {
                         request.responseData = result as? Data
-                        request.responseString = String(data: result as! Data, encoding: WBAlUtils.stringEncodingFromRequest(request))
+                        request.responseString = String(data: result as! Data,
+                                                        encoding: WBAlUtils.stringEncodingFromRequest(request))
                     }
                 }
             }
         }
         
         if !request.statusCodeValidator {
-            let error = NSError(domain: WBAlRequestErrorDomain, code: WBAlRequestErrorCode, userInfo: [NSLocalizedDescriptionKey:"Response code range out."])
+            let error = NSError(domain: WBAlRequestErrorDomain,
+                                code: WBAlRequestErrorCode,
+                                userInfo: [NSLocalizedDescriptionKey: "Response code range out."])
             requestDidFailed(request, error: error)
         }else{
             autoreleasepool {
@@ -797,7 +824,7 @@ public final class WBAlamofire {
             
             #if os(iOS)
                 // stop load view
-                self._loadView.stopAnimation()
+                self.loadView.stopAnimation()
             #endif
         }
     }

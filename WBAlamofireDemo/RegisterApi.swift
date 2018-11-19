@@ -29,12 +29,12 @@ class RegisterApi: WBAlRequest {
     }
     
     /// request method
-    override var requestMethod: WBHTTPMethod {
+    override var requestMethod: WBAlHTTPMethod {
         return .post
     }
     
     /// request params encoding
-    override var paramEncoding: WBParameterEncoding {
+    override var paramEncoding: WBAlParameterEncoding {
         return .json
     }
 
@@ -67,7 +67,7 @@ class down: WBAlRequest {
         return "picture.png"
     }
     
-    override var responseType: WBALResponseType {
+    override var responseType: WBAlResponseType {
         return .data
     }
 }
@@ -82,11 +82,11 @@ class login : WBAlRequest {
         return "userLogin"
     }
     
-    override var requestMethod: WBHTTPMethod {
+    override var requestMethod: WBAlHTTPMethod {
         return .post
     }
     
-    override var paramEncoding: WBParameterEncoding {
+    override var paramEncoding: WBAlParameterEncoding {
         return .json
     }
     
@@ -96,7 +96,7 @@ class login : WBAlRequest {
     
     override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()
-        WBALog("request success!")
+        WBAlog("request success!")
     }
     
     /// the request of validity cache Settings for 10 minutes
@@ -137,14 +137,14 @@ class login : WBAlRequest {
 extension login: WBAlRequestAccessoryProtocol {
     
     func requestWillStart(_ request: Any) {
-        WBALog("---------------> login: \(request) will start")
+        WBAlog("---------------> login: \(request) will start")
     }
     
     func requestWillStop(_ request: Any) {
-        WBALog("---------------> login: \(request) will stop")
+        WBAlog("---------------> login: \(request) will stop")
     }
     
     func requestDidStop(_ request: Any) {
-        WBALog("---------------> login: \(request) did stop")
+        WBAlog("---------------> login: \(request) did stop")
     }
 }

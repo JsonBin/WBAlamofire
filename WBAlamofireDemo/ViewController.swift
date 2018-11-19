@@ -45,10 +45,10 @@ class ViewController: UIViewController {
         let batch = WBAlBatchRequest(WBAlRequests: [test, log] )
         batch.add(self)
         batch.start({ (batch) in
-            WBALog("success ===== \(batch)")
+            WBAlog("success ===== \(batch)")
         }) { (batch) in
             if let request = batch.failedRequest {
-                WBALog("failed  ======= \(request)")
+                WBAlog("failed  ======= \(request)")
             }
         }
         
@@ -89,15 +89,15 @@ class ViewController: UIViewController {
 
 extension ViewController :  WBAlRequestAccessoryProtocol {
     func requestWillStart(_ request: Any) {
-        WBALog("====================> chain/batch will start")
+        WBAlog("====================> chain/batch will start")
     }
     
     func requestWillStop(_ request: Any) {
-        WBALog("====================> chain/batch will stop")
+        WBAlog("====================> chain/batch will stop")
     }
     
     func requestDidStop(_ request: Any) {
-        WBALog("====================> chain/batch did stop")
+        WBAlog("====================> chain/batch did stop")
     }
 }
 

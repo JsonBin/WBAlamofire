@@ -41,9 +41,10 @@ public final class WBAlChainRequest {
 /// @name Private Properties
 ///=============================================================================
 
-    private let _emptyCallBack: WBAlChainRequestClosure
-    private var _requestCallBacks: [WBAlChainRequestClosure]
-    private var _nextRequestIndex: Int
+    private let emptyCallBack: WBAlChainRequestClosure
+    private var requestCallBacks: [WBAlChainRequestClosure]
+    private var nextRequestIndex: Int
+    /// unique identifier.
     public private(set) var rawString: String
     
 // MARK: - Cycle Life
@@ -53,10 +54,10 @@ public final class WBAlChainRequest {
 ///=============================================================================
     
     public init() {
-        _nextRequestIndex = 0
+        nextRequestIndex = 0
         requests = [WBAlBaseRequest]()
-        _requestCallBacks = [WBAlChainRequestClosure]()
-        _emptyCallBack = { _, _ in }
+        requestCallBacks = [WBAlChainRequestClosure]()
+        emptyCallBack = { _, _ in }
         rawString = UUID().uuidString
     }
     
@@ -68,8 +69,8 @@ public final class WBAlChainRequest {
     
     ///  Start the chain request, adding first request in the chain to request queue.
     public func start() {
-        if _nextRequestIndex > 0 {
-            WBALog("Chain Error! Chain request has already started!")
+        if nextRequestIndex > 0 {
+            WBAlog("Chain Error! Chain request has already started!")
             return
         }
         if !requests.isEmpty {
@@ -78,7 +79,7 @@ public final class WBAlChainRequest {
             self.startNextRequest()
             WBAlChainAlamofire.shared.add(self)
         }else{
-            WBALog("Chain Error! Chain requests is empty!")
+            WBAlog("Chain Error! Chain requests is empty!")
         }
     }
     
@@ -100,9 +101,9 @@ public final class WBAlChainRequest {
     public func add(_ request: WBAlBaseRequest, callBack closure: WBAlChainRequestClosure? = nil) {
         requests.append(request)
         if let closure = closure {
-            _requestCallBacks.append(closure)
+            requestCallBacks.append(closure)
         }else{
-            _requestCallBacks.append(_emptyCallBack)
+            requestCallBacks.append(emptyCallBack)
         }
     }
     
@@ -121,9 +122,9 @@ public final class WBAlChainRequest {
 ///=============================================================================
     
     @discardableResult private func startNextRequest() -> Bool {
-        if _nextRequestIndex < requests.count {
-            let request = requests[_nextRequestIndex]
-            _nextRequestIndex += 1
+        if nextRequestIndex < requests.count {
+            let request = requests[nextRequestIndex]
+            nextRequestIndex += 1
             request.delegate = self
             request.clearCompleteClosure()
             request.start()
@@ -133,13 +134,13 @@ public final class WBAlChainRequest {
     }
     
     private func cleanRequest() -> Void {
-        let currentIndex = _nextRequestIndex - 1
+        let currentIndex = nextRequestIndex - 1
         if currentIndex <  requests.count {
             let request = requests[currentIndex]
             request.stop()
         }
         requests.removeAll()
-        _requestCallBacks.removeAll()
+        requestCallBacks.removeAll()
     }
 }
 
@@ -180,8 +181,8 @@ extension WBAlChainRequest {
 extension WBAlChainRequest : WBAlRequestProtocol {
     
     public func requestFinish(_ request: WBAlBaseRequest) {
-        let currentIndex = _nextRequestIndex - 1
-        let closure = _requestCallBacks[currentIndex]
+        let currentIndex = nextRequestIndex - 1
+        let closure = requestCallBacks[currentIndex]
         closure(self, request)
         if !self.startNextRequest() {
             self.totalAccessoriesWillStop()
@@ -233,9 +234,9 @@ public protocol WBAlChainRequestProtocol : class {
 }
 
 extension WBAlChainRequestProtocol {
-    public func chainRequestDidFinished(_ chainRequest: WBAlChainRequest) -> Void{}
+    public func chainRequestDidFinished(_ chainRequest: WBAlChainRequest) -> Void {}
     
-    public func chainRequestDidFailed(_ chainRequest: WBAlChainRequest, failedBaseRequest request: WBAlBaseRequest) -> Void{}
+    public func chainRequestDidFailed(_ chainRequest: WBAlChainRequest, failedBaseRequest request: WBAlBaseRequest) -> Void {}
 }
 
 // MARK: - WBAlChainAlamofire
@@ -257,8 +258,8 @@ public final class WBAlChainAlamofire {
 /// @name Private Properties
 ///=============================================================================
     
-    private let _lock: NSLock
-    private var _chainRequests: [WBAlChainRequest]
+    private let lock: NSLock
+    private var chainRequests: [WBAlChainRequest]
     
 // MARK: - Cycle Life
     
@@ -267,8 +268,8 @@ public final class WBAlChainAlamofire {
 ///=============================================================================
     
     public init() {
-        _lock = NSLock()
-        _chainRequests = [WBAlChainRequest]()
+        lock = NSLock()
+        chainRequests = [WBAlChainRequest]()
     }
     
 // MARK: - Public
@@ -279,18 +280,18 @@ public final class WBAlChainAlamofire {
     
     ///  Add a chain request.
     public func add(_ chainRequest: WBAlChainRequest) {
-        _lock.lock()
-        defer { _lock.unlock() }
-        _chainRequests.append(chainRequest)
+        lock.lock()
+        defer { lock.unlock() }
+        chainRequests.append(chainRequest)
     }
     
     ///  Remove a previously added chain request.
     public func remove(_ chainRequest: WBAlChainRequest) {
-        _lock.lock()
-        defer { _lock.unlock() }
-        let index = _chainRequests.index(where: { $0 == chainRequest })
+        lock.lock()
+        defer { lock.unlock() }
+        let index = chainRequests.index(where: { $0 == chainRequest })
         if let index = index {
-            _chainRequests.remove(at: index)
+            chainRequests.remove(at: index)
         }
     }
 }

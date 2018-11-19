@@ -236,7 +236,7 @@ extension DispatchQueue {
 /// @name Print Logs
 ///=============================================================================
 
-public func WBALog<T>(_ message: T, file File: NSString = #file, method Method: String = #function, line Line: Int = #line) -> Void {
+public func WBAlog<T>(_ message: T, file File: NSString = #file, method Method: String = #function, line Line: Int = #line) -> Void {
     if WBAlConfig.shared.debugLogEnable {
         #if DEBUG
             print("<\(File.lastPathComponent)>{Line:\(Line)}-[\(Method)]:\(message)")

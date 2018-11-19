@@ -209,8 +209,8 @@ public struct WBAlCache {
         do {
             try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
             WBAlUtils.addNotBackupAttribute(path)
-        } catch let reason {
-            WBALog("Create cache directory failed, reason = \"\(reason.localizedDescription)\"")
+        } catch {
+            WBAlog("Create cache directory failed, reason = \(error)")
         }
     }
 
@@ -234,7 +234,7 @@ public struct WBAlCache {
                 do {
                     try manager.removeItem(atPath: fileAbsoluePath)
                 }catch let error {
-                    WBALog("Remove Failed! remove file failed from \(fileAbsoluePath) with reason is: \(error.localizedDescription)")
+                    WBAlog("Remove Failed! remove file failed from \(fileAbsoluePath) with reason is: \(error.localizedDescription)")
                 }
             }
             DispatchQueue.main.async {

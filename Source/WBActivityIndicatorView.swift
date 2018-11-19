@@ -32,11 +32,11 @@ public enum AnimationType  {
 
 public final class WBActivityIndicatorView: UIView {
 
-    private var _textLabel: UILabel?
-    private var _indicator: UIActivityIndicatorView?
-    private var _animationView: WBActivityRodllView?
-    private var _parentView: UIView?
-    private let _detault = CGFloat(30)  // default width and height.
+    private var textLabel: UILabel?
+    private var indicator: UIActivityIndicatorView?
+    private var animationView: WBActivityRodllView?
+    private var parentView: UIView?
+    private let detault = CGFloat(30)  // default width and height.
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,9 +76,9 @@ public final class WBActivityIndicatorView: UIView {
     ///   - font: The label text font.
     ///   - color: The label text color.
     public func setActivityLabel(text: String?, font: UIFont?, color: UIColor?) {
-        if let text = text { _textLabel?.text = text }
-        if let font = font { _textLabel?.font = font }
-        if let color = color { _textLabel?.textColor  = color }
+        if let text = text { textLabel?.text = text }
+        if let font = font { textLabel?.font = font }
+        if let color = color { textLabel?.textColor  = color }
     }
 }
 
@@ -89,20 +89,20 @@ extension WBActivityIndicatorView {
     public func startAnimation(inView: UIView) {
         if inView.subviews.contains(self) { return }
         center = inView.center
-        _parentView = inView
+        parentView = inView
         reloadViewFrame()
-        _indicator?.startAnimating()
-        _animationView?.start()
+        indicator?.startAnimating()
+        animationView?.start()
         inView.addSubview(self)
     }
     
     /// Stop Animation
     public func stopAnimation() {
         // recover
-        bounds = CGRect(x: 0, y: 0, width: _detault, height: _detault)
-        _indicator?.stopAnimating()
-        _animationView?.stop()
-        _parentView = nil
+        bounds = CGRect(x: 0, y: 0, width: detault, height: detault)
+        indicator?.stopAnimating()
+        animationView?.stop()
+        parentView = nil
         removeFromSuperview()
     }
 }
@@ -113,31 +113,31 @@ extension WBActivityIndicatorView {
         backgroundColor = UIColor(white: 0.0, alpha: 0.85)
         layer.cornerRadius = 5.0
         layer.masksToBounds = true
-        bounds = CGRect(x: 0, y: 0, width: _detault, height: _detault)
+        bounds = CGRect(x: 0, y: 0, width: detault, height: detault)
         
-        _textLabel = UILabel()
-        _textLabel?.textColor = WBAlConfig.shared.loadViewTextColor
-        _textLabel?.font = WBAlConfig.shared.loadViewTextFont
-        _textLabel?.textAlignment = .center
-        _textLabel?.numberOfLines = 0
-        _textLabel?.text = WBAlConfig.shared.loadViewText
-        addSubview(_textLabel!)
+        textLabel = UILabel()
+        textLabel?.textColor = WBAlConfig.shared.loadViewTextColor
+        textLabel?.font = WBAlConfig.shared.loadViewTextFont
+        textLabel?.textAlignment = .center
+        textLabel?.numberOfLines = 0
+        textLabel?.text = WBAlConfig.shared.loadViewText
+        addSubview(textLabel!)
 
         #if swift(>=4.2)
-        _indicator = UIActivityIndicatorView(style: .white)
+        indicator = UIActivityIndicatorView(style: .white)
         #else
-        _indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
         #endif
-        _indicator?.isHidden = true
-        _indicator?.hidesWhenStopped = false
-        _indicator?.backgroundColor = .clear
-        _indicator?.frame = bounds
-        addSubview(_indicator!)
+        indicator?.isHidden = true
+        indicator?.hidesWhenStopped = false
+        indicator?.backgroundColor = .clear
+        indicator?.frame = bounds
+        addSubview(indicator!)
         
-        _animationView = WBActivityRodllView()
-        _animationView?.isHidden = true
-        _animationView?.frame = bounds
-        addSubview(_animationView!)
+        animationView = WBActivityRodllView()
+        animationView?.isHidden = true
+        animationView?.frame = bounds
+        addSubview(animationView!)
         
         reloadViewFrame()
     }
@@ -147,50 +147,50 @@ extension WBActivityIndicatorView {
 extension WBActivityIndicatorView {
     private func setLabel() {
         if labelPosition == .no {
-            _textLabel?.isHidden = true
+            textLabel?.isHidden = true
         }else{
-            _textLabel?.isHidden = false
+            textLabel?.isHidden = false
         }
         reloadViewFrame()
     }
     
     private func setIndicator() {
-        _animationView?.isHidden = true
-        _animationView?.stop()
-        _indicator?.isHidden = false
-        _indicator?.startAnimating()
+        animationView?.isHidden = true
+        animationView?.stop()
+        indicator?.isHidden = false
+        indicator?.startAnimating()
         reloadViewFrame()
     }
     
     private func setAnimationView() {
-        _indicator?.stopAnimating()
-        _indicator?.isHidden = true
-        _animationView?.start()
-        _animationView?.isHidden = false
+        indicator?.stopAnimating()
+        indicator?.isHidden = true
+        animationView?.start()
+        animationView?.isHidden = false
         reloadViewFrame()
     }
     
     private func reloadViewFrame() {
-        guard let parentView = _parentView else { return }
+        guard let parentView = parentView else { return }
         if labelPosition == .no {
-            _textLabel?.isHidden = true
-            bounds = CGRect(x: 0, y: 0, width: _detault, height: _detault)
-            _indicator?.frame = bounds
-            _animationView?.frame = bounds
+            textLabel?.isHidden = true
+            bounds = CGRect(x: 0, y: 0, width: detault, height: detault)
+            indicator?.frame = bounds
+            animationView?.frame = bounds
             return
         }
         let textSize = CGSize(width: parentView.bounds.width / 3 * 2, height: parentView.bounds.height / 3 * 2)
-        let font = _textLabel?.font ?? WBAlConfig.shared.loadViewTextFont
-        guard let size = _textLabel?.text?.boundingRect(with: textSize, options: [.usesFontLeading,.truncatesLastVisibleLine,.usesLineFragmentOrigin], attributes: [.font: font], context: nil).size else { return }
+        let font = textLabel?.font ?? WBAlConfig.shared.loadViewTextFont
+        guard let size = textLabel?.text?.boundingRect(with: textSize, options: [.usesFontLeading,.truncatesLastVisibleLine,.usesLineFragmentOrigin], attributes: [.font: font], context: nil).size else { return }
         if size.width > bounds.size.width - 10 {
-            bounds = CGRect(x: 0, y: 0, width: size.width + 10, height: _detault + 15 + size.height)
+            bounds = CGRect(x: 0, y: 0, width: size.width + 10, height: detault + 15 + size.height)
         }else{
-            bounds = CGRect(x: 0, y: 0, width: _detault, height: _detault + 15 + size.height)
+            bounds = CGRect(x: 0, y: 0, width: detault, height: detault + 15 + size.height)
         }
         let width = frame.size.width
-        _textLabel?.frame = CGRect(x: 5, y: 35, width: size.width, height: size.height)
-        _indicator?.frame = CGRect(x: width / 2 - 15, y: 5, width: 30, height: 30)
-        _animationView?.frame = CGRect(x: width / 2 - 15, y: 5, width: 30, height: 30)
+        textLabel?.frame = CGRect(x: 5, y: 35, width: size.width, height: size.height)
+        indicator?.frame = CGRect(x: width / 2 - 15, y: 5, width: 30, height: 30)
+        animationView?.frame = CGRect(x: width / 2 - 15, y: 5, width: 30, height: 30)
     }
 }
 
@@ -199,15 +199,15 @@ public final class WBActivityRodllView: UIView {
     
     /// The line color.
     public var color: UIColor = .white {
-        didSet { _shapLayer?.strokeColor = color.cgColor }
+        didSet { shapLayer?.strokeColor = color.cgColor }
     }
     /// The Animation duration with a cycle.
     public var duration: Double = 2
     
-    private var _lineWidth = CGFloat(3)
-    private var _index = CGFloat(0)
-    private var _canAnimation = false
-    private var _shapLayer: CAShapeLayer?
+    private var lineWidth = CGFloat(3)
+    private var index = CGFloat(0)
+    private var canAnimation = false
+    private var shapLayer: CAShapeLayer?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -221,24 +221,28 @@ public final class WBActivityRodllView: UIView {
     
     private func initUI() {
         backgroundColor = .clear
-        _shapLayer = CAShapeLayer()
-        _shapLayer?.fillColor = UIColor.clear.cgColor
-        _shapLayer?.strokeColor = color.cgColor
+        shapLayer = CAShapeLayer()
+        shapLayer?.fillColor = UIColor.clear.cgColor
+        shapLayer?.strokeColor = color.cgColor
         #if swift(>=4.2)
-        _shapLayer?.lineCap = .round
-        _shapLayer?.lineJoin = .round
+        shapLayer?.lineCap = .round
+        shapLayer?.lineJoin = .round
         #else
-        _shapLayer?.lineCap = kCALineCapRound
-        _shapLayer?.lineJoin = kCALineJoinRound
+        shapLayer?.lineCap = kCALineCapRound
+        shapLayer?.lineJoin = kCALineJoinRound
         #endif
-        _shapLayer?.lineWidth = _lineWidth
-        layer.addSublayer(_shapLayer!)
+        shapLayer?.lineWidth = lineWidth
+        layer.addSublayer(shapLayer!)
     }
     
     /// Create a new Layer
     private func createLayerPath(_ index: CGFloat) -> CGPath {
         let _center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
-        let path = UIBezierPath(arcCenter: _center, radius: bounds.width / 2 - _lineWidth, startAngle: .pi * 2 / 3 * index, endAngle: .pi * 2 / 3 * index + 2 * .pi * 4 / 3, clockwise: true)
+        let path = UIBezierPath(arcCenter: _center,
+                                radius: bounds.width / 2 - lineWidth,
+                                startAngle: .pi * 2 / 3 * index,
+                                endAngle: .pi * 2 / 3 * index + 2 * .pi * 4 / 3,
+                                clockwise: true)
         return path.cgPath
     }
     
@@ -264,31 +268,31 @@ public final class WBActivityRodllView: UIView {
         group.duration = duration
         group.delegate = self
         group.animations = [start, end]
-        _shapLayer?.add(group, forKey: "strokeAniamtion")
+        shapLayer?.add(group, forKey: "strokeAniamtion")
     }
 }
 
 // MARK: - Public Interface
 extension WBActivityRodllView {
     public func start() {
-        if let keys = _shapLayer?.animationKeys(), keys.count > 0 { return }
-        _canAnimation = true
-        _shapLayer?.path = createLayerPath(_index)
+        if let keys = shapLayer?.animationKeys(), keys.count > 0 { return }
+        canAnimation = true
+        shapLayer?.path = createLayerPath(index)
         startAnimation()
     }
     
     public func stop() {
-        _shapLayer?.removeAllAnimations()
-        _canAnimation = false
+        shapLayer?.removeAllAnimations()
+        canAnimation = false
     }
 }
 
 // MARK: - CAAnimationDelegate
 extension WBActivityRodllView : CAAnimationDelegate {
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if !flag || !_canAnimation { return }
-        _index += 1
-        _shapLayer?.path = createLayerPath(_index.truncatingRemainder(dividingBy: 3))
+        if !flag || !canAnimation { return }
+        index += 1
+        shapLayer?.path = createLayerPath(index.truncatingRemainder(dividingBy: 3))
         startAnimation()
     }
 }

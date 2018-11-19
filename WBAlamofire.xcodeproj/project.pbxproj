@@ -324,7 +324,6 @@
 				DF1586291E84D0620053CB3D /* Frameworks */,
 				DF15862A1E84D0620053CB3D /* Resources */,
 				0996EE984B380F6FF2D9B2DB /* [CP] Embed Pods Frameworks */,
-				285E69F5D91041F69EE24CCE /* [CP] Copy Pods Resources */,
 				DFFFC791201C7B530067824A /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -541,7 +540,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -550,22 +549,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		285E69F5D91041F69EE24CCE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WBAlamofire/Pods-WBAlamofire-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EE1627B9CDC1584462CB96CD /* [CP] Check Pods Manifest.lock */ = {
