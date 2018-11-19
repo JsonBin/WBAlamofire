@@ -159,13 +159,13 @@ class RegisterApi: WBAlRequest {
     }
     
     /// request method
-    override var requestMethod: WBHTTPMethod {
+    override var requestMethod: WBAlHTTPMethod {
         return .post
     }
     
     /// request params encoding
-    override var paramEncoding: WBParameterEncoding {
-        return .json
+    override var paramEncoding: WBAlParameterEncoding {
+        return .json(encode: .default)
     }
     
     override func requestCompleteFilter() {
@@ -296,11 +296,54 @@ class down: WBAlRequest {
         return "picture.png"
     }
     
-    override var responseType: WBALResponseType {
+    override var responseType: WBAlResponseType {
         return .data
     }
 }
 ```
+
+## 文件上传
+
+You can easily upload data to the server using only 4-5 lines of code:
+
+```swift
+    class upload: WBAlRequest {
+
+    private let data: Data?
+
+    init(data: Data?) {
+        self.data = data
+    }
+
+    override var requestURL: String {
+        return "v2/upload/album"
+    }
+
+    override var requestMethod: WBAlHTTPMethod {
+        return .post
+    }
+
+    // TODO: Upload data to server, implement any of the following three methods
+
+    override var requestDataClosure: WBAlRequest.WBAlMutableDataClosure? {
+        if let data = self.data {
+            return { mutlidata in
+                mutlidata.append(data, withName: "file", mimeType: "image/jpg")
+            }
+        }
+        return nil
+    }
+
+    override var uploadData: Data? {
+        return data
+    }
+
+    override var uploadFile: URL? {
+        return URL(fileURLWithPath: "xxxx")
+    }
+}
+```
+You only need to implement `requestDataClosure`/`uploadData`/`uploadFile`any of the three methods for uploading files.
 
 ## Cache response data
  
@@ -319,12 +362,12 @@ class login : WBAlRequest {
         return "userLogin"
     }
     
-    override var requestMethod: WBHTTPMethod {
+    override var requestMethod: WBAlHTTPMethod {
         return .post
     }
     
-    override var paramEncoding: WBParameterEncoding {
-        return .json
+    override var paramEncoding: WBAlParameterEncoding {
+        return .json(encode: .default)
     }
     
     override var requestParams: [String : Any]? {
@@ -333,7 +376,7 @@ class login : WBAlRequest {
     
     override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()
-        WBALog("request done!")
+        WBAlog("request done!")
     }
     
     /// the request of validity cache Settings for 10 minutes
