@@ -90,7 +90,7 @@ github "JsonBin/WBAlamofire"
 
 ```bash
 dependencies: [
-    .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "1.1.0")
+    .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "1.2.1")
 ]
 ```
     
@@ -155,13 +155,13 @@ class RegisterApi: WBAlRequest {
     }
     
     /// 网络请求方式
-    override var requestMethod: WBHTTPMethod {
+    override var requestMethod: WBAlHTTPMethod {
         return .post
     }
     
     /// 网络请求参数编码方式
-    override var paramEncoding: WBParameterEncoding {
-        return .json
+    override var paramEncoding: WBAlParameterEncoding {
+        return .json(encode: .default)
     }
     
     override func requestCompleteFilter() {
@@ -290,11 +290,55 @@ class down: WBAlRequest {
         return "picture.png"
     }
     
-    override var responseType: WBALResponseType {
+    override var responseType: WBAlResponseType {
         return .data
     }
 }
 ```
+
+## 文件上传
+
+提供了便捷的文件上传管理，只需要4-5行代码即可将文件上传到服务端:
+
+```swift
+    class upload: WBAlRequest {
+
+    private let data: Data?
+
+    init(data: Data?) {
+        self.data = data
+    }
+
+    override var requestURL: String {
+        return "v2/upload/album"
+    }
+
+    override var requestMethod: WBAlHTTPMethod {
+        return .post
+    }
+
+    // TODO: Upload data to server, implement any of the following three methods
+
+    override var requestDataClosure: WBAlRequest.WBAlMutableDataClosure? {
+        if let data = self.data {
+            return { mutlidata in
+                mutlidata.append(data, withName: "file", mimeType: "image/jpg")
+            }
+        }
+        return nil
+    }
+
+    override var uploadData: Data? {
+        return data
+    }
+
+    override var uploadFile: URL? {
+        return URL(fileURLWithPath: "xxxx")
+    }
+}
+```
+上传文件的时候只需要实现`requestDataClosure`/`uploadData`/`uploadFile`三种之中的任何一个方法即可。
+
 
 ## 缓存数据
 
@@ -313,12 +357,12 @@ class login : WBAlRequest {
         return "userLogin"
     }
     
-    override var requestMethod: WBHTTPMethod {
+    override var requestMethod: WBAlHTTPMethod {
         return .post
     }
     
-    override var paramEncoding: WBParameterEncoding {
-        return .json
+    override var paramEncoding: WBAlParameterEncoding {
+        return .json(encode: .default)
     }
     
     override var requestParams: [String : Any]? {
@@ -327,7 +371,7 @@ class login : WBAlRequest {
     
     override func requestCompletePreprocessor() {
         super.requestCompletePreprocessor()
-        WBALog("request done!")
+        WBAlog("request done!")
     }
     
     /// 对请求结果设置10分钟的缓存有效期
