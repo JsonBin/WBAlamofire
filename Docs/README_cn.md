@@ -50,11 +50,16 @@ $ gem install cocoapods
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '10.0'
 
 target 'TargetName' do
 pod 'WBAlamofire'
 end
+```
+-
+在swift4.0/4.2版本中使用以下pod:
+```ruby
+pod 'WBAlamofire', '1.2.1'
 ```
 
 之后，使用以下命令运行安装命令:
@@ -90,19 +95,20 @@ github "JsonBin/WBAlamofire"
 
 ```bash
 dependencies: [
-    .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "1.2.1")
+    .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "2.0.0")
 ]
 ```
     
 ## 安装要求
 
-- iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 9.1+
-- Swift 4.0+
+- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
+- Xcode 10.2+
+- Swift 5.0+
 
 | WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |                Note                 |
 |:------------------:|:--------------------:|:-------------------:|:----------------------------:|:----------------------------:|:----------------------------:|:--------------------------------------------------------|
 | 1.x | 4.x | iOS 8 | OS X 10.10 | watchOS 2.0 | tvOS 9.0 | Xcode 9+ is required. |
+| 2.x | 5.x | iOS 10 | OS X 10.12 | watchOS 3.0 | tvOS 10.0 | Xcode 10.2+ is required. |
 
 WBAlamofire基于Alamofire的网络框架. 你可以在[Alamofire README](https://github.com/Alamofire/Alamofire)查看更多的细节.
 
@@ -179,7 +185,7 @@ class RegisterApi: WBAlRequest {
 初始化完成之后，可以调用`start()` 或者 `start(_:,failure:)`方法在网络请求队列中发起网络请求:
  
  ```swift
-let res = RegisterApi(phone: "177xxxx2467", psd: "123456")
+let res = RegisterApi(phone: "1xxxxxxxxxxxx7", psd: "123456")
 res.ignoreCache = true  // 是否不使用缓存，默认使用
 res.start({ (quest) in
     // 你可以直接在这里使用self，不会造成循环引用
