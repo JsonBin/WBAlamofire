@@ -60,8 +60,7 @@ pod 'WBAlamofire'
 
 end
 ```
-
-- Swift 4.0
+-
 with swift 4.0/4.2 used in cocoapods:
 ```ruby
 pod 'WBAlamofire', '1.2.1'
