@@ -51,7 +51,7 @@ To integrate WBAlamofire into your Xcode project using CocoaPods, specify it in 
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '10.0'
 
 target 'TargetName' do
 use_frameworks!
@@ -95,15 +95,15 @@ Once you have your Swift package set up, adding WBAlamofire as a dependency is a
 
 ```bash
 dependencies: [
-    .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "1.1.0")
+    .package(url: "https://github.com/JsonBin/WBAlamofire.git", from: "2.0.0")
 ]
 ```
     
 ## Requirements
 
-- iOS 8+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 9.1+
-- Swift 4.0+
+- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
+- Xcode 10.2+
+- Swift 5.0+
 
 | WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |                Note                 |
 |:------------------:|:--------------------:|:-------------------:|:----------------------------:|:----------------------------:|:----------------------------:|:--------------------------------------------------------|
