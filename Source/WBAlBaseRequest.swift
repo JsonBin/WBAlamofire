@@ -127,7 +127,7 @@ open class WBAlBaseRequest : BaseRequest {
     
     /// 下载文件或上传文件的进度
     /// You can use this block to track the download progress. See also `resumableDownloadPath`.
-    @available(*, deprecated: 1.2.1, message: "Use `progressHandler` instead.")
+    @available(*, unavailable, message: "Use `progressHandler` instead.")
     open var downloadProgress: Request.ProgressHandler?
 
     /// 下载文件或上传文件的进度

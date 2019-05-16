@@ -364,9 +364,6 @@ public final class WBAlamofire {
                         upload.authenticate(user: user, password: password)
                     }
                     upload.uploadProgress() { progress in
-                        if let uploadProgressHandler = request.downloadProgress {
-                            uploadProgressHandler(progress)
-                        }
                         request.progressHandler?(progress)
                     }
                     // set the validator response code and type.
@@ -484,9 +481,6 @@ public final class WBAlamofire {
             downRequest.authenticate(user: user, password: pas)
         }
         downRequest.downloadProgress { progress in
-            if let progressHandler = request.downloadProgress {
-                progressHandler(progress)
-            }
             request.progressHandler?(progress)
         }
         // set the validator response code and type.

@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let res = RegisterApi(phone: "177xxxx2467", psd: "123456")
+        let res = RegisterApi(phone: "1xxxxxxxxx7", psd: "123456")
         res.ignoreCache = true  // whether don't use cache data. Default is false.
         res.start({ (quest) in
             // you can use self here, retain cycle won't happen
@@ -111,7 +111,7 @@ extension JSON {
     public func toModel() -> Any? {
         let mirror = Mirror(reflecting: self)
         if mirror.children.count > 0 {
-            var result: [String:Any] = [:]
+            var result: [String: Any] = [:]
             for children in mirror.children {
                 let property = children.label!
                 let value = children.value

@@ -289,7 +289,11 @@ public final class WBAlChainAlamofire {
     public func remove(_ chainRequest: WBAlChainRequest) {
         lock.lock()
         defer { lock.unlock() }
+        #if swift(>=5.0)
+        let index = chainRequests.firstIndex(where: { $0 == chainRequest })
+        #else
         let index = chainRequests.index(where: { $0 == chainRequest })
+        #endif
         if let index = index {
             chainRequests.remove(at: index)
         }

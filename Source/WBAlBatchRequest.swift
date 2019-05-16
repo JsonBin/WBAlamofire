@@ -327,7 +327,11 @@ public final class WBAlBatchAlamofire {
     public func remove(_ batchRequest: WBAlBatchRequest) {
         lock.lock()
         defer { lock.unlock() }
+        #if swift(>=5.0)
+        let index = batchRequests.firstIndex(where: { $0 == batchRequest })
+        #else
         let index = batchRequests.index(where: { $0 == batchRequest })
+        #endif
         if let index = index {
             batchRequests.remove(at: index)
         }
