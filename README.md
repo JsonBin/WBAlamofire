@@ -60,7 +60,12 @@ pod 'WBAlamofire'
 
 end
 ```
-
+-
+with swift 4.0/4.2 used in cocoapods:
+```ruby
+pod 'WBAlamofire', '1.2.1'
+```
+    
 Then, run the following command:
 
 ```bash
@@ -108,6 +113,7 @@ dependencies: [
 | WBAlamofire Version | Alamofire Version |  Minimum iOS Target |  Minimum macOS Target  | Minimum watchOS Target  | Minimum tvOS Target  |                Note                 |
 |:------------------:|:--------------------:|:-------------------:|:----------------------------:|:----------------------------:|:----------------------------:|:--------------------------------------------------------|
 | 1.x | 4.x | iOS 8 | OS X 10.10 | watchOS 2.0 | tvOS 9.0 | Xcode 9+ is required. |
+| 2.x | 5.x | iOS 10 | OS X 10.12 | watchOS 3.0 | tvOS 10.0 | Xcode 10.2+ is required. |
 
 WBAlamofire is based on Alamofire. You can find more detail about version compability at [Alamofire README](https://github.com/Alamofire/Alamofire).
 
